@@ -199,8 +199,10 @@
     function openModal(modalId) {
         var modal = document.querySelector(modalId);
         $(document).ready(function() {
-            var bootstrapModal = new bootstrap.Modal(modal);
-            bootstrapModal.show();
+            if (modal){
+                var bootstrapModal = new bootstrap.Modal(modal);
+                bootstrapModal.show();
+            }
         });
     }
 </script>

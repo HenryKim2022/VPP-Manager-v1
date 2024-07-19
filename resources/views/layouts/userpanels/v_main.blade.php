@@ -46,7 +46,10 @@
 
     <!-- BEGIN: Footer JS Bundle's--> @include('v_res.userpanels.v_footer_js_bundle') <!-- END: Footer JS Bundle's-->
     <!-- BEGIN: Toast CustomJS Bundle's--> @include('v_res.toasts.v_toast_js_bundle') <!-- END: Toast CustomJS Bundle's-->
+    <!-- BEGIN: FYI Modals--> @include('v_res.modals.p_fyi_modals') <!-- END: FYI Modals-->
+
     <!-- BEGIN: PAGE JS's--> @yield('footer_page_js') <!-- END: PAGE JS's-->
+
 
 </body>
 </html>
