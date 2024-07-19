@@ -1,5 +1,6 @@
 <!-- ABOUTUS MODALS -->
-<div class="modal fade text-left modal-success" id="aboutUsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel112" aria-hidden="true">
+<div class="modal fade text-left modal-success" id="aboutUsModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel112" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,9 +10,45 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p style="text-align: justify;">
-                    {{-- {{ $aboutus_data->text_setting }} --}}
-                </p>
+                {{-- <p style="text-align: justify;">
+                    {{ $aboutus_data->text_setting }}
+                </p> --}}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="small-img1.jpg" alt="Small Image 1" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                                <div class="col-6">
+                                    <img src="small-img2.jpg" alt="Small Image 2" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="small-img3.jpg" alt="Small Image 3" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                                <div class="col-6">
+                                    <img src="small-img4.jpg" alt="Small Image 4" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer d-none">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Okay</button>
@@ -22,7 +59,8 @@
 
 
 <!-- CONTACTUS MODALS -->
-<div class="modal fade text-left modal-success" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel113" aria-hidden="true">
+<div class="modal fade text-left modal-success" id="contactUsModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel113" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -32,21 +70,41 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div style="text-align: justify;">
-                    {{-- {{ $company_addr->text_setting }} --}}
-                </div>
-                <br>
-                <div class="d-flex align-items-center justify-content-start">
-                    <h5 class="me-0 mb-0">Phone:</h5>
-                    <span class="ml-1">
-                        {{-- {{ $company_phone->text_setting }} --}}
-                    </span>
-                </div>
-                <div class="d-flex align-items-center justify-content-start">
-                    <h5 class="me-0 mb-0">Email:</h5>
-                    <span class="ml-1">
-                        {{-- {{ $company_email->text_setting }} --}}
-                    </span>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="small-img1.jpg" alt="Small Image 1" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                                <div class="col-6">
+                                    <img src="small-img2.jpg" alt="Small Image 2" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="small-img3.jpg" alt="Small Image 3" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                                <div class="col-6">
+                                    <img src="small-img4.jpg" alt="Small Image 4" class="img-fluid">
+                                </div>
+                                <div class="col-6">
+                                    <p>Lorem ipsum dot amet</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer d-none">
