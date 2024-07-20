@@ -187,5 +187,9 @@
     <!-- END: IMAGE ENLARGE QRPOPUP -->
     <!--------------------------------------------------------------END: Custom CSS---------------------------------------------------------------->
 
+    <!-- BEGIN: Fontawesome v5.7.0 CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/fa.pro@5.7.0/css/all.css') }}?v={{ time() }}">
+    <!-- END: Fontawesome v5.7.0 CSS-->
+
     @yield('header_page_cssjs')
 </head>
