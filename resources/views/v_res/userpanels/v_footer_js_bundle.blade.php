@@ -11,8 +11,12 @@
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset('public/theme/vuexy/app-assets/js/core/app-menu.js') }}"></script>
 <script src="{{ asset('public/theme/vuexy/app-assets/js/core/app.js') }}"></script>
+{{-- <script src="{{ asset('public/theme/vuexy/app-assets/js/core/cs-search.js') }}"></script> --}}
 <!-- END: Theme JS-->
 
+<!-- BEGIN: CustomSearch JS-->
+<script src="{{ asset('public/assets/cs.search/cs-search.js') }}"></script>
+<!-- END: CustomSearc JS-->
 
 <!-- BEGIN: Page JS-->
 <script src="{{ asset('public/theme/vuexy/app-assets/js/scripts/components/components-modals.js') }}"></script>

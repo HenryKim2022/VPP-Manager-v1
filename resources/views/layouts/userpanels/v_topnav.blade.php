@@ -17,17 +17,15 @@
                                 <span class="d-none d-lg-block ml-1">Add Record</span>
                             </a>
                         </li>
-
                     @endif
                     @if (isset($modalData['modal_reset']))
-                        <li class="nav-item ml-1" onclick="openModal('{{ $modalData['modal_reset'] }}')" >
+                        <li class="nav-item ml-1" onclick="openModal('{{ $modalData['modal_reset'] }}')">
                             <a class="dropdown-item d-flex align-items-center border rounded border-warning reset-all-record"
                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Reset all Records!">
                                 <span><i class="ficon text-warning" data-feather="refresh-cw"></i></span>
                                 <span class="d-none d-lg-block ml-1">Reset Records</span>
                             </a>
                         </li>
-
                     @endif
                 </ul>
 
@@ -60,8 +58,8 @@
             </li>
 
             <li class="nav-item dropdown dropdown-notification mr-25 d-none"><a class="nav-link"
-                    href="javascript:void(0);" data-toggle="dropdown"><i class="ficon"
-                        data-feather="bell"></i><span class="badge badge-pill badge-danger badge-up">5</span></a>
+                    href="javascript:void(0);" data-toggle="dropdown"><i class="ficon" data-feather="bell"></i><span
+                        class="badge badge-pill badge-danger badge-up">5</span></a>
                 <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                     <li class="dropdown-menu-header">
                         <div class="dropdown-header d-flex">
@@ -164,19 +162,15 @@
 
 
                     </div><span class="avatar"><img class="round"
-                            src="{{ isset($authenticated_user_data) ? (($authenticated_user_data->foto_karyawan) === null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : env('APP_DEFAULT_AVATAR') }}"
-                            {{-- src="{{ $avatar_src }}" --}}
-                            alt="avatar" height="40" width="40"><span
+                            src="{{ isset($authenticated_user_data) ? ($authenticated_user_data->foto_karyawan === null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : env('APP_DEFAULT_AVATAR') }}"
+                            {{-- src="{{ $avatar_src }}" --}} alt="avatar" height="40" width="40"><span
                             class="avatar-status-online"></span></span>
 
 
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                    <a class="dropdown-item"
-                    {{-- href="{{ route('userPanels.myprofile') }}" --}}
-
-                    ><i class="mr-50"
-                            data-feather="user"></i> Profile</a>
+                    <a class="dropdown-item" {{-- href="{{ route('userPanels.myprofile') }}" --}}><i class="mr-50" data-feather="user"></i>
+                        Profile</a>
                     <a class="dropdown-item d-none" href="app-email.html"><i class="mr-50" data-feather="mail"></i>
                         Inbox</a>
                     <a class="dropdown-item d-none" href="app-todo.html"><i class="mr-50"
@@ -190,10 +184,8 @@
                             data-feather="credit-card"></i> Pricing</a>
                     <a class="dropdown-item d-none" href="page-faq.html"><i class="mr-50"
                             data-feather="help-circle"></i> FAQ</a>
-                    <a class="dropdown-item"
-                    {{-- href="{{ route('userPanels.logout.redirect') }}" --}}
-                    ><i class="mr-50"
-                            data-feather="power"></i> Logout</a>
+                    <a class="dropdown-item" {{-- href="{{ route('userPanels.logout.redirect') }}" --}}><i class="mr-50" data-feather="power"></i>
+                        Logout</a>
                 </div>
             </li>
         </ul>
@@ -201,14 +193,14 @@
 </nav>
 
 <ul class="main-search-list-defaultlist d-none">
-    <li class="d-flex align-items-center"><a href="javascript:void(0);">
+    {{-- <li class="d-flex align-items-center"><a href="javascript:void(0);">
             <h6 class="section-label mt-75 mb-0">Files</h6>
         </a></li>
     <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
             href="app-file-manager.html">
             <div class="d-flex">
-                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/xls.png') }}" alt="png"
-                        height="32"></div>
+                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/xls.png') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">Two new item submitted</p><small class="text-muted">Marketing
                         Manager</small>
@@ -218,8 +210,8 @@
     <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
             href="app-file-manager.html">
             <div class="d-flex">
-                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/jpg.png') }}" alt="png"
-                        height="32"></div>
+                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/jpg.png') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">52 JPG file Generated</p><small class="text-muted">FontEnd
                         Developer</small>
@@ -229,8 +221,8 @@
     <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
             href="app-file-manager.html">
             <div class="d-flex">
-                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/pdf.png') }}" alt="png"
-                        height="32"></div>
+                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/pdf.png') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">25 PDF File Uploaded</p><small class="text-muted">Digital
                         Marketing Manager</small>
@@ -240,8 +232,8 @@
     <li class="auto-suggestion"><a class="d-flex align-items-center justify-content-between w-100"
             href="app-file-manager.html">
             <div class="d-flex">
-                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/doc.png') }}" alt="png"
-                        height="32"></div>
+                <div class="mr-75"><img src="{{ asset('public/theme/vuexy/app-assets/images/icons/doc.png') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">Anna_Strong.doc</p><small class="text-muted">Web
                         Designer</small>
@@ -255,8 +247,8 @@
             href="app-user-view.html">
             <div class="d-flex align-items-center">
                 <div class="avatar mr-75"><img
-                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-8.jpg') }}" alt="png"
-                        height="32"></div>
+                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-8.jpg') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">John Doe</p><small class="text-muted">UI designer</small>
                 </div>
@@ -266,8 +258,8 @@
             href="app-user-view.html">
             <div class="d-flex align-items-center">
                 <div class="avatar mr-75"><img
-                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-1.jpg') }}" alt="png"
-                        height="32"></div>
+                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-1.jpg') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">Michal Clark</p><small class="text-muted">FontEnd
                         Developer</small>
@@ -278,8 +270,8 @@
             href="app-user-view.html">
             <div class="d-flex align-items-center">
                 <div class="avatar mr-75"><img
-                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-14.jpg') }}" alt="png"
-                        height="32"></div>
+                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-14.jpg') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">Milena Gibson</p><small class="text-muted">Digital Marketing
                         Manager</small>
@@ -290,13 +282,13 @@
             href="app-user-view.html">
             <div class="d-flex align-items-center">
                 <div class="avatar mr-75"><img
-                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-6.jpg') }}" alt="png"
-                        height="32"></div>
+                        src="{{ asset('public/theme/vuexy/app-assets/images/portrait/small/avatar-s-6.jpg') }}"
+                        alt="png" height="32"></div>
                 <div class="search-data">
                     <p class="search-data-title mb-0">Anna Strong</p><small class="text-muted">Web Designer</small>
                 </div>
             </div>
-        </a></li>
+        </a></li> --}}
 </ul>
 <ul class="main-search-list-defaultlist-other-list d-none">
     <li class="auto-suggestion justify-content-between"><a
@@ -305,8 +297,3 @@
                     data-feather="alert-circle"></span><span>No results found.</span></div>
         </a></li>
 </ul>
-
-
-
-
-
