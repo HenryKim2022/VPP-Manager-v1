@@ -155,9 +155,9 @@
                             class="user-name font-weight-bolder">{{ isset($authenticated_user_data) ? ($authenticated_user_data->na_karyawan ?: 'Illegal Access') : 'No Name' }}
                         </span>
                         <span class="user-status">
-                            user role
+                            {{-- user role --}}
                             {{-- {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->type : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->type : 'Illegal Access') }} --}}
-                            {{-- {{ $authenticated_user_data ? ($authenticated_user_data->daftar_login->type ?: 'Illegal Access') : 'Illegal Access' }} --}}
+                            {{ $authenticated_user_data ? ($authenticated_user_data->daftar_login->type ?: 'Illegal Access') : 'Illegal Access' }}
                         </span>
 
 
