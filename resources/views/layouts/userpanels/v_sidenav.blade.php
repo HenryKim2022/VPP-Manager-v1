@@ -43,7 +43,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item">
+                <li class=" nav-item d-none">
                     <a class="d-flex align-items-center" href="#"><i data-feather="book-open"></i><span
                             class="menu-title text-truncate" data-i18n="Employee">Attendance</span></a>
                     <ul class="menu-content">
