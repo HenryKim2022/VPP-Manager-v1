@@ -184,7 +184,7 @@
                             data-feather="credit-card"></i> Pricing</a>
                     <a class="dropdown-item d-none" href="page-faq.html"><i class="mr-50"
                             data-feather="help-circle"></i> FAQ</a>
-                    <a class="dropdown-item" {{-- href="{{ route('userPanels.logout.redirect') }}" --}}><i class="mr-50" data-feather="power"></i>
+                    <a class="dropdown-item" href="{{ route('userPanels.logout.redirect') }}"><i class="mr-50" data-feather="power"></i>
                         Logout</a>
                 </div>
             </li>
