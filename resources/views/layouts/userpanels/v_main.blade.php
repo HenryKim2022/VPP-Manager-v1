@@ -3,9 +3,6 @@
     $page_title = $page['page_title'];
     $authenticated_user_data = Session::get('authenticated_user_data');
     $avatar_src = $authenticated_user_data && $authenticated_user_data->foto_karyawan ? asset('public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : asset(env('APP_DEFAULT_AVATAR'));
-
-    // dd($authenticated_user_data);
-
     $loadDataWorksheetFromDB = Session::get('loadDataWorksheetFromDB');
 
 @endphp

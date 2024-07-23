@@ -144,7 +144,7 @@
 
 
 @section('footer_page_js')
-    <script src="{{ asset('public/vuexy/app-assets/js/scripts/components/components-modals.js') }}"></script>
+    {{-- <script src="{{ asset('public/vuexy/app-assets/js/scripts/components/components-modals.js') }}"></script> --}}
 
     <script>
         $(document).ready(function() {
