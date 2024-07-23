@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\UserPanels;
+namespace App\Http\Controllers\UserPanels\Navigate;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

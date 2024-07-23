@@ -1,3 +1,4 @@
+
 <!-- BEGIN: Header-->
 <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow">
     <div class="navbar-container d-flex content">
@@ -162,8 +163,9 @@
 
 
                     </div><span class="avatar"><img class="round"
-                            src="{{ isset($authenticated_user_data) ? ($authenticated_user_data->foto_karyawan === null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : env('APP_DEFAULT_AVATAR') }}"
-                            {{-- src="{{ $avatar_src }}" --}} alt="avatar" height="40" width="40"><span
+                            {{-- src="{{ isset($authenticated_user_data) ? ($authenticated_user_data->foto_karyawan === null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : env('APP_DEFAULT_AVATAR') }}" --}}
+                            src="{{  $avatar_src }}"
+                            alt="avatar" height="40" width="40"><span
                             class="avatar-status-online"></span></span>
 
 
