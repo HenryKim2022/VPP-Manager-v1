@@ -99,7 +99,7 @@
                                                     <div class="d-flex align-items-center justify-content-around">
                                                         <img src="{{ 'public/avatar/uploads/' . $userLogin->karyawan->foto_karyawan }}"
                                                             alt="Proof 0" style="height: 24px; width: 24px;"
-                                                            class="hover-image">
+                                                            class="hover-qr-image">
                                                     </div>
                                                 @else
                                                     <div class="d-flex align-items-center justify-content-around">
