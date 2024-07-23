@@ -114,9 +114,9 @@
                                 // resetButton.addEventListener('click', function(e) {
                                 //     e.preventDefault();
                                 //     userProfilePhotoPreview.src =
-                                //         // '{{ $authenticated_user_data->foto_karyawan == null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan }}';
+                                //         //    '{{ $authenticated_user_data->foto_karyawan == null ? asset(env('APP_DEFAULT_AVATAR')) : asset('public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) }}';
                                 //         '{{env('APP_NOIMAGE')}}';
-                                //     userProfilePhotoInput.value = null;
+                                //     // userProfilePhotoInput.value = null;
                                 // });
                             });
                         </script>
