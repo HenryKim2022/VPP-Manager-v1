@@ -35,13 +35,13 @@ class DaftarLogin_Model extends Authenticatable
     protected function type(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ["Guest", "Super Admin", "Admin", "Karyawan"][$value],
+            get: fn ($value) => ['Guest', 'Superuser', 'Supervisor', 'Engineer'][$value],
         );
     }
 
     public function convertUserTypeBack($type2Convert)
     {
-        $typeValueList = ['Guest', 'Super Admin', 'Admin', 'Karyawan'];
+        $typeValueList = ['Guest', 'Superuser', 'Supervisor', 'Engineer'];
         $typeIndex = array_search($type2Convert, $typeValueList);
         $convertedUserType = $typeIndex !== false ? $typeIndex : null;
         return $convertedUserType;

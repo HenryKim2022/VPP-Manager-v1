@@ -85,7 +85,7 @@
                                 </thead>
                                 <tbody>
                                     {{-- {{dd($loadDaftarKaryawanFromDB->toArray());}} --}}
-                                    @foreach ($loadDaftarKaryawanFromDB as $karyawan)
+                                    {{-- @foreach ($loadDaftarKaryawanFromDB as $karyawan)
                                         <tr>
                                             <td>{{ $karyawan->id_karyawan ?: '-' }}</td>
                                             <td>
@@ -158,7 +158,7 @@
                                             </td>
 
                                         </tr>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>

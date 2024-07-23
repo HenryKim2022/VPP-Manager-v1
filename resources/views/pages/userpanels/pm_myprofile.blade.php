@@ -5,25 +5,25 @@
     // dd($authenticated_user_data->toArray());
 
 
-    $typeValues = ['Guest', 'Super Admin','Admin', 'Karyawan'];    // Convert the text type User (e.g Admin to 1) value to its numeric representation
+    $typeValues = ['Guest', 'Superuser', 'Supervisor', 'Engineer'];    // Convert the text type User (e.g Admin to 1) value to its numeric representation
     $typeIndex = array_search(auth()->user()->type, $typeValues);
     $convertedUserType = $typeIndex !== false ? $typeIndex : null;
 
 @endphp
 
-@extends('layouts.userpanels.v_main')
 
+@extends('layouts.userpanels.v_main')
 @section('header_page_cssjs')
     <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/app-assets/css/pages/page-profile.css') }}">
 @endsection
 
 
 @section('page-content')
-    {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin')
+    {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor')
         <h1>HI MIN :)</h1>
     @endif
 
-    @if (auth()->user()->type == 'Karyawan')
+    @if (auth()->user()->type == 'Engineer')
         <h1>HI WAN :)</h1>
     @endif --}}
 
@@ -91,7 +91,7 @@
                                                 </h2>
                                                 @php
                                                     $roles = [];
-                                                    $role1 = $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->type == 'Admin' ? 'WebSite ' . $authenticated_user_data->daftar_login->type : $authenticated_user_data->daftar_login->type) : null;
+                                                    $role1 = $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->type == 'Supervisor' ? 'WebSite ' . $authenticated_user_data->daftar_login->type : $authenticated_user_data->daftar_login->type) : null;
                                                     $role2 = $authenticated_user_data->jabatan;
 
                                                     // Add the first role to the roles array

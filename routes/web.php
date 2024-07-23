@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginPageController;
 
 use App\Http\Controllers\UserPanels\Manage\EmployeeController;
 use App\Http\Controllers\UserPanels\Manage\UserLoginController;
+use App\Http\Controllers\UserPanels\Manage\WorksheetController;
 use App\Http\Controllers\UserPanels\Manage\MyProfileController;
 use App\Http\Controllers\UserPanels\Manage\OfficeRoleController;
 /////////////////////////////////////////////////// <<<  END: USE CONTROLLER  >>> ///////////////////////////////////////////////
@@ -75,6 +76,17 @@ Route::middleware('auth')->group(function () {
     Route::post('/m-emp/roles/reset', [OfficeRoleController::class, 'reset_role'])->name('m.emp.roles.reset');
     Route::post('/m-emp/roles/role/load', [OfficeRoleController::class, 'get_role'])->name('m.emp.roles.getrole');
     Route::get('/m-emp/roles/role/load', [OfficeRoleController::class, 'get_role'])->name('m.emp.roles.getrole');
+});
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/m-worksheet', [WorksheetController::class, 'index'])->name('m.wrksheet');
+    Route::post('/m-worksheet/add', [WorksheetController::class, 'add_wrksheet'])->name('m.wrksheet.add');
+    Route::post('/m-worksheet/edit', [WorksheetController::class, 'edit_wrksheet'])->name('m.wrksheet.edit');
+    Route::post('/m-worksheet/delete', [WorksheetController::class, 'delete_wrksheet'])->name('m.wrksheet.del');
+    Route::post('/m-worksheet/reset', [WorksheetController::class, 'reset_wrksheet'])->name('m.wrksheet.reset');
+    Route::post('/m-worksheet/load', [WorksheetController::class, 'get_wrksheet'])->name('m.wrksheet.getwrksheet');
+    Route::get('/m-worksheet/load', [WorksheetController::class, 'get_wrksheet'])->name('m.wrksheet.getwrksheet');
 });
 
 

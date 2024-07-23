@@ -22,13 +22,13 @@
                         data-i18n="Dashboard">Dashboard</span></a>
             </li>
 
-            {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin') --}}
-            <li class=" navigation-header"><span data-i18n="Data Employee">Data Employee</span><i
+            {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor') --}}
+            <li class=" navigation-header"><span data-i18n="Data Employee">Data Employees</span><i
                     data-feather="more-horizontal"></i>
             </li>
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span
-                        class="menu-title text-truncate" data-i18n="Employee">Employee</span></a>
+                        class="menu-title text-truncate" data-i18n="Employees">Employees</span></a>
                 <ul class="menu-content">
                     <li><a class="d-flex align-items-center" href="{{ route('m.emp') }}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate"
@@ -40,16 +40,13 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item d-none">
-                <a class="d-flex align-items-center" href="#"><i data-feather="book-open"></i><span
-                        class="menu-title text-truncate" data-i18n="Employee">Attendance</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="">
-                            {{-- {{ route('m.absen') }} --}}
-                            <i data-feather="circle"></i><span class="menu-item text-truncate"
-                                data-i18n="Info Manage">Info Manage</span></a>
-                    </li>
-                </ul>
+
+            <li class=" navigation-header"><span data-i18n="Data Employee">Data Worksheets</span><i
+                data-feather="more-horizontal"></i>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="{{ route('m.wrksheet') }}"><i data-feather="book-open"></i><span
+                        class="menu-title text-truncate" data-i18n="Worksheets">Worksheets</span></a>
             </li>
 
             <li class=" navigation-header"><span data-i18n="Data Accounts">Data Accounts</span><i
@@ -69,7 +66,7 @@
             {{-- @endif --}}
 
 
-            {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin' || auth()->user()->type == 'Karyawan' || auth()->user()->type == 'Guest' || auth()->user()->type == '') --}}
+            {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor' || auth()->user()->type == 'Engineer' || auth()->user()->type == 'Guest' || auth()->user()->type == '') --}}
             <li class="navigation-header">
                 <span data-i18n="Help &amp; Supports">Help &amp; Supports</span>
                 <i data-feather="more-horizontal"></i>

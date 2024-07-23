@@ -11,11 +11,11 @@
 
 
 @section('page-content')
-    {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin')
+    {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor')
         <h1>HI MIN :)</h1>
     @endif
 
-    @if (auth()->user()->type == 'Karyawan')
+    @if (auth()->user()->type == 'Engineer')
         <h1>HI WAN :)</h1>
     @endif --}}
 
