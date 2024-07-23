@@ -164,14 +164,15 @@
 
                     </div><span class="avatar"><img class="round"
                             {{-- src="{{ isset($authenticated_user_data) ? ($authenticated_user_data->foto_karyawan === null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : env('APP_DEFAULT_AVATAR') }}" --}}
-                            src="{{  $avatar_src }}"
+                            src="{{ $avatar_src }}"
                             alt="avatar" height="40" width="40"><span
                             class="avatar-status-online"></span></span>
 
 
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-                    <a class="dropdown-item" {{-- href="{{ route('userPanels.myprofile') }}" --}}><i class="mr-50" data-feather="user"></i>
+                    <a class="dropdown-item" href="{{ route('userPanels.myprofile') }}"
+                    ><i class="mr-50" data-feather="user"></i>
                         Profile</a>
                     <a class="dropdown-item d-none" href="app-email.html"><i class="mr-50" data-feather="mail"></i>
                         Inbox</a>

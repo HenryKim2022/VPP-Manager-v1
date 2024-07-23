@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginPageController;
 
 use App\Http\Controllers\UserPanels\Manage\EmployeeController;
 use App\Http\Controllers\UserPanels\Manage\UserLoginController;
+use App\Http\Controllers\UserPanels\Manage\MyProfileController;
 use App\Http\Controllers\UserPanels\Manage\OfficeRoleController;
 /////////////////////////////////////////////////// <<<  END: USE CONTROLLER  >>> ///////////////////////////////////////////////
 
@@ -34,6 +35,26 @@ Route::prefix('')->name('userPanels.')->middleware('auth')->group(function () {
     Route::get('/dashboard', 'App\Http\Controllers\UserPanels\Navigate\UserPanelController@index')->name('dashboard');
     Route::get('/logout', 'App\Http\Controllers\Auth\LoginPageController@doLogoutUPanel')->name('logout.redirect');
 });
+
+
+
+Route::middleware(['auth'])->group(function () {    // Note: Separated group coz somewhat wont work if using direct controller path (only /my-profile).
+    Route::get('/my-profile', [MyProfileController::class, 'index'])->name('userPanels.myprofile');
+});
+Route::middleware('auth')->group(function () {
+    // Route::get('/my-profile', [MyProfileController::class, 'index'])->name('userPanels.myprofile');
+    // Route::post('/my-profile', [MyProfileController::class, 'index'])->name('userPanels.myprofile');
+    Route::post('/my-profile/edit-acc-avatar', [MyProfileController::class, 'profile_edit_avatar'])->name('userPanels.avatar.edit');
+    Route::post('/my-profile/edit-biodata', [MyProfileController::class, 'profile_edit_biodata'])->name('userPanels.biodata.edit');
+    Route::post('/my-profile/edit-accdata', [MyProfileController::class, 'profile_edit_accdata'])->name('userPanels.accdata.edit');
+    Route::get('/my-profile/edit-accdata', [MyProfileController::class, 'profile_edit_accdata'])->name('userPanels.accdata.edit');
+    Route::get('/my-profile/load-biodata', [MyProfileController::class, 'profile_load_biodata'])->name('userPanels.biodata.load');
+    Route::get('/my-profile/load-accdata', [MyProfileController::class, 'profile_load_accdata'])->name('userPanels.accdata.load');
+});
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/m-emp', [EmployeeController::class, 'index'])->name('m.emp');

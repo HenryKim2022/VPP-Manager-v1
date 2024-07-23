@@ -20,7 +20,7 @@ class tb_KaryawanSeeder extends Seeder
                 'agama_karyawan' => 'Buddha',
                 'alamat_karyawan' => 'JL. Jend Sudirman',
                 'notelp_karyawan' => '+6282281190072',
-                'foto_karyawan' => null
+                'foto_karyawan' => '669f4ffdd2ff6.jpg'
             ],
             [
                 'na_karyawan' => 'Jane Smith',
