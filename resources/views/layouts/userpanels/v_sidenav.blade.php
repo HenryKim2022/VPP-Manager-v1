@@ -22,7 +22,7 @@
                         data-i18n="Dashboard">Dashboard</span></a>
             </li>
 
-            {{-- @if (auth()->user()->type == 'Admin') --}}
+            {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin') --}}
             <li class=" navigation-header"><span data-i18n="Data Employee">Data Employee</span><i
                     data-feather="more-horizontal"></i>
             </li>
@@ -69,7 +69,7 @@
             {{-- @endif --}}
 
 
-            {{-- @if (auth()->user()->type == 'Admin' || auth()->user()->type == 'Karyawan' || auth()->user()->type == 'Guest' || auth()->user()->type == '') --}}
+            {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin' || auth()->user()->type == 'Karyawan' || auth()->user()->type == 'Guest' || auth()->user()->type == '') --}}
             <li class="navigation-header">
                 <span data-i18n="Help &amp; Supports">Help &amp; Supports</span>
                 <i data-feather="more-horizontal"></i>

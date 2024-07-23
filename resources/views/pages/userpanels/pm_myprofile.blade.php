@@ -5,7 +5,7 @@
     // dd($authenticated_user_data->toArray());
 
 
-    $typeValues = ['Guest', 'Admin', 'Karyawan'];    // Convert the text type User (e.g Admin to 1) value to its numeric representation
+    $typeValues = ['Guest', 'Super Admin','Admin', 'Karyawan'];    // Convert the text type User (e.g Admin to 1) value to its numeric representation
     $typeIndex = array_search(auth()->user()->type, $typeValues);
     $convertedUserType = $typeIndex !== false ? $typeIndex : null;
 
@@ -19,7 +19,7 @@
 
 
 @section('page-content')
-    {{-- @if (auth()->user()->type == 'Admin')
+    {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin')
         <h1>HI MIN :)</h1>
     @endif
 

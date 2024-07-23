@@ -27,7 +27,7 @@
 
 
 @section('page-content')
-    {{-- @if (auth()->user()->type == 'Admin')
+    {{-- @if (auth()->user()->type == 'Super Admin' || auth()->user()->type == 'Admin')
         <h1>HI MIN :)</h1>
     @endif
 
