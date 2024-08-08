@@ -58,6 +58,7 @@
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Avatar</th>
+                                        <th>Type</th>
                                         <th>Created</th>
                                         <th>Last-Update</th>
                                     </tr>
@@ -98,7 +99,7 @@
                                             <td>
                                                 @if ($userLogin->karyawan->foto_karyawan)
                                                     <div class="d-flex align-items-center justify-content-around">
-                                                        <img src="{{ 'public/avatar/uploads/' . $userLogin->karyawan->foto_karyawan }}"
+                                                        <img src="{{ asset('public/avatar/uploads/' . $userLogin->karyawan->foto_karyawan) }}"
                                                             alt="Proof 0" style="height: 24px; width: 24px;"
                                                             class="hover-qr-image">
                                                     </div>
@@ -107,6 +108,9 @@
                                                         -
                                                     </div>
                                                 @endif
+                                            </td>
+                                            <td>
+                                                {{ $userLogin->type ?: '-' }}
                                             </td>
                                             <td>
                                                 @if ($userLogin->created_at)
@@ -199,7 +203,7 @@
 
                 setTimeout(() => {
                     $.ajax({
-                        url: '{{ route('m.user.getuser') }}',
+                        url: '{{ route('m.user.emp.getuser') }}',
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}' // Update the CSRF token here
@@ -242,8 +246,9 @@
 
                             }
 
+                            // console.log(response.userTypeList);
 
-                            setUserTypeList();
+                            setUserTypeList(response);
 
                             // function setUserTypeList() {
                             //     // Populate the select options for modalEditInstitutionMARKID1
@@ -275,56 +280,46 @@
 
 
                             function setUserTypeList(response) {
+                                console.log(response.userTypeList);
                                 var userTypeSelect = $('#' + modalId +
                                     ' modalEditUserType');
-                                    userTypeSelect.empty(); // Clear existing options
+                                userTypeSelect.empty(); // Clear existing options
                                 var receivedUserType = response.userTypeList;
-                                var userTypeList = [{
-                                        // value: '',
-                                        text: 'Select Religion',
+
+                                var userTypeArr = [{
+                                        text: 'Select UserType',
+                                        value: '',
                                         selected: receivedUserType === ''
                                     },
                                     {
-                                        value: 'Client',
                                         text: 'Client',
+                                        value: 'Client',
                                         selected: receivedUserType === 'Client'
                                     },
                                     {
-                                        value: 'Superuser',
                                         text: 'Superuser',
+                                        value: 'Superuser',
                                         selected: receivedUserType === 'Superuser'
                                     },
                                     {
-                                        value: 'Supervisor',
                                         text: 'Supervisor',
+                                        value: 'Supervisor',
                                         selected: receivedUserType === 'Supervisor'
                                     },
                                     {
-                                        value: 'Engineer',
                                         text: 'Engineer',
+                                        value: 'Engineer',
                                         selected: receivedUserType === 'Engineer'
                                     }
                                 ];
 
-                                $.each(userTypeList, function(index,
-                                userTypeOption) {
-                                    var option;
-                                    if (index === 0) {
-                                        option = $('<option disabled>');
-                                        option.attr('value', userTypeOption
-                                            .value);
-                                        option.text(
-                                        `${userTypeOption.text}`);
-                                    } else {
-                                        option = $('<option>');
-                                        option.attr('value', userTypeOption
-                                            .value);
-                                        option.text(
-                                        `${userTypeOption.text}`);
-                                    }
+                                $.each(userTypeArr, function(index, userTypeOption) {
+                                    var option = $('<option>');
+                                    option.attr('value', userTypeOption.value);
+                                    option.text(userTypeOption.text);
 
                                     if (userTypeOption.selected) {
-                                        option.attr('selected', 'selected');
+                                        option.prop('selected', true);
                                     }
 
                                     userTypeSelect.append(option);

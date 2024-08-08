@@ -21,6 +21,7 @@ class DaftarLogin_Model extends Authenticatable
         'password',
         'type',
         'id_karyawan',
+        'id_client'
     ];
     protected $hidden = [
         'password'
@@ -50,6 +51,11 @@ class DaftarLogin_Model extends Authenticatable
     public function karyawan()
     {
         return $this->belongsTo(Karyawan_Model::class, 'id_karyawan');
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Kustomer_Model::class, 'id_client');
     }
 
 }

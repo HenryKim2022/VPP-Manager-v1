@@ -48,6 +48,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/dev.general.custom.css') }}?v={{ time() }}">
     <!-- END: ADD LACKS PY -->
 
+    <!-- BEGIN: Fontawesome v5.7.0 CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/fa.pro@5.7.0/css/all.css') }}?v={{ time() }}">
+    <!-- END: Fontawesome v5.7.0 CSS-->
+
 </head>
 <!-- END: Head-->
 
@@ -126,7 +130,7 @@
                                     </div>
                                     <button class="btn btn-primary btn-block" tabindex="4">Sign in</button>
                                 </form>
-                                <p class="text-center mt-2"><span>New on our platform?</span><a href="{{ route('register.page') }}"><span>&nbsp;Create an account</span></a></p>
+                                <p class="text-center mt-2"><span>New on our platform?</span><a href="{{ route('register.client.page') }}"><span>&nbsp;Create an account</span></a></p>
 
                             </div>
                         </div>

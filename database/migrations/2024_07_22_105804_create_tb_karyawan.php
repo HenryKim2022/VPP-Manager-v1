@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('tb_karyawan', function (Blueprint $table) {
             $table->id('id_karyawan', 11);
-            $table->string('na_karyawan',80);
+            $table->string('na_karyawan', 80);
             $table->string('tlah_karyawan')->nullable();
             $table->date('tglah_karyawan')->nullable();
             $table->string('agama_karyawan')->nullable();
             $table->string('alamat_karyawan')->nullable();
-            $table->string('notelp_karyawan',20)->nullable();
+            $table->string('notelp_karyawan', 20)->nullable();
             $table->string('foto_karyawan')->nullable();
             $table->timestamps();
             $table->softDeletes();

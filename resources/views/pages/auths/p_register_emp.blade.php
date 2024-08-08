@@ -137,8 +137,8 @@
                         <div class="d-flex col-lg-4 align-items-center auth-bg px-2 pr-lg-5 pl-lg-5">
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto my-5">
                                 <h3 class="card-title font-weight-bold mb-1">Adventure starts here 🚀</h3>
-                                <p class="card-text mb-2">Register yourself as Our Client!</p>
-                                <form class="auth-register-form mt-2" action="{{ route('register.do') }}"
+                                <p class="card-text mb-2">Register yourself as Our Employee!</p>
+                                <form class="auth-register-form mt-2" action="{{ route('register.emp.do') }}"
                                     method="POST">
                                     @csrf
                                     {{-- <div class="form-group">

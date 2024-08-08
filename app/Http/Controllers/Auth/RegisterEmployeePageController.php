@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 
-class RegisterPageController extends Controller
+class RegisterEmployeePageController extends Controller
 {
     //
     public function index()
@@ -25,7 +25,7 @@ class RegisterPageController extends Controller
                 'site_name' => env(key: 'APP_NAME'),
                 'quote' => $this->getQuote(),
             ];
-            return $this->setReturnView('pages/auths/p_register', $data);
+            return $this->setReturnView('pages/auths/p_register_emp', $data);
         }
     }
 
@@ -37,7 +37,7 @@ class RegisterPageController extends Controller
                 'site_name' => env(key: 'APP_NAME'),
                 'quote' => $this->getQuote(),
             ];
-            return $this->setReturnView('pages/auths/p_register', $data);
+            return $this->setReturnView('pages/auths/p_register_emp', $data);
         }
     }
 
@@ -46,7 +46,7 @@ class RegisterPageController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'register-id-karyawan'     => 'required|string',
+                // 'register-id-karyawan'     => 'required|string',
                 'register-name-karyawan'   => 'required|string',
                 'register-username' => 'required|string|unique:tb_daftar_login,username',
                 'register-email'    => 'required|email|unique:tb_daftar_login,email',
@@ -55,7 +55,7 @@ class RegisterPageController extends Controller
                 'register-privacy-policy'    => 'required|accepted',
             ],
             [
-                'register-id-karyawan.required' => 'The id field is required.',
+                // 'register-id-karyawan.required' => 'The id field is required.',
                 'register-name-karyawan.required' => 'The name field is required.',
                 'register-username.required' => 'The username field is required.',
                 'register-email.required' => 'The email field is required.',
@@ -75,12 +75,11 @@ class RegisterPageController extends Controller
 
 
         $karyawan = Karyawan_Model::create([
-            'id_karyawan' => $request->input('register-id-karyawan'),
+            // 'id_karyawan' => $request->input('register-id-karyawan'),
             'na_karyawan' => $request->input('register-name-karyawan'),
         ]);
 
         $id_karyawan = $karyawan->id_karyawan;
-
         DaftarLogin_Model::create([
             'username' => $request->input('register-username'),
             'email' => $request->input('register-email'),

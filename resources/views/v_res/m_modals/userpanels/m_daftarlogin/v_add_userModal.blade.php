@@ -10,7 +10,7 @@
                  </button>
              </div>
              <div class="modal-body">
-                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.user.add') }}"
+                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.user.emp.add') }}"
                      novalidate>
                      @csrf
                      <div class="col-12 col-sm-6">

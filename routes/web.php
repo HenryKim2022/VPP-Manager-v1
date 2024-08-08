@@ -3,7 +3,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginPageController;
 
 use App\Http\Controllers\UserPanels\Manage\EmployeeController;
-use App\Http\Controllers\UserPanels\Manage\UserLoginController;
+use App\Http\Controllers\UserPanels\Manage\EmpUserLoginController;
+use App\Http\Controllers\UserPanels\Manage\ClientUserLoginController;
 use App\Http\Controllers\UserPanels\Manage\WorksheetController;
 use App\Http\Controllers\UserPanels\Manage\MyProfileController;
 use App\Http\Controllers\UserPanels\Manage\OfficeRoleController;
@@ -27,8 +28,13 @@ Route::prefix('')->name('login.')->middleware('Client')->group(function () {
 });
 
 Route::prefix('')->name('register.')->middleware('Client')->group(function () {
-    Route::get('/register', 'App\Http\Controllers\Auth\RegisterPageController@showRegister')->name('page');
-    Route::post('/register', 'App\Http\Controllers\Auth\RegisterPageController@doRegister')->name('do');
+    Route::get('/register-emp', 'App\Http\Controllers\Auth\RegisterEmployeePageController@showRegister')->name('emp.page');
+    Route::post('/register-emp', 'App\Http\Controllers\Auth\RegisterEmployeePageController@doRegister')->name('emp.do');
+});
+
+Route::prefix('')->name('register.')->middleware('Client')->group(function () {
+    Route::get('/register-client', 'App\Http\Controllers\Auth\RegisterClientPageController@showRegister')->name('client.page');
+    Route::post('/register-client', 'App\Http\Controllers\Auth\RegisterClientPageController@doRegister')->name('client.do');
 });
 
 
@@ -91,14 +97,25 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/m-user', [UserLoginController::class, 'index'])->name('m.user');
-    Route::post('/m-user/add', [UserLoginController::class, 'add_user'])->name('m.user.add');
-    Route::post('/m-user/edit', [UserLoginController::class, 'edit_user'])->name('m.user.edit');
-    Route::post('/m-user/delete', [UserLoginController::class, 'delete_user'])->name('m.user.del');
-    Route::post('/m-user/reset', [UserLoginController::class, 'reset_user'])->name('m.user.reset');
-    Route::post('/m-user/emp/load', [UserLoginController::class, 'get_user'])->name('m.user.getuser');
+    Route::get('/m-user/emp', [EmpUserLoginController::class, 'index'])->name('m.user.emp');
+    Route::post('/m-user/emp/add', [EmpUserLoginController::class, 'add_user'])->name('m.user.emp.add');
+    Route::post('/m-user/emp/edit', [EmpUserLoginController::class, 'edit_user'])->name('m.user.emp.edit');
+    Route::post('/m-user/emp/delete', [EmpUserLoginController::class, 'delete_user'])->name('m.user.emp.del');
+    Route::post('/m-user/emp/reset', [EmpUserLoginController::class, 'reset_user'])->name('m.user.emp.reset');
+    Route::post('/m-user/emp/load', [EmpUserLoginController::class, 'get_user'])->name('m.user.emp.getuser');
 
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/m-user/client', [ClientUserLoginController::class, 'index'])->name('m.user.client');
+    Route::post('/m-user/client/add', [ClientUserLoginController::class, 'add_user'])->name('m.user.client.add');
+    Route::post('/m-user/client/edit', [ClientUserLoginController::class, 'edit_user'])->name('m.user.client.edit');
+    Route::post('/m-user/client/delete', [ClientUserLoginController::class, 'delete_user'])->name('m.user.client.del');
+    Route::post('/m-user/client/reset', [ClientUserLoginController::class, 'reset_user'])->name('m.user.client.reset');
+    Route::post('/m-user/client/load', [ClientUserLoginController::class, 'get_user'])->name('m.user.client.getuser');
+
+});
+
 
 //////////////////////////////////////////////// <<<  END: ROUTES (WITH USERGROUP) >>> ///////////////////////////////////////////
 

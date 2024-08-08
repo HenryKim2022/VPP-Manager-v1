@@ -9,7 +9,7 @@
                  </button>
              </div>
              <div class="modal-body">
-                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.user.edit') }}" id="edit_userModalFORM"
+                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.user.emp.edit') }}" id="edit_userModalFORM"
                      novalidate>
                      @csrf
                      <input type="hidden" id="user_id" name="user_id" value="" />

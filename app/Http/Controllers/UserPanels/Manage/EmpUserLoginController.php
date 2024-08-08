@@ -16,15 +16,15 @@ use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class UserLoginController extends Controller
+class EmpUserLoginController extends Controller
 {
     //
     public function index(Request $request)
     {
-        $process = $this->setPageSession("Manage Users", "m-user");
+        $process = $this->setPageSession("Manage Employee Users", "m-user");
         if ($process) {
             $loadDaftarLoginFromDB = [];
-            $loadDaftarLoginFromDB = DaftarLogin_Model::with(['karyawan'])->withoutTrashed()->get();
+            $loadDaftarLoginFromDB = DaftarLogin_Model::with(['karyawan'])->whereNotNull('id_karyawan')->withoutTrashed()->get();
 
             $user = auth()->user();
             $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
@@ -48,22 +48,70 @@ class UserLoginController extends Controller
                 'employee_list' => Karyawan_Model::withoutTrashed()->get(),
                 'authenticated_user_data' => $authenticated_user_data,
             ];
-            return $this->setReturnView('pages/userpanels/pm_daftarlogin', $data);
+            return $this->setReturnView('pages/userpanels/pm_daftarlogin_emp', $data);
         }
     }
 
 
 
+    // public function get_user(Request $request)
+    // {
+    //     $userID = $request->input('userID');
+    //     $daftarLogin = DaftarLogin_Model::with('karyawan')->where('user_id', $userID)->first();
+
+    //     if ($daftarLogin) {
+    //         $karyawan = $daftarLogin->karyawan;
+    //         // Load the select input for Mark & Category (this loading is different from load_select_list_for_addmodal())
+    //         $employeeList = DaftarLogin_Model::all()->map(function ($user) use ($karyawan) {
+    //             $selected = ($user->id_karyawan == $karyawan->id_karyawan);
+    //             return [
+    //                 'value' => $user->karyawan->id_karyawan,
+    //                 'text' => $user->karyawan->na_karyawan,
+    //                 'selected' => $selected,
+    //             ];
+    //         });
+
+    //         $userTypeList = DaftarLogin_Model::all()->map(function ($user) use ($karyawan) {
+    //             $selected = ($user->id_karyawan == $karyawan->id_karyawan);
+    //             return [
+    //                 'value' => $user->convertUserTypeBack($user->type),
+    //                 'text' => $user->type,
+    //                 'selected' => $selected,
+    //             ];
+    //         });
+
+    //         // Return queried data as a JSON response
+    //         return response()->json([
+    //             'user_id' => $userID,
+    //             'na_karyawan' => $karyawan->na_karyawan,
+    //             'username' => $daftarLogin->username,
+    //             'email' => $daftarLogin->email,
+    //             'id_karyawan' => $karyawan->id_karyawan,
+    //             'employeeList' => $employeeList,
+    //             'userTypeList' => $userTypeList,
+    //         ]);
+    //     } else {
+    //         // Handle the case when the user with the given user_id is not found
+    //         return response()->json(['error' => 'User not found'], 404);
+    //     }
+    // }
+
     public function get_user(Request $request)
     {
         $userID = $request->input('userID');
-        $daftarLogin = DaftarLogin_Model::with('karyawan')->where('user_id', $userID)->first();
+
+        // Retrieve a specific DaftarLogin_Model record with the associated karyawan relationship
+        $daftarLogin = DaftarLogin_Model::with('karyawan')
+            ->whereNotNull('id_karyawan')  // Exclude records where id_karyawan is null
+            ->where('user_id', $userID)
+            ->first();
 
         if ($daftarLogin) {
             $karyawan = $daftarLogin->karyawan;
-            // Load the select input for Mark & Category (this loading is different from load_select_list_for_addmodal())
-            $employeeList = DaftarLogin_Model::all()->map(function ($user) use ($karyawan) {
-                $selected = ($user->id_karyawan == $karyawan->id_karyawan);
+
+            // Load the select input for Mark & Category
+            $employeeList = DaftarLogin_Model::whereNotNull('id_karyawan')->get()->map(function ($user) use ($karyawan) {
+                $selected = $user->id_karyawan == $karyawan->id_karyawan;
                 return [
                     'value' => $user->karyawan->id_karyawan,
                     'text' => $user->karyawan->na_karyawan,
@@ -71,14 +119,17 @@ class UserLoginController extends Controller
                 ];
             });
 
-            $userTypeList = DaftarLogin_Model::all()->map(function ($user) use ($karyawan) {
-                $selected = ($user->id_karyawan == $karyawan->id_karyawan);
-                return [
-                    'value' => $user->convertUserTypeBack($user->type),
-                    'text' => $user->type,
-                    'selected' => $selected,
-                ];
-            });
+            // $userTypeList = DaftarLogin_Model::whereNotNull('id_karyawan')->get()->map(function ($user) use ($karyawan) {
+            //     $selected = $user->id_karyawan == $karyawan->id_karyawan;
+            //     return [
+            //         'value' => $user->convertUserTypeBack($user->type),
+            //         'text' => $user->type,
+            //         'selected' => $selected,
+            //     ];
+            // });
+
+
+            // dd($userTypeList);
 
             // Return queried data as a JSON response
             return response()->json([
@@ -88,7 +139,7 @@ class UserLoginController extends Controller
                 'email' => $daftarLogin->email,
                 'id_karyawan' => $karyawan->id_karyawan,
                 'employeeList' => $employeeList,
-                'userTypeList' => $userTypeList,
+                'userTypeList' => $daftarLogin->type,
             ]);
         } else {
             // Handle the case when the user with the given user_id is not found

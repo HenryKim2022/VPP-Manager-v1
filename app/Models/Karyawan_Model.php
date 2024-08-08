@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Karyawan_Model extends Model
 {
     use HasFactory, SoftDeletes;
-    public $incrementing = false;
+    // public $incrementing = false;
 
     protected $table = 'tb_karyawan';
     protected $primaryKey = 'id_karyawan';

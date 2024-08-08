@@ -138,22 +138,15 @@
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto my-5">
                                 <h3 class="card-title font-weight-bold mb-1">Adventure starts here 🚀</h3>
                                 <p class="card-text mb-2">Register yourself as Our Client!</p>
-                                <form class="auth-register-form mt-2" action="{{ route('register.do') }}"
+                                <form class="auth-register-form mt-2" action="{{ route('register.client.do') }}"
                                     method="POST">
                                     @csrf
-                                    {{-- <div class="form-group">
-                                        <label class="form-label" for="register-id-karyawan">Employee-ID</label>
-                                        <input class="form-control" id="register-id-karyawan" type="text"
-                                            name="register-id-karyawan" placeholder="1152125001"
-                                            aria-describedby="register-id-karyawan" autofocus="" tabindex="1"
-                                            value="{{ old('register-id-karyawan', $inputs['register-id-karyawan'] ?? '') }}" />
-                                    </div> --}}
                                     <div class="form-group">
-                                        <label class="form-label" for="register-name-karyawan">Fullname</label>
-                                        <input class="form-control" id="register-name-karyawan" type="text"
-                                            name="register-name-karyawan" placeholder="johndoe"
-                                            aria-describedby="register-name-karyawan" autofocus="" tabindex="1"
-                                            value="{{ old('register-name-karyawan', $inputs['register-name-karyawan'] ?? '') }}" />
+                                        <label class="form-label" for="register-name-client">Fullname</label>
+                                        <input class="form-control" id="register-name-client" type="text"
+                                            name="register-name-client" placeholder="johndoe"
+                                            aria-describedby="register-name-client" autofocus="" tabindex="1"
+                                            value="{{ old('register-name-client', $inputs['register-name-client'] ?? '') }}" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="register-username">Username</label>

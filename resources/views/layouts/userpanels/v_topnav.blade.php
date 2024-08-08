@@ -47,7 +47,7 @@
             </li>
             <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon"
                         data-feather="sun"></i></a></li>
-            <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon"
+            <li class="nav-item nav-search d-none"><a class="nav-link nav-link-search"><i class="ficon"
                         data-feather="search"></i></a>
                 <div class="search-input">
                     <div class="search-input-icon"><i data-feather="search"></i></div>
@@ -155,18 +155,17 @@
                     <div class="user-nav d-sm-flex d-none"><span
                             class="user-name font-weight-bolder">{{ isset($authenticated_user_data) ? ($authenticated_user_data->na_karyawan ?: 'Illegal Access') : 'No Name' }}
                         </span>
-                        <span class="user-status">
-                            {{-- user role --}}
-                            {{-- {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->type : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->type : 'Illegal Access') }} --}}
-                            {{ $authenticated_user_data ? ($authenticated_user_data->daftar_login->type ?: 'Illegal Access') : 'Illegal Access' }}
+                        <span class="user-status">{{ $authenticated_user_data ? ($authenticated_user_data->daftar_login->type ?: 'Illegal Access') : 'Illegal Access' }}
                         </span>
+                        {{-- user role --}}
+                        {{-- {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->type : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->type : 'Illegal Access') }} --}}
 
 
                     </div><span class="avatar"><img class="round"
-                            {{-- src="{{ isset($authenticated_user_data) ? ($authenticated_user_data->foto_karyawan === null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : env('APP_DEFAULT_AVATAR') }}" --}}
-                            src="{{ $avatar_src }}"
-                            alt="avatar" height="40" width="40"><span
-                            class="avatar-status-online"></span></span>
+                        src="{{ $avatar_src }}"
+                        alt="avatar" height="40" width="40"><span
+                        class="avatar-status-online"></span></span>
+                        {{-- src="{{ isset($authenticated_user_data) ? ($authenticated_user_data->foto_karyawan === null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : env('APP_DEFAULT_AVATAR') }}" --}}
 
 
                 </a>

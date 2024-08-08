@@ -13,9 +13,12 @@ class tb_DaftarLoginSeeder extends Seeder
      */
     public function run(): void
     {
+
         $loginList = [
-            ['admin', 'admin@mail.com', '123456', 1],
-            ['karyawan1', 'karyawan@mail.com', '123456', 0],
+            // Username, email, pass, type, id_kar, id_cli
+            ['admin', 'admin@mail.com', '123456', 1, 1, null],
+            ['karyawan1', 'karyawan1@mail.com', '123456', 2, 2, 1],
+            ['client1', 'client1@mail.com', '123456', 0, null, 1],
         ]; // Example userlogin values
 
         foreach ($loginList as $index => $login) {
@@ -23,6 +26,8 @@ class tb_DaftarLoginSeeder extends Seeder
             $email = $login[1];
             $password = $login[2];
             $userType = $login[3];
+            $idKaryawan = $login[4];
+            $idClient = $login[5];
 
             $existingUser = DaftarLogin_Model::where('username', $username)->first();
 
@@ -31,7 +36,8 @@ class tb_DaftarLoginSeeder extends Seeder
                     'email' => $email,
                     'password' => bcrypt($password),
                     'type' => $userType,
-                    'id_karyawan' => $index + 1
+                    'id_karyawan' => $idKaryawan,
+                    'id_client' => $idClient,
                 ]);
             } else {
                 DaftarLogin_Model::create([
@@ -39,7 +45,8 @@ class tb_DaftarLoginSeeder extends Seeder
                     'email' => $email,
                     'password' => bcrypt($password),
                     'type' => $userType,
-                    'id_karyawan' => $index + 1
+                    'id_karyawan' => $idKaryawan,
+                    'id_client' => $idClient,
                 ]);
             }
         }

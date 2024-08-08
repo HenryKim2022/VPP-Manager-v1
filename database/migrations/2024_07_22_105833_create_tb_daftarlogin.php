@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email', 80)->unique();
             $table->string('password', 60);
             $table->string('type')->default(false);
-            $table->foreignId('id_karyawan')->constrained('tb_karyawan', 'id_karyawan');
+            $table->foreignId('id_karyawan')->nullable()->constrained('tb_karyawan', 'id_karyawan');
+            $table->foreignId('id_client')->nullable()->constrained('tb_client', 'id_client');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +31,7 @@ return new class extends Migration
     {
         Schema::table('tb_daftar_login', function (Blueprint $table) {
             $table->dropForeign(['id_karyawan']);
+            $table->dropForeign(['id_client']);
         });
         Schema::dropIfExists('tb_daftar_login');
     }
