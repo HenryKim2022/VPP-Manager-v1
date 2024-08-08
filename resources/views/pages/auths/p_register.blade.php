@@ -4,7 +4,7 @@
 @endphp
 
 <!DOCTYPE html>
-<html class="loading dark-layout" lang="en" data-layout="dark-layout" data-textdirection="ltr">
+<html class="light-layout loaded" lang="en" data-layout="" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
 <head>
@@ -68,7 +68,7 @@
 
 <!-- BEGIN: Body-->
 
-<body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover"
+<body class="horizontal-layout horizontal-menu blank-page  navbar-floating footer-static  " data-open="hover"
     data-menu="horizontal-menu" data-col="blank-page">
     <!-- BEGIN: Content-->
     <div class="app-content content ">
@@ -224,7 +224,7 @@
     <!-- Modal: PrivacyPolicy / privacy policy modal -->
     <div class="modal fade" id="modalPrivacyPolicy" data-bs-backdrop="static" tabindex="-1" aria-hidden="true"
         style="z-index: 1102;">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-center align-items-center">
                     <h4 class="modal-title" id="modalScrollableTitle">Privacy Policy Agreements</h4>
@@ -241,7 +241,7 @@
                 </div>
 
                 <div class="modal-body text-justify text-wrap">
-                    <p>At {{ env('APP_NAME') }} ({{ env('APP_ALIAS') }}), we are committed to protecting your
+                    <p>At {{ env('APP_NAME') }}, we are committed to protecting your
                         privacy and ensuring the security of any personal information you provide to us. This
                         Privacy Policy outlines how we collect, use, and protect your information when you sign
                         up for our services on our website.</p>
@@ -314,7 +314,7 @@
                     </div>
                 </div>
 
-                <div class="modal-footer align-content-center pt-1 pl-0 pr-1">
+                <div class="modal-footer align-content-center pt-1 pr-1">
                     <div class="d-flex flex-column m-0">
                         <div>
                             <a class="text-sm pl-0 pt-3 text-wrap">
@@ -327,7 +327,7 @@
                         </div>
                         <div class="mt-3 d-flex justify-content-end">
                             <button id="confirmPolicyBtn" type="button" class="btn btn-primary"
-                                data-bs-dismiss="modal">Accept</button>
+                                data-dismiss="modal">Accept</button>
                         </div>
 
                     </div>
