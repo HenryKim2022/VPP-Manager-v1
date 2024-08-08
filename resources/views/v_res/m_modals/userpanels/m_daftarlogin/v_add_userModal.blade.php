@@ -46,11 +46,19 @@
                              <select class="select2 form-control form-control-lg" name="modalAddUserType" id="modalAddUserType" aria-autocomplete="none">
                                  <option value="">
                                      Select UserType</option>
+                                 <option value="0" selected>
+                                     Client</option>
                                  <option value="1">
-                                     Admin</option>
-                                 <option value="2" selected>
-                                     Karyawan (incl: CEO, CFO, etc)</option>
+                                     Superuser</option>
+                                 <option value="2">
+                                     Supervisor</option>
+                                 <option value="3">
+                                     Engineer</option>
                              </select>
+
+
+
+
                          </div>
                      </div>
                      <div class="col-12 col-sm-6">

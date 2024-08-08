@@ -21,12 +21,12 @@ Route::get('/', [LoginPageController::class, 'index'])->name('login.page');
 
 
 /////////////////////////////////////////////////// <<<  START: ROUTES (WITH USERGROUP) >>> //////////////////////////////////////
-Route::prefix('')->name('login.')->middleware('guest')->group(function () {
+Route::prefix('')->name('login.')->middleware('Client')->group(function () {
     Route::get('/login', 'App\Http\Controllers\Auth\LoginPageController@showLogin')->name('page');
     Route::post('/login', 'App\Http\Controllers\Auth\LoginPageController@doLogin')->name('do');
 });
 
-Route::prefix('')->name('register.')->middleware('guest')->group(function () {
+Route::prefix('')->name('register.')->middleware('Client')->group(function () {
     Route::get('/register', 'App\Http\Controllers\Auth\RegisterPageController@showRegister')->name('page');
     Route::post('/register', 'App\Http\Controllers\Auth\RegisterPageController@doRegister')->name('do');
 });

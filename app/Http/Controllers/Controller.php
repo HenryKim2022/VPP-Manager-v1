@@ -17,7 +17,7 @@ abstract class Controller
     protected $pageData;
     public function __construct()
     {
-        // $this->middleware('guest')->except('logout');
+        // $this->middleware('Client')->except('logout');
         $this->pageData = [
             'page_title' => 'What Public See',
             'page_url' => base_url('login-url'),

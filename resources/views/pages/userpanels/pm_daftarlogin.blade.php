@@ -26,7 +26,7 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">{{ $page_title }}</h2>
+                            <h2 class="content-header-title float-left mb-0 d-lg-none d-md-none">{{ $page_title }}</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('userPanels.dashboard') }}">UserPanels</a>
@@ -76,7 +76,8 @@
                                                     <div class="dropdown-menu dropdown-menu-end"
                                                         aria-labelledby="tableActionDropdown">
                                                         <a class="edit-record dropdown-item d-flex align-items-center"
-                                                            user_id_value = "{{ $userLogin->user_id }}" karyawan_id_value = "{{ $userLogin->karyawan->id_karyawan }}"
+                                                            user_id_value = "{{ $userLogin->user_id }}"
+                                                            karyawan_id_value = "{{ $userLogin->karyawan->id_karyawan }}"
                                                             onclick="openModal('{{ $modalData['modal_edit'] }}')">
                                                             <i data-feather="edit" class="mr-1" style="color: #28c76f;"></i>
                                                             Edit
@@ -244,29 +245,98 @@
 
                             setUserTypeList();
 
-                            function setUserTypeList() {
-                                // Populate the select options for modalEditInstitutionMARKID1
+                            // function setUserTypeList() {
+                            //     // Populate the select options for modalEditInstitutionMARKID1
+                            //     var userTypeSelect = $('#' + modalId +
+                            //         ' #modalEditUserType');
+                            //     userTypeSelect.empty(); // Clear existing options
+                            //     userTypeSelect.append($('<option>', {
+                            //         value: "",
+                            //         text: "Select UserType"
+                            //     }));
+                            //     $.each(response.userTypeList, function(index,
+                            //         userTypeOption) {
+                            //         var option = $('<option>', {
+                            //             value: userTypeOption.value,
+                            //             text: `[${userTypeOption.value}] ${userTypeOption.text}`
+                            //         });
+                            //         if (userTypeOption.selected) {
+                            //             option.attr('selected',
+                            //                 'selected'); // Select the option
+                            //         }
+                            //         userTypeSelect.append(option);
+                            //     });
+
+                            // }
+
+
+
+
+
+
+                            function setUserTypeList(response) {
                                 var userTypeSelect = $('#' + modalId +
-                                    ' #modalEditUserType');
-                                userTypeSelect.empty(); // Clear existing options
-                                userTypeSelect.append($('<option>', {
-                                    value: "",
-                                    text: "Select UserType"
-                                }));
-                                $.each(response.userTypeList, function(index,
-                                    userTypeOption) {
-                                    var option = $('<option>', {
-                                        value: userTypeOption.value,
-                                        text: `[${userTypeOption.value}] ${userTypeOption.text}`
-                                    });
-                                    if (userTypeOption.selected) {
-                                        option.attr('selected',
-                                            'selected'); // Select the option
+                                    ' modalEditUserType');
+                                    userTypeSelect.empty(); // Clear existing options
+                                var receivedUserType = response.userTypeList;
+                                var userTypeList = [{
+                                        // value: '',
+                                        text: 'Select Religion',
+                                        selected: receivedUserType === ''
+                                    },
+                                    {
+                                        value: 'Client',
+                                        text: 'Client',
+                                        selected: receivedUserType === 'Client'
+                                    },
+                                    {
+                                        value: 'Superuser',
+                                        text: 'Superuser',
+                                        selected: receivedUserType === 'Superuser'
+                                    },
+                                    {
+                                        value: 'Supervisor',
+                                        text: 'Supervisor',
+                                        selected: receivedUserType === 'Supervisor'
+                                    },
+                                    {
+                                        value: 'Engineer',
+                                        text: 'Engineer',
+                                        selected: receivedUserType === 'Engineer'
                                     }
+                                ];
+
+                                $.each(userTypeList, function(index,
+                                userTypeOption) {
+                                    var option;
+                                    if (index === 0) {
+                                        option = $('<option disabled>');
+                                        option.attr('value', userTypeOption
+                                            .value);
+                                        option.text(
+                                        `${userTypeOption.text}`);
+                                    } else {
+                                        option = $('<option>');
+                                        option.attr('value', userTypeOption
+                                            .value);
+                                        option.text(
+                                        `${userTypeOption.text}`);
+                                    }
+
+                                    if (userTypeOption.selected) {
+                                        option.attr('selected', 'selected');
+                                    }
+
                                     userTypeSelect.append(option);
                                 });
-
                             }
+
+
+
+
+
+
+
 
 
                             console.log('SHOWING MODAL');

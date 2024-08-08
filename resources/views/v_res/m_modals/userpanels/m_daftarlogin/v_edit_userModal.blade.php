@@ -42,12 +42,18 @@
                                  <option value=""
                                      {{ !$authenticated_user_data->daftar_login->type ? 'selected' : '' }}>
                                      Select UserType</option>
+                                 <option value="0"
+                                     {{ $authenticated_user_data->daftar_login->type == 'Client' ? 'selected' : '' }}>
+                                     Client</option>
                                  <option value="1"
-                                     {{ $authenticated_user_data->daftar_login->type == 'Islam' ? 'selected' : '' }}>
-                                     Admin</option>
+                                     {{ $authenticated_user_data->daftar_login->type == 'Superuser' ? 'selected' : '' }}>
+                                     Superuser</option>
                                  <option value="2"
-                                     {{ $authenticated_user_data->daftar_login->type == 'Kristen' ? 'selected' : '' }}>
-                                     Karyawan (incl: CEO, CFO, etc)</option>
+                                     {{ $authenticated_user_data->daftar_login->type == 'Supervisor' ? 'selected' : '' }}>
+                                     Supervisor</option>
+                                 <option value="3"
+                                     {{ $authenticated_user_data->daftar_login->type == 'Engineer' ? 'selected' : '' }}>
+                                     Engineer</option>
 
                              </select>
                          </div>

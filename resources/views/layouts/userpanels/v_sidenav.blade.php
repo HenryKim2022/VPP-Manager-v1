@@ -10,10 +10,15 @@
                 </a></li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i
                         class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i
-                        class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc"
+                        class="d-none d-xl-block collapse-toggle-icon font-medium-4 text-primary" data-feather="disc"
                         data-ticon="disc"></i></a></li>
         </ul>
     </div>
+    <style>
+        li.nav-item.mr-auto {
+            margin-top: -0.5rem;
+        }
+    </style>
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
@@ -42,11 +47,12 @@
             </li>
 
             <li class=" navigation-header"><span data-i18n="Data Employee">Data Worksheets</span><i
-                data-feather="more-horizontal"></i>
+                    data-feather="more-horizontal"></i>
             </li>
             <li class=" nav-item">
-                <a class="d-flex align-items-center" href="{{ route('m.wrksheet') }}"><i data-feather="book-open"></i><span
-                        class="menu-title text-truncate" data-i18n="Worksheets">Worksheets</span></a>
+                <a class="d-flex align-items-center" href="{{ route('m.wrksheet') }}"><i
+                        data-feather="book-open"></i><span class="menu-title text-truncate"
+                        data-i18n="Worksheets">Worksheets</span></a>
             </li>
 
             <li class=" navigation-header"><span data-i18n="Data Accounts">Data Accounts</span><i
@@ -66,7 +72,7 @@
             {{-- @endif --}}
 
 
-            {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor' || auth()->user()->type == 'Engineer' || auth()->user()->type == 'Guest' || auth()->user()->type == '') --}}
+            {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor' || auth()->user()->type == 'Engineer' || auth()->user()->type == 'Client' || auth()->user()->type == '') --}}
             <li class="navigation-header">
                 <span data-i18n="Help &amp; Supports">Help &amp; Supports</span>
                 <i data-feather="more-horizontal"></i>

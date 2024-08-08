@@ -15,7 +15,7 @@ class tb_DaftarLoginSeeder extends Seeder
     {
         $loginList = [
             ['admin', 'admin@mail.com', '123456', 1],
-            ['karyawan1', 'karyawan@mail.com', '123456', 2],
+            ['karyawan1', 'karyawan@mail.com', '123456', 0],
         ]; // Example userlogin values
 
         foreach ($loginList as $index => $login) {
