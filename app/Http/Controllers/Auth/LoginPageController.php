@@ -90,6 +90,15 @@ class LoginPageController extends Controller
             }, 'jabatan.karyawan'])
                 ->find($user->id_karyawan);
 
+
+            if ($rememberMe) {  // keep the session for 1 years (adjust the time as needed)
+                $request->session()->put('authenticated_user_data', $authenticated_user_data);
+                $request->session()->save();
+                config(['session.lifetime' => 125600]); // 1 years in minutes
+            } else {
+                Session::put('authenticated_user_data', $authenticated_user_data);
+            }
+
             Session::put('authenticated_user_data', $authenticated_user_data);
             if ($user->type === "admin") {
                 return redirect()->route('userPanels.dashboard'); // Redirect to admin dashboard
