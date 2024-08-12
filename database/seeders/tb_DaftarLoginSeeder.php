@@ -17,7 +17,7 @@ class tb_DaftarLoginSeeder extends Seeder
         $loginList = [
             // Username, email, pass, type, id_kar, id_cli
             ['admin', 'admin@mail.com', '123456', 1, 1, null],
-            ['karyawan1', 'karyawan1@mail.com', '123456', 2, 2, 1],
+            ['karyawan1', 'karyawan1@mail.com', '123456', 2, 2, null],
             ['client1', 'client1@mail.com', '123456', 0, null, 1],
         ]; // Example userlogin values
 
