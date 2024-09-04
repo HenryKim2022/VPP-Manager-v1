@@ -68,7 +68,8 @@
             <div class="content-body">
                 <div class="auth-wrapper auth-v2">
                     <div class="auth-inner row m-0">
-                        <!-- Brand logo--><a class="brand-logo" href="{{ env('APP_URL') }}">
+                        <!-- Brand logo-->
+                        {{-- <a class="brand-logo" href="{{ env('APP_URL') }}">
                             <svg viewBox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
                                 <defs>
                                     <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
@@ -93,7 +94,16 @@
                                 </g>
                             </svg>
                             <h2 class="brand-text text-primary ml-1">VPP Monitor</h2>
+
+                        </a> --}}
+
+
+                        <a class="brand-logo d-flex align-items-center justify-content-start" href="{{ env('APP_URL') }}">
+                            <img src="{{ asset('public/assets/logo/vp_logo.svg') }}" alt="VPP Monitor Logo" style="width: fit-content; height: 35px;">
+                            <h2 class="brand-text text-primary ml-1 mb-0">VPP Monitor</h2>
                         </a>
+
+
                         <!-- /Brand logo-->
                         <!-- Left Text-->
                         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">

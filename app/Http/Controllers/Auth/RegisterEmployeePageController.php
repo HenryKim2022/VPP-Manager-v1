@@ -79,13 +79,19 @@ class RegisterEmployeePageController extends Controller
             'na_karyawan' => $request->input('register-name-karyawan'),
         ]);
 
+        // Note:
+        // After creating new data at Karyawan_Model, get the id_karyawan of newly created data id_karyawan attibute
+        // then pass the id_karyawan into $id_karyawan variable
+
+
         $id_karyawan = $karyawan->id_karyawan;
         DaftarLogin_Model::create([
             'username' => $request->input('register-username'),
             'email' => $request->input('register-email'),
             'password' => Hash::make($request->input('register-password')),
-            'type' => "2",
+            'type' => "3",
             'id_karyawan' => $id_karyawan,
+            'id_client' => null,
         ]);
         Session::flash('success', ['Registration successful!']);
         return redirect()->route('login.page');

@@ -343,13 +343,13 @@
                                                             <div class="form-group">
                                                                 <input type="hidden" class="form-control" id="id_karyawan"
                                                                 name="id_karyawan" placeholder="ID"
-                                                                value="{{ $authenticated_user_data->id_karyawan ?: 'My Girlfriend :)' }}" />
+                                                                value="{{ $authenticated_user_data->id_karyawan ?: '0000000000' }}" />
                                                                 {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->id_karyawan == null ? $authenticated_user_data->daftar_login->id_karyawan : $authenticated_user_data->daftar_login->id_karyawan) : null }}" /> --}}
 
                                                                 <label for="account-name">Name</label>
                                                                 <input type="text" class="form-control" id="account-name"
                                                                     name="account-name" placeholder="Name"
-                                                                    value="{{ $authenticated_user_data->na_karyawan ?: 'My Girlfriend :)' }}" />
+                                                                    value="{{ $authenticated_user_data->na_karyawan ?: 'Not filled!' }}" />
                                                                     {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->na_karyawan == null ? $authenticated_user_data->daftar_login->na_karyawan : $authenticated_user_data->daftar_login->na_karyawan) : null }}" /> --}}
                                                             </div>
                                                         </div>
@@ -358,7 +358,7 @@
                                                                 <label for="birth-loc">Birth Location</label>
                                                                 <input type="text" class="form-control" id="brith-loc"
                                                                     name="birth-loc" placeholder="Location of Birth"
-                                                                    value="{{ $authenticated_user_data->tlah_karyawan ?: 'Heaven Residence :)' }}" />
+                                                                    value="{{ $authenticated_user_data->tlah_karyawan ?: 'Not filled!' }}" />
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-6">
@@ -366,7 +366,7 @@
                                                                 <label for="birth-date">Birth Date</label>
                                                                 <input type="date" class="form-control" id="brith-date"
                                                                     name="birth-date" placeholder="Date of Birth"
-                                                                    value="{{ $authenticated_user_data->tglah_karyawan ?: 'Heaven :)' }}" />
+                                                                    value="{{ $authenticated_user_data->tglah_karyawan ?: 'Not filled!' }}" />
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-6">
@@ -403,7 +403,7 @@
                                                                 <label for="address">Address</label>
                                                                 <input type="text" class="form-control" id="address"
                                                                     name="address" placeholder="Address"
-                                                                    value="{{ $authenticated_user_data->alamat_karyawan ?: 'Heaven :)' }}" />
+                                                                    value="{{ $authenticated_user_data->alamat_karyawan ?: 'Not filled!' }}" />
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-sm-6">
