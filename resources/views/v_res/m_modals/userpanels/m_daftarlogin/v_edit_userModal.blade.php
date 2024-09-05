@@ -36,27 +36,26 @@
                          </div>
                      </div>
                      <div class="col-12 col-sm-6">
-                         <div class="form-group">
-                             <label>User Type</label>
-                             <select class="select2 form-control form-control-lg" name="modalEditUserType" id="modalEditUserType">
-                                 <option value=""
-                                     {{ !$authenticated_user_data->daftar_login->type ? 'selected' : '' }}>
-                                     Select UserType</option>
-                                 <option value="0"
-                                     {{ $authenticated_user_data->daftar_login->type == 'Client' ? 'selected' : '' }}>
-                                     Client</option>
-                                 <option value="1"
-                                     {{ $authenticated_user_data->daftar_login->type == 'Superuser' ? 'selected' : '' }}>
-                                     Superuser</option>
-                                 <option value="2"
-                                     {{ $authenticated_user_data->daftar_login->type == 'Supervisor' ? 'selected' : '' }}>
-                                     Supervisor</option>
-                                 <option value="3"
-                                     {{ $authenticated_user_data->daftar_login->type == 'Engineer' ? 'selected' : '' }}>
-                                     Engineer</option>
-
-                             </select>
-                         </div>
+                        <div class="form-group">
+                            <label>User Type</label>
+                            <select class="select2 form-control form-control-lg" name="modalEditUserType" id="modalEditUserType">
+                                <option value="" {{ empty($authenticated_user_data) || empty($authenticated_user_data->daftar_login) || !$authenticated_user_data->daftar_login->type ? 'selected' : '' }}>
+                                    Select UserType
+                                </option>
+                                <option value="0" {{ $authenticated_user_data && $authenticated_user_data->daftar_login && $authenticated_user_data->daftar_login->type == 'Client' ? 'selected' : '' }}>
+                                    Client
+                                </option>
+                                <option value="1" {{ $authenticated_user_data && $authenticated_user_data->daftar_login && $authenticated_user_data->daftar_login->type == 'Superuser' ? 'selected' : '' }}>
+                                    Superuser
+                                </option>
+                                <option value="2" {{ $authenticated_user_data && $authenticated_user_data->daftar_login && $authenticated_user_data->daftar_login->type == 'Supervisor' ? 'selected' : '' }}>
+                                    Supervisor
+                                </option>
+                                <option value="3" {{ $authenticated_user_data && $authenticated_user_data->daftar_login && $authenticated_user_data->daftar_login->type == 'Engineer' ? 'selected' : '' }}>
+                                    Engineer
+                                </option>
+                            </select>
+                        </div>
                      </div>
                      <div class="col-12 col-sm-6">
                          <div class="form-group">

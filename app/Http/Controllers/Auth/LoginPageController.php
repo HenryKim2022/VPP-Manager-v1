@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\DaftarLogin_Model;
 use App\Models\Karyawan_Model;
+use App\Models\Kustomer_Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -89,6 +90,18 @@ class LoginPageController extends Controller
                 $query->orderBy('created_at', 'desc')->withoutTrashed()->take(1);
             }, 'jabatan.karyawan'])
                 ->find($user->id_karyawan);
+
+            if ($authenticated_user_data == null){
+                $authenticated_user_data = Kustomer_Model::with(
+                    [
+                        'daftar_login_4get.client' => function ($query) {
+                            $query->orderBy('created_at', 'desc')->withoutTrashed()->take(1);
+                        }
+                    ]
+                )
+                    ->find($user->id_client);
+            }
+
 
 
             if ($rememberMe) {  // keep the session for 1 years (adjust the time as needed)

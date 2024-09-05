@@ -153,10 +153,27 @@
                     id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none"><span
-                            class="user-name font-weight-bolder">{{ isset($authenticated_user_data) ? ($authenticated_user_data->na_karyawan ?: 'Illegal Access') : 'No Name' }}
+                            class="user-name font-weight-bolder">{{ isset($authenticated_user_data) ? ($authenticated_user_data->na_karyawan ?: $authenticated_user_data->na_client) : 'No Name' }}
                         </span>
+                        {{-- check this first,
+                        $authenticated_user_data->daftar_login_4get->type
+                        before checking:
+                        $authenticated_user_data->daftar_login->type
                         <span class="user-status">{{ $authenticated_user_data ? ($authenticated_user_data->daftar_login->type ?: 'Illegal Access') : 'Illegal Access' }}
+                        </span> --}}
+
+                        <span class="user-status">
+                            {{
+                                $authenticated_user_data
+                                    ? (
+                                        $authenticated_user_data->daftar_login_4get?->type
+                                            ?: $authenticated_user_data->daftar_login->type
+                                            ?: 'Illegal Access'
+                                      )
+                                    : 'Illegal Access'
+                            }}
                         </span>
+
                         {{-- user role --}}
                         {{-- {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->type : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->type : 'Illegal Access') }} --}}
 

@@ -6,6 +6,7 @@
     $avatar_src = $authenticated_user_data && $authenticated_user_data->foto_karyawan && file_exists(public_path('avatar/uploads/' . $authenticated_user_data->foto_karyawan)) ? asset('public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : asset(env('APP_DEFAULT_AVATAR'));
     $loadDataWorksheetFromDB = Session::get('loadDataWorksheetFromDB');
 
+    // dd($authenticated_user_data->toArray());
 @endphp
 
 
@@ -16,6 +17,9 @@
 
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
     data-menu="vertical-menu-modern" data-col="">
+
+
+
     <!-- BEGIN: Nav-head--> @include('layouts.userpanels.v_topnav') <!-- END: Nav-head-->
     <!-- BEGIN: Nav-side--> @include('layouts.userpanels.v_sidenav') <!-- END: Nav-side-->
     <!-- BEGIN: Content-->
@@ -34,6 +38,12 @@
                         class="mdi mdi-close"></i></span>
                 <img src="" alt="Large Image" style="max-height: 85vh" />
             </div>
+
+
+            {{-- <div class="card">
+                {{ dd($authenticated_user_data->toArray())}}
+            </div> --}}
+
 
             @yield('page-content')
         </div>

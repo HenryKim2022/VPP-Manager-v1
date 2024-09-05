@@ -22,17 +22,17 @@ Route::get('/', [LoginPageController::class, 'index'])->name('login.page');
 
 
 /////////////////////////////////////////////////// <<<  START: ROUTES (WITH USERGROUP) >>> //////////////////////////////////////
-Route::prefix('')->name('login.')->middleware('Client')->group(function () {
+Route::prefix('')->name('login.')->middleware('NotLoggedIn')->group(function () {
     Route::get('/login', 'App\Http\Controllers\Auth\LoginPageController@showLogin')->name('page');
     Route::post('/login', 'App\Http\Controllers\Auth\LoginPageController@doLogin')->name('do');
 });
 
-Route::prefix('')->name('register.')->middleware('Client')->group(function () {
+Route::prefix('')->name('register.')->middleware('NotLoggedIn')->group(function () {
     Route::get('/register-emp', 'App\Http\Controllers\Auth\RegisterEmployeePageController@showRegister')->name('emp.page');
     Route::post('/register-emp', 'App\Http\Controllers\Auth\RegisterEmployeePageController@doRegister')->name('emp.do');
 });
 
-Route::prefix('')->name('register.')->middleware('Client')->group(function () {
+Route::prefix('')->name('register.')->middleware('NotLoggedIn')->group(function () {
     Route::get('/register-client', 'App\Http\Controllers\Auth\RegisterClientPageController@showRegister')->name('client.page');
     Route::post('/register-client', 'App\Http\Controllers\Auth\RegisterClientPageController@doRegister')->name('client.do');
 });

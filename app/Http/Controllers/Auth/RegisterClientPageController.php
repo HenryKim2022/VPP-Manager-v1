@@ -84,7 +84,7 @@ class RegisterClientPageController extends Controller
             'username' => $request->input('register-username'),
             'email' => $request->input('register-email'),
             'password' => Hash::make($request->input('register-password')),
-            'type' => "2",
+            'type' => "0",
             'id_karyawan' => $id_karyawan,
         ]);
         Session::flash('success', ['Registration successful!']);

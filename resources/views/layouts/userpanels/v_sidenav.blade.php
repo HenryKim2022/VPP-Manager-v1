@@ -81,7 +81,7 @@
             {{-- @endif --}}
 
 
-            {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor' || auth()->user()->type == 'Engineer' || auth()->user()->type == 'Client' || auth()->user()->type == '') --}}
+            {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor' || auth()->user()->type == 'Engineer' || auth()->user()->type == 'Client' || auth()->user()->type == 'Public' || auth()->user()->type == '') --}}
             <li class="navigation-header">
                 <span data-i18n="Help &amp; Supports">Help &amp; Supports</span>
                 <i data-feather="more-horizontal"></i>

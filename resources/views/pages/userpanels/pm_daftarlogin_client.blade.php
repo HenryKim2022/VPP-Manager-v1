@@ -287,7 +287,7 @@
                                 var receivedUserType = response.userTypeList;
                                 var userTypeList = [{
                                         // value: '',
-                                        text: 'Select Religion',
+                                        text: 'Select UserType',
                                         selected: receivedUserType === ''
                                     },
                                     {

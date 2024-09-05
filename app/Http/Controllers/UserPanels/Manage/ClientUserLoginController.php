@@ -27,7 +27,7 @@ class ClientUserLoginController extends Controller
             $loadDaftarLoginClientFromDB = [];
             $loadDaftarLoginClientFromDB = DaftarLogin_Model::with(['client'])
                 ->where(function ($query) {
-                    $query->where('Type', 0);
+                    $query->where('Type', 1);
                 })
                 ->whereNotNull('id_client')
                 ->withoutTrashed()

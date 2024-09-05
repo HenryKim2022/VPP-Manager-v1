@@ -9,6 +9,7 @@ use App\Models\TheApp_Model;
 use App\Models\Karyawan_Model;
 use App\Models\Absen_Model;
 use App\Models\DaftarLogin_Model;
+use App\Models\Kustomer_Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -32,9 +33,14 @@ class MyProfileController extends Controller
 
             $user = auth()->user();
             $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
+
             if (!$authenticated_user_data) {
-                return redirect()->back(); // Redirect to the previous page or handle the case when authenticated_user_data is not available
+                $authenticated_user_data = Kustomer_Model::with('daftar_login.client', 'daftar_login_4get.client')->find($user->id_client);
+                if ($authenticated_user_data == null){
+                    return redirect()->back(); // Redirect to the previous page or handle the case when authenticated_user_data is not available
+                }
             }
+
 
             $data = [
                 'loadDataKaryawanFromDB' => DaftarLogin_Model::with(['karyawan'])->where('id_karyawan', $idKaryawan)->get(),
