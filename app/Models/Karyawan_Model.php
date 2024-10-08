@@ -46,6 +46,11 @@ class Karyawan_Model extends Model
         return $this->hasMany(Jabatan_Model::class, 'id_karyawan');
     }
 
+    public function team()
+    {
+        return $this->hasMany(Team_Model::class, 'id_karyawan');
+    }
+
 
 
 
