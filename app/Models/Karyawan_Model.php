@@ -33,7 +33,6 @@ class Karyawan_Model extends Model
     {
         // return $this->belongsTo(DaftarLogin_Model::class, 'id_karyawan');
         return $this->hasOne(DaftarLogin_Model::class, 'id_karyawan');
-
     }
 
     ///// REMOVED

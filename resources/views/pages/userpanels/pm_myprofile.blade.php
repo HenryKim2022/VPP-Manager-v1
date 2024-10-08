@@ -50,7 +50,7 @@
             <div class="container row match-height pr-0">
 
 
-                @if (auth()->user()->type != 'Client')
+                @if (auth()->user()->type != '')
                     <div class="content-body">
                         <!-- profile header -->
                         <div id="user-profile">
@@ -90,17 +90,39 @@
                                                 <!-- profile title -->
                                                 <div class="profile-title ml-3">
                                                     <h2 class="text-white">
-                                                        {{ $authenticated_user_data->na_karyawan ?: 'Pemuda Pancasila :P' }}
+                                                        {{-- {{ $authenticated_user_data->na_client ? $authenticated_user_data->na_karyawan : 'Public User' }} --}}
+                                                        {{ isset($authenticated_user_data) ? ($authenticated_user_data->na_karyawan ?: $authenticated_user_data->na_client) : 'No Name' }}
                                                     </h2>
+
+                                                    {{-- @php
+                                                       dd($authenticated_user_data->toArray());
+                                                    @endphp --}}
+
                                                     @php
                                                         $roles = [];
-                                                        $role1 = $authenticated_user_data->daftar_login
-                                                            ? ($authenticated_user_data->daftar_login->type ==
-                                                            'Supervisor'
+
+                                                        // $role1 = $authenticated_user_data->daftar_login
+                                                        //     ? ($authenticated_user_data->daftar_login->type ==
+                                                        //     'Supervisor'
+                                                        //         ? 'WebSite ' .
+                                                        //             $authenticated_user_data->daftar_login->type
+                                                        //         : $authenticated_user_data->daftar_login->type)
+                                                        //     : null;
+
+                                                        $role1 = $authenticated_user_data->daftar_login_4get
+                                                            ? ($authenticated_user_data->daftar_login_4get->type ==
+                                                            'Superuser'
                                                                 ? 'WebSite ' .
-                                                                    $authenticated_user_data->daftar_login->type
-                                                                : $authenticated_user_data->daftar_login->type)
-                                                            : null;
+                                                                    $authenticated_user_data->daftar_login_4get->type
+                                                                : $authenticated_user_data->daftar_login_4get->type)
+                                                            : ($authenticated_user_data->daftar_login
+                                                                ? ($authenticated_user_data->daftar_login->type ==
+                                                                'Superuser'
+                                                                    ? 'WebSite ' .
+                                                                        $authenticated_user_data->daftar_login->type
+                                                                    : $authenticated_user_data->daftar_login->type)
+                                                                : null);
+
                                                         $role2 = $authenticated_user_data->jabatan;
 
                                                         // Add the first role to the roles array
@@ -161,7 +183,7 @@
                         <section id="page-account-settings">
                             <div class="row">
                                 <!-- left menu section -->
-                                <div class="col-md-3 mb-2 mb-md-0">
+                                <div class="col-md-3 pr-sm-2">
                                     <ul class="nav nav-pills flex-column nav-left">
                                         <!-- information -->
                                         <li class="nav-item">
@@ -195,342 +217,720 @@
                                 <!--/ left menu section -->
 
                                 <!-- right content section -->
-                                <div class="col-md-9 p-0">
+                                <div class="col-md-9 ml-0 ml-sm-3 ml-md-0 p-0">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="tab-content">
 
-                                                <div class="tab-pane active" id="account-vertical-profile" role="tabpanel"
-                                                    aria-labelledby="account-pill-info" aria-expanded="false">
-                                                    <div class="container">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td><strong>UserID</strong></td>
-                                                                    <td class="pl-2">: </td>
-                                                                    <td>
-                                                                        {{-- {{ $authenticated_user_data->daftar_login->user_id }} --}}
-                                                                        {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->user_id : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->user_id : '') }}
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>EmployeeID</strong></td>
-                                                                    <td class="pl-2">: </td>
-                                                                    <td>{{ $authenticated_user_data->id_karyawan }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Username</strong></td>
-                                                                    <td class="pl-2">: </td>
-                                                                    <td>
-                                                                        {{-- {{ $authenticated_user_data->daftar_login->username }} --}}
-                                                                        {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->username : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->username : '') }}
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Name</strong></td>
-                                                                    <td class="pl-2">: </td>
-                                                                    <td>{{ $authenticated_user_data->na_karyawan }}</td>
-                                                                    {{-- <td>
-                                                                    {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->na_karyawan : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->na_karyawan : '') }}
-                                                                </td> --}}
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Office Role</strong></td>
-                                                                    <td class="pl-2">: </td>
-                                                                    <td>
-                                                                        @php
-                                                                            $rolesCount = $authenticated_user_data->jabatan->count();
-                                                                        @endphp
+                                                @if (auth()->user()->type != 'Client')
+                                                    <div class="tab-pane active" id="account-vertical-profile" role="tabpanel"
+                                                        aria-labelledby="account-pill-info" aria-expanded="false">
+                                                        <div class="container">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><strong>UserID</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        <td>
+                                                                            {{-- {{ $authenticated_user_data->daftar_login->user_id }} --}}
+                                                                            {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->user_id : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->user_id : '') }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><strong>EmployeeID</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        <td>{{ $authenticated_user_data->id_karyawan }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><strong>Username</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        <td>
+                                                                            {{-- {{ $authenticated_user_data->daftar_login->username }} --}}
+                                                                            {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->username : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->username : '') }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><strong>Name</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        {{-- <td>{{ $authenticated_user_data->na_client :? $authenticated_user_data->na_karyawan }}</td> --}}
+                                                                        {{-- <td>
+                                                                            {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->na_karyawan : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->na_karyawan : '') }}
+                                                                        </td> --}}
+                                                                        <td>
+                                                                            {{ $authenticated_user_data->na_client ?: $authenticated_user_data->na_karyawan }}
+                                                                        </td>
+                                                                    </tr>
 
-                                                                        @if ($rolesCount > 0)
-                                                                            @foreach ($authenticated_user_data->jabatan as $index => $role)
-                                                                                {{ $role->na_jabatan }}@if ($index < $rolesCount - 1)
-                                                                                    ,
+                                                                    @if (auth()->user()->type != 'Client')
+                                                                        <tr>
+                                                                            <td><strong>Office Role</strong></td>
+                                                                            <td class="pl-2">: </td>
+                                                                            <td>
+                                                                                @php
+                                                                                    $rolesCount = $authenticated_user_data->jabatan->count();
+                                                                                @endphp
+
+                                                                                @if ($rolesCount > 0)
+                                                                                    @foreach ($authenticated_user_data->jabatan as $index => $role)
+                                                                                        {{ $role->na_jabatan }}@if ($index < $rolesCount - 1)
+                                                                                            ,
+                                                                                        @endif
+                                                                                    @endforeach
+                                                                                @else
+                                                                                    N/A
                                                                                 @endif
-                                                                            @endforeach
-                                                                        @else
-                                                                            N/A
-                                                                        @endif
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Email</strong></td>
-                                                                    <td class="pl-2">: </td>
-                                                                    {{-- <td>{{ $authenticated_user_data->daftar_login->email }}</td> --}}
-                                                                    <td>
-                                                                        {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->email : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->email : '') }}
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        {{-- <br><br><br><br><br> --}}
-                                                    </div>
-                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endif
 
-                                                <!-- general tab -->
-                                                <div role="tabpanel" class="tab-pane" id="account-vertical-general"
-                                                    aria-labelledby="account-pill-general" aria-expanded="true">
-                                                    <!-- header media -->
-                                                    <div class="media">
-                                                        <a href="javascript:void(0);" class="mr-25">
-                                                            <img src="{{ $authenticated_user_data->foto_karyawan == null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan }}"
-                                                                id="account-upload-img" class="rounded hover-qr-image mr-50"
-                                                                alt="profile image" height="80" width="80" />
-                                                        </a>
-                                                        <!-- upload and reset button -->
-                                                        <div class="media-body mt-75 ml-1">
-                                                            <label for="account-upload"
-                                                                class="btn btn-sm btn-primary mb-75 mr-75">Upload</label>
-                                                            <input type="file" id="account-upload" hidden
-                                                                accept="image/png, image/jpeg, image/*" />
-                                                            <button
-                                                                class="btn btn-sm acc-avatar-reset btn-outline-secondary mb-75">Reset</button>
-                                                            <p>Allowed JPG, GIF or PNG. Max size of 800kB</p>
+                                                                    <tr>
+                                                                        <td><strong>Email</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        {{-- <td>{{ $authenticated_user_data->daftar_login->email }}</td> --}}
+                                                                        <td>
+                                                                            {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->email : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->email : '') }}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            {{-- <br><br><br><br><br> --}}
                                                         </div>
-                                                        <!--/ upload and reset button -->
                                                     </div>
-                                                    <script>
-                                                        document.addEventListener('DOMContentLoaded', function() {
-                                                            const uploadInput = document.getElementById('account-upload');
-                                                            const uploadedAvatar = document.getElementById('account-upload-img');
-                                                            const userId = '{{ $authenticated_user_data->id_karyawan }}';
 
-                                                            uploadInput.addEventListener('change', function() {
-                                                                const file = uploadInput.files[0];
-                                                                const reader = new FileReader();
-
-                                                                reader.onload = function(e) {
-                                                                    const uploadedImage = e.target.result;
-                                                                    uploadedAvatar.src = uploadedImage;
-
-                                                                    const formData = new FormData();
-                                                                    formData.append('id_karyawan', userId);
-                                                                    formData.append('foto_karyawan', file);
-
-                                                                    const xhr = new XMLHttpRequest();
-                                                                    xhr.open('POST', '{{ route('userPanels.avatar.edit') }}');
-                                                                    xhr.setRequestHeader('X-CSRF-Token', '{{ csrf_token() }}');
-                                                                    xhr.onload = function() {
-                                                                        const response = JSON.parse(xhr.responseText);
-                                                                        if (response.reload) {
-                                                                            window.location.reload();
-                                                                        }
-                                                                    };
-                                                                    xhr.send(formData);
-                                                                };
-
-                                                                reader.readAsDataURL(file);
-                                                            });
-
-
-                                                            var userProfilePhotoPreview = uploadedAvatar;
-                                                            var userProfilePhotoInput = uploadInput;
-                                                            userProfilePhotoInput.addEventListener('change', function() {
-                                                                const file = this.files[0];
-                                                                if (file && file.type.startsWith('image/')) {
-                                                                    const img = document.createElement('img');
-                                                                    img.src = URL.createObjectURL(file);
-
-                                                                    img.onload = function() {
-                                                                        userProfilePhotoPreview.src = img.src;
-                                                                    };
-                                                                }
-                                                            });
-                                                            var resetButton = document.querySelector('.acc-avatar-reset');
-                                                            resetButton.addEventListener('click', function() {
-                                                                userProfilePhotoPreview.src =
-                                                                    '{{ $authenticated_user_data->foto_karyawan == null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan }}';
-                                                                userProfilePhotoInput.value = null;
-                                                            });
-                                                        });
-                                                    </script>
-                                                    <!--/ header media -->
-
-
-
-
-                                                    <!-- form -->
-                                                    <form class="validate-form mt-2"
-                                                        action="{{ route('userPanels.biodata.edit') }}" method="POST">
-                                                        @csrf
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <input type="hidden" class="form-control"
-                                                                        id="id_karyawan" name="id_karyawan" placeholder="ID"
-                                                                        value="{{ $authenticated_user_data->id_karyawan ?: '0000000000' }}" />
-                                                                    {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->id_karyawan == null ? $authenticated_user_data->daftar_login->id_karyawan : $authenticated_user_data->daftar_login->id_karyawan) : null }}" /> --}}
-
-                                                                    <label for="account-name">Name</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="account-name" name="account-name"
-                                                                        placeholder="Name"
-                                                                        value="{{ $authenticated_user_data->na_karyawan ?: 'Not filled!' }}" />
-                                                                    {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->na_karyawan == null ? $authenticated_user_data->daftar_login->na_karyawan : $authenticated_user_data->daftar_login->na_karyawan) : null }}" /> --}}
-                                                                </div>
+                                                    <!-- general tab -->
+                                                    <div role="tabpanel" class="tab-pane" id="account-vertical-general"
+                                                        aria-labelledby="account-pill-general" aria-expanded="true">
+                                                        <!-- header media -->
+                                                        <div class="media">
+                                                            <a href="javascript:void(0);" class="mr-25">
+                                                                <img src="{{ $authenticated_user_data->foto_karyawan == null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan }}"
+                                                                    id="account-upload-img"
+                                                                    class="rounded hover-qr-image mr-50" alt="profile image"
+                                                                    height="80" width="80" />
+                                                            </a>
+                                                            <!-- upload and reset button -->
+                                                            <div class="media-body mt-75 ml-1">
+                                                                <label for="account-upload"
+                                                                    class="btn btn-sm btn-primary mb-75 mr-75">Upload</label>
+                                                                <input type="file" id="account-upload" hidden
+                                                                    accept="image/png, image/jpeg, image/*" />
+                                                                <button
+                                                                    class="btn btn-sm acc-avatar-reset btn-outline-secondary mb-75">Reset</button>
+                                                                <p>Allowed JPG, GIF or PNG. Max size of 800kB</p>
                                                             </div>
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="birth-loc">Birth Location</label>
-                                                                    <input type="text" class="form-control" id="brith-loc"
-                                                                        name="birth-loc" placeholder="Location of Birth"
-                                                                        value="{{ $authenticated_user_data->tlah_karyawan ?: 'Not filled!' }}" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="birth-date">Birth Date</label>
-                                                                    <input type="date" class="form-control"
-                                                                        id="brith-date" name="birth-date"
-                                                                        placeholder="Date of Birth"
-                                                                        value="{{ $authenticated_user_data->tglah_karyawan ?: 'Not filled!' }}" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label>Religion</label>
-                                                                    <select class="select2 form-control form-control-lg"
-                                                                        name="religion" id="religion">
-                                                                        @php
-                                                                            $religion =
-                                                                                $authenticated_user_data->agama_karyawan;
-                                                                        @endphp
-                                                                        <option value=""
-                                                                            {{ !$religion ? 'selected' : '' }}>
-                                                                            Select religion</option>
-                                                                        <option value="Islam"
-                                                                            {{ $religion == 'Islam' ? 'selected' : '' }}>
-                                                                            Islam</option>
-                                                                        <option value="Kristen"
-                                                                            {{ $religion == 'Kristen' ? 'selected' : '' }}>
-                                                                            Kristen</option>
-                                                                        <option value="Hindu"
-                                                                            {{ $religion == 'Hindu' ? 'selected' : '' }}>
-                                                                            Hindu</option>
-                                                                        <option value="Buddha"
-                                                                            {{ $religion == 'Buddha' ? 'selected' : '' }}>
-                                                                            Buddha</option>
-                                                                        <option value="Konghucu"
-                                                                            {{ $religion == 'Konghucu' ? 'selected' : '' }}>
-                                                                            Konghucu</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="address">Address</label>
-                                                                    <input type="text" class="form-control" id="address"
-                                                                        name="address" placeholder="Address"
-                                                                        value="{{ $authenticated_user_data->alamat_karyawan ?: 'Not filled!' }}" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="notelp">No.Telp</label>
-                                                                    <input type="text" class="form-control" id="notelp"
-                                                                        name="notelp" placeholder="No. Telp"
-                                                                        value="{{ $authenticated_user_data->notelp_karyawan ?: '+62 ' }}" />
-                                                                </div>
-                                                            </div>
-
-
-
-                                                            <div class="col-12">
-                                                                <button type="submit" class="btn btn-primary mt-2 mr-1">Save
-                                                                    changes</button>
-                                                                <button type="reset"
-                                                                    class="btn btn-outline-secondary mt-2">Cancel</button>
-                                                            </div>
+                                                            <!--/ upload and reset button -->
                                                         </div>
-                                                    </form>
-                                                    <!--/ form -->
-                                                </div>
-                                                <!--/ general tab -->
+                                                        <script>
+                                                            document.addEventListener('DOMContentLoaded', function() {
+                                                                const uploadInput = document.getElementById('account-upload');
+                                                                const uploadedAvatar = document.getElementById('account-upload-img');
+                                                                const userId = '{{ $authenticated_user_data->id_karyawan }}';
 
-                                                <!-- change password -->
-                                                <div class="tab-pane fade" id="account-vertical-password" role="tabpanel"
-                                                    aria-labelledby="account-pill-password" aria-expanded="false">
-                                                    <!-- form -->
-                                                    <form class="validate-form"
-                                                        action="{{ route('userPanels.accdata.edit') }}" method="POST">
-                                                        @csrf
-                                                        <div class="row">
-                                                            <!-- HTML -->
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <input type="hidden" class="form-control" id="id"
-                                                                        name="user_id" placeholder="ID" {{-- value="{{ $authenticated_user_data->daftar_login->user_id }}" /> --}}
-                                                                        value="{{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->user_id : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->user_id : '') }}" />
-                                                                    <input type="hidden" class="form-control" id="type"
-                                                                        name="type" placeholder="TYPE"
-                                                                        value="{{ $convertedUserType }}" />
-                                                                    <label for="account-username">Username</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="account-username" name="username"
-                                                                        placeholder="Username" {{-- value="{{ $authenticated_user_data->daftar_login->username }}" /> --}}
-                                                                        value="{{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->username : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->username : '') }}" />
+                                                                uploadInput.addEventListener('change', function() {
+                                                                    const file = uploadInput.files[0];
+                                                                    const reader = new FileReader();
+
+                                                                    reader.onload = function(e) {
+                                                                        const uploadedImage = e.target.result;
+                                                                        uploadedAvatar.src = uploadedImage;
+
+                                                                        const formData = new FormData();
+                                                                        formData.append('id_karyawan', userId);
+                                                                        formData.append('foto_karyawan', file);
+
+                                                                        const xhr = new XMLHttpRequest();
+                                                                        xhr.open('POST', '{{ route('userPanels.avatar.edit') }}');
+                                                                        xhr.setRequestHeader('X-CSRF-Token', '{{ csrf_token() }}');
+                                                                        xhr.onload = function() {
+                                                                            const response = JSON.parse(xhr.responseText);
+                                                                            if (response.reload) {
+                                                                                window.location.reload();
+                                                                            }
+                                                                        };
+                                                                        xhr.send(formData);
+                                                                    };
+
+                                                                    reader.readAsDataURL(file);
+                                                                });
+
+
+                                                                var userProfilePhotoPreview = uploadedAvatar;
+                                                                var userProfilePhotoInput = uploadInput;
+                                                                userProfilePhotoInput.addEventListener('change', function() {
+                                                                    const file = this.files[0];
+                                                                    if (file && file.type.startsWith('image/')) {
+                                                                        const img = document.createElement('img');
+                                                                        img.src = URL.createObjectURL(file);
+
+                                                                        img.onload = function() {
+                                                                            userProfilePhotoPreview.src = img.src;
+                                                                        };
+                                                                    }
+                                                                });
+                                                                var resetButton = document.querySelector('.acc-avatar-reset');
+                                                                resetButton.addEventListener('click', function() {
+                                                                    userProfilePhotoPreview.src =
+                                                                        '{{ $authenticated_user_data->foto_karyawan == null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan }}';
+                                                                    userProfilePhotoInput.value = null;
+                                                                });
+                                                            });
+                                                        </script>
+                                                        <!--/ header media -->
+
+
+
+
+                                                        <!-- form -->
+                                                        <form class="validate-form mt-2"
+                                                            action="{{ route('userPanels.biodata.edit') }}" method="POST">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control"
+                                                                            id="id_karyawan" name="id_karyawan"
+                                                                            placeholder="ID"
+                                                                            value="{{ $authenticated_user_data->id_karyawan ?: '0000000000' }}" />
+                                                                        {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->id_karyawan == null ? $authenticated_user_data->daftar_login->id_karyawan : $authenticated_user_data->daftar_login->id_karyawan) : null }}" /> --}}
+
+                                                                        <label for="account-name">Name</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="account-name" name="account-name"
+                                                                            placeholder="Name"
+                                                                            value="{{ $authenticated_user_data->na_karyawan ?: 'Not filled!' }}" />
+                                                                        {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->na_karyawan == null ? $authenticated_user_data->daftar_login->na_karyawan : $authenticated_user_data->daftar_login->na_karyawan) : null }}" /> --}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="birth-loc">Birth Location</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="brith-loc" name="birth-loc"
+                                                                            placeholder="Location of Birth"
+                                                                            value="{{ $authenticated_user_data->tlah_karyawan ?: 'Not filled!' }}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="birth-date">Birth Date</label>
+                                                                        <input type="date" class="form-control"
+                                                                            id="brith-date" name="birth-date"
+                                                                            placeholder="Date of Birth"
+                                                                            value="{{ $authenticated_user_data->tglah_karyawan ?: 'Not filled!' }}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label>Religion</label>
+                                                                        <select class="select2 form-control form-control-lg"
+                                                                            name="religion" id="religion">
+                                                                            @php
+                                                                                $religion =
+                                                                                    $authenticated_user_data->agama_karyawan;
+                                                                            @endphp
+                                                                            <option value=""
+                                                                                {{ !$religion ? 'selected' : '' }}>
+                                                                                Select religion</option>
+                                                                            <option value="Islam"
+                                                                                {{ $religion == 'Islam' ? 'selected' : '' }}>
+                                                                                Islam</option>
+                                                                            <option value="Kristen"
+                                                                                {{ $religion == 'Kristen' ? 'selected' : '' }}>
+                                                                                Kristen</option>
+                                                                            <option value="Hindu"
+                                                                                {{ $religion == 'Hindu' ? 'selected' : '' }}>
+                                                                                Hindu</option>
+                                                                            <option value="Buddha"
+                                                                                {{ $religion == 'Buddha' ? 'selected' : '' }}>
+                                                                                Buddha</option>
+                                                                            <option value="Konghucu"
+                                                                                {{ $religion == 'Konghucu' ? 'selected' : '' }}>
+                                                                                Konghucu</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Address</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="address" name="address"
+                                                                            placeholder="Address"
+                                                                            value="{{ $authenticated_user_data->alamat_karyawan ?: 'Not filled!' }}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="notelp">No.Telp</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="notelp" name="notelp"
+                                                                            placeholder="No. Telp"
+                                                                            value="{{ $authenticated_user_data->notelp_karyawan ?: '+62 ' }}" />
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="col-12">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary mt-2 mr-1">Save
+                                                                        changes</button>
+                                                                    <button type="reset"
+                                                                        class="btn btn-outline-secondary mt-2">Cancel</button>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="account-e-mail">E-mail</label>
-                                                                    <input type="email" class="form-control"
-                                                                        id="account-e-mail" name="email"
-                                                                        placeholder="Email" {{-- value="{{ $authenticated_user_data->daftar_login->email }}" /> --}}
-                                                                        value="{{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->email : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->email : '') }}" />
+                                                        </form>
+                                                        <!--/ form -->
+                                                    </div>
+                                                    <!--/ general tab -->
+
+                                                    <!-- change password -->
+                                                    <div class="tab-pane fade" id="account-vertical-password" role="tabpanel"
+                                                        aria-labelledby="account-pill-password" aria-expanded="false">
+                                                        <!-- form -->
+                                                        <form class="validate-form"
+                                                            action="{{ route('userPanels.accdata.edit') }}" method="POST">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <!-- HTML -->
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control"
+                                                                            id="id" name="user_id" placeholder="ID"
+                                                                            {{-- value="{{ $authenticated_user_data->daftar_login->user_id }}" /> --}}
+                                                                            value="{{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->user_id : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->user_id : '') }}" />
+                                                                        <input type="hidden" class="form-control"
+                                                                            id="type" name="type" placeholder="TYPE"
+                                                                            value="{{ $convertedUserType }}" />
+                                                                        <label for="account-username">Username</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="account-username" name="username"
+                                                                            placeholder="Username" {{-- value="{{ $authenticated_user_data->daftar_login->username }}" /> --}}
+                                                                            value="{{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->username : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->username : '') }}" />
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="account-retype-new-password"> New
-                                                                        Password</label>
-                                                                    <div
-                                                                        class="input-group form-password-toggle input-group-merge">
-                                                                        <input type="password" class="form-control"
-                                                                            id="account-retype-new-password"
-                                                                            name="new-password" placeholder="New Password" />
-                                                                        <div class="input-group-append">
-                                                                            <div class="input-group-text cursor-pointer">
-                                                                                <i data-feather="eye"></i>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="account-e-mail">E-mail</label>
+                                                                        <input type="email" class="form-control"
+                                                                            id="account-e-mail" name="email"
+                                                                            placeholder="Email" {{-- value="{{ $authenticated_user_data->daftar_login->email }}" /> --}}
+                                                                            value="{{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->email : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->email : '') }}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="account-retype-new-password"> New
+                                                                            Password</label>
+                                                                        <div
+                                                                            class="input-group form-password-toggle input-group-merge">
+                                                                            <input type="password" class="form-control"
+                                                                                id="account-retype-new-password"
+                                                                                name="new-password"
+                                                                                placeholder="New Password" />
+                                                                            <div class="input-group-append">
+                                                                                <div class="input-group-text cursor-pointer">
+                                                                                    <i data-feather="eye"></i>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
 
 
-                                                            <div class="col-12 col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="account-retype-new-password">Retype New
-                                                                        Password</label>
-                                                                    <div
-                                                                        class="input-group form-password-toggle input-group-merge">
-                                                                        <input type="password" class="form-control"
-                                                                            id="account-retype-new-password"
-                                                                            name="confirm-new-password"
-                                                                            placeholder="Retype Password" />
-                                                                        <div class="input-group-append">
-                                                                            <div class="input-group-text cursor-pointer">
-                                                                                <i data-feather="eye"></i>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="account-retype-new-password">Retype New
+                                                                            Password</label>
+                                                                        <div
+                                                                            class="input-group form-password-toggle input-group-merge">
+                                                                            <input type="password" class="form-control"
+                                                                                id="account-retype-new-password"
+                                                                                name="confirm-new-password"
+                                                                                placeholder="Retype Password" />
+                                                                            <div class="input-group-append">
+                                                                                <div class="input-group-text cursor-pointer">
+                                                                                    <i data-feather="eye"></i>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-12">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary mr-1 mt-1">Save
+                                                                        changes</button>
+                                                                    <button type="reset"
+                                                                        class="btn btn-outline-secondary mt-1">Cancel</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-12">
-                                                                <button type="submit" class="btn btn-primary mr-1 mt-1">Save
-                                                                    changes</button>
-                                                                <button type="reset"
-                                                                    class="btn btn-outline-secondary mt-1">Cancel</button>
-                                                            </div>
+                                                        </form>
+                                                        <!--/ form -->
+                                                    </div>
+                                                    <!--/ change password -->
+                                                @else
+                                                    <div class="tab-pane active" id="account-vertical-profile"
+                                                        role="tabpanel" aria-labelledby="account-pill-info"
+                                                        aria-expanded="false">
+                                                        <div class="container">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><strong>UserID</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        <td>
+                                                                            {{-- {{ $authenticated_user_data->daftar_login->user_id }} --}}
+                                                                            {{-- {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->user_id : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->user_id : '') }} --}}
+                                                                            {{ $authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->user_id : ($authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->user_id : '') }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><strong>ClientID</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        <td>{{ $authenticated_user_data->id_client ?: $authenticated_user_data->id_karyawan }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><strong>Username</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        <td>
+                                                                            {{-- {{ $authenticated_user_data->daftar_login->username }} --}}
+                                                                            {{-- {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->username : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->username : '') }} --}}
+                                                                            {{ $authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->username : ($authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->username : '') }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><strong>Name</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        {{-- <td>{{ $authenticated_user_data->na_client ?: $authenticated_user_data->na_karyawan }}</td> --}}
+                                                                        {{-- <td>
+                                                                            {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->na_karyawan : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->na_karyawan : '') }}
+                                                                        </td> --}}
+                                                                        {{-- <td>
+                                                                            {{ $authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->na_client : ($authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->na_karyawan : '') }}
+                                                                        </td> --}}
+
+                                                                        {{-- <td>{{ $authenticated_user_data->na_client ?: $authenticated_user_data->na_karyawan }}</td> --}}
+
+                                                                        {{-- <td>
+                                                                            @if($authenticated_user_data->na_client)
+                                                                                {{ $authenticated_user_data->na_client }}
+                                                                            @elseif($authenticated_user_data->na_karyawan)
+                                                                                {{ $authenticated_user_data->na_karyawan }}
+                                                                            @elseif($authenticated_user_data->daftar_login_4get)
+                                                                                {{ $authenticated_user_data->daftar_login_4get->na_client }}
+                                                                            @elseif($authenticated_user_data->daftar_login)
+                                                                                {{ $authenticated_user_data->daftar_login->na_karyawan }}
+                                                                            @else
+                                                                                {{ '' }}
+                                                                            @endif
+                                                                        </td> --}}
+
+                                                                        <td>{{ $authenticated_user_data->na_client ?: $authenticated_user_data->na_karyawan }}</td>
+
+                                                                    </tr>
+
+
+
+                                                                    <tr>
+                                                                        <td><strong>Email</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        {{-- <td>{{ $authenticated_user_data->daftar_login->email }}</td> --}}
+                                                                        {{-- <td>
+                                                                            {{ $authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->email : ($authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->email : '') }}
+                                                                        </td> --}}
+                                                                        <td>
+                                                                            {{ $authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->email : ($authenticated_user_data->daftar_login ? $authenticated_user_data->daftar_login->email : '') }}
+                                                                        </td>
+
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td><strong>Address</strong></td>
+                                                                        <td class="pl-2">: </td>
+                                                                        <td>
+                                                                            {{ $authenticated_user_data->alamat_client ?: "-" }}
+                                                                        </td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            {{-- <br><br><br><br><br> --}}
                                                         </div>
-                                                    </form>
-                                                    <!--/ form -->
-                                                </div>
-                                                <!--/ change password -->
+                                                    </div>
+
+                                                    <!-- general tab -->
+                                                    <div role="tabpanel" class="tab-pane" id="account-vertical-general"
+                                                        aria-labelledby="account-pill-general" aria-expanded="true">
+                                                        <!-- header media -->
+                                                        <div class="media">
+                                                            <a href="javascript:void(0);" class="mr-25">
+                                                                <img src="{{ $authenticated_user_data->foto_karyawan == null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan }}"
+                                                                    id="account-upload-img"
+                                                                    class="rounded hover-qr-image mr-50" alt="profile image"
+                                                                    height="80" width="80" />
+                                                            </a>
+                                                            <!-- upload and reset button -->
+                                                            <div class="media-body mt-75 ml-1">
+                                                                <label for="account-upload"
+                                                                    class="btn btn-sm btn-primary mb-75 mr-75">Upload</label>
+                                                                <input type="file" id="account-upload" hidden
+                                                                    accept="image/png, image/jpeg, image/*" />
+                                                                <button
+                                                                    class="btn btn-sm acc-avatar-reset btn-outline-secondary mb-75">Reset</button>
+                                                                <p>Allowed JPG, GIF or PNG. Max size of 800kB</p>
+                                                            </div>
+                                                            <!--/ upload and reset button -->
+                                                        </div>
+                                                        <script>
+                                                            document.addEventListener('DOMContentLoaded', function() {
+                                                                const uploadInput = document.getElementById('account-upload');
+                                                                const uploadedAvatar = document.getElementById('account-upload-img');
+                                                                const userId = '{{ $authenticated_user_data->id_karyawan }}';
+
+                                                                uploadInput.addEventListener('change', function() {
+                                                                    const file = uploadInput.files[0];
+                                                                    const reader = new FileReader();
+
+                                                                    reader.onload = function(e) {
+                                                                        const uploadedImage = e.target.result;
+                                                                        uploadedAvatar.src = uploadedImage;
+
+                                                                        const formData = new FormData();
+                                                                        formData.append('id_karyawan', userId);
+                                                                        formData.append('foto_karyawan', file);
+
+                                                                        const xhr = new XMLHttpRequest();
+                                                                        xhr.open('POST', '{{ route('userPanels.avatar.edit') }}');
+                                                                        xhr.setRequestHeader('X-CSRF-Token', '{{ csrf_token() }}');
+                                                                        xhr.onload = function() {
+                                                                            const response = JSON.parse(xhr.responseText);
+                                                                            if (response.reload) {
+                                                                                window.location.reload();
+                                                                            }
+                                                                        };
+                                                                        xhr.send(formData);
+                                                                    };
+
+                                                                    reader.readAsDataURL(file);
+                                                                });
 
 
+                                                                var userProfilePhotoPreview = uploadedAvatar;
+                                                                var userProfilePhotoInput = uploadInput;
+                                                                userProfilePhotoInput.addEventListener('change', function() {
+                                                                    const file = this.files[0];
+                                                                    if (file && file.type.startsWith('image/')) {
+                                                                        const img = document.createElement('img');
+                                                                        img.src = URL.createObjectURL(file);
+
+                                                                        img.onload = function() {
+                                                                            userProfilePhotoPreview.src = img.src;
+                                                                        };
+                                                                    }
+                                                                });
+                                                                var resetButton = document.querySelector('.acc-avatar-reset');
+                                                                resetButton.addEventListener('click', function() {
+                                                                    userProfilePhotoPreview.src =
+                                                                        '{{ $authenticated_user_data->foto_karyawan == null ? env('APP_DEFAULT_AVATAR') : 'public/avatar/uploads/' . $authenticated_user_data->foto_karyawan }}';
+                                                                    userProfilePhotoInput.value = null;
+                                                                });
+                                                            });
+                                                        </script>
+                                                        <!--/ header media -->
+
+
+
+
+                                                        <!-- form -->
+                                                        <form class="validate-form mt-2"
+                                                            action="{{ route('userPanels.biodata.edit') }}" method="POST">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control"
+                                                                            id="id_karyawan" name="id_karyawan"
+                                                                            placeholder="ID"
+                                                                            value="{{ $authenticated_user_data->id_client ?: '0000000000' }}" />
+                                                                        {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->id_karyawan == null ? $authenticated_user_data->daftar_login->id_karyawan : $authenticated_user_data->daftar_login->id_karyawan) : null }}" /> --}}
+
+                                                                        <label for="account-name">Name</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="account-name" name="account-name"
+                                                                            placeholder="Name"
+                                                                            value="{{ $authenticated_user_data->na_client ?: 'Not filled!' }}" />
+                                                                        {{-- value="{{ $authenticated_user_data->daftar_login ? ($authenticated_user_data->daftar_login->na_karyawan == null ? $authenticated_user_data->daftar_login->na_karyawan : $authenticated_user_data->daftar_login->na_karyawan) : null }}" /> --}}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="birth-loc">Birth Location</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="brith-loc" name="birth-loc"
+                                                                            placeholder="Location of Birth"
+                                                                            value="{{ $authenticated_user_data->tlah_karyawan ?: 'Not filled!' }}" />
+                                                                    </div>
+                                                                </div> --}}
+                                                                {{-- <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="birth-date">Birth Date</label>
+                                                                        <input type="date" class="form-control"
+                                                                            id="brith-date" name="birth-date"
+                                                                            placeholder="Date of Birth"
+                                                                            value="{{ $authenticated_user_data->tglah_karyawan ?: 'Not filled!' }}" />
+                                                                    </div>
+                                                                </div> --}}
+                                                                {{-- <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label>Religion</label>
+                                                                        <select class="select2 form-control form-control-lg"
+                                                                            name="religion" id="religion">
+                                                                            @php
+                                                                                $religion =
+                                                                                    $authenticated_user_data->agama_karyawan;
+                                                                            @endphp
+                                                                            <option value=""
+                                                                                {{ !$religion ? 'selected' : '' }}>
+                                                                                Select religion</option>
+                                                                            <option value="Islam"
+                                                                                {{ $religion == 'Islam' ? 'selected' : '' }}>
+                                                                                Islam</option>
+                                                                            <option value="Kristen"
+                                                                                {{ $religion == 'Kristen' ? 'selected' : '' }}>
+                                                                                Kristen</option>
+                                                                            <option value="Hindu"
+                                                                                {{ $religion == 'Hindu' ? 'selected' : '' }}>
+                                                                                Hindu</option>
+                                                                            <option value="Buddha"
+                                                                                {{ $religion == 'Buddha' ? 'selected' : '' }}>
+                                                                                Buddha</option>
+                                                                            <option value="Konghucu"
+                                                                                {{ $religion == 'Konghucu' ? 'selected' : '' }}>
+                                                                                Konghucu</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div> --}}
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Address</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="address" name="address"
+                                                                            placeholder="Address"
+                                                                            value="{{ $authenticated_user_data->alamat_client ?: 'Not filled!' }}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="notelp">No.Telp</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="notelp" name="notelp"
+                                                                            placeholder="No. Telp"
+                                                                            value="{{ $authenticated_user_data->notelp_client ?: '+62 ' }}" />
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="col-12">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary mt-2 mr-1">Save
+                                                                        changes</button>
+                                                                    <button type="reset"
+                                                                        class="btn btn-outline-secondary mt-2">Cancel</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <!--/ form -->
+                                                    </div>
+                                                    <!--/ general tab -->
+
+                                                    <!-- change password -->
+                                                    <div class="tab-pane fade" id="account-vertical-password" role="tabpanel"
+                                                        aria-labelledby="account-pill-password" aria-expanded="false">
+                                                        <!-- form -->
+                                                        <form class="validate-form"
+                                                            action="{{ route('userPanels.accdata.edit') }}" method="POST">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <!-- HTML -->
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" class="form-control"
+                                                                            id="id" name="user_id" placeholder="ID"
+                                                                            {{-- value="{{ $authenticated_user_data->daftar_login->user_id }}" /> --}}
+                                                                            value="{{ $authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->user_id : '' }}" />
+                                                                        <input type="hidden" class="form-control"
+                                                                            id="type" name="type" placeholder="TYPE"
+                                                                            value="{{ $convertedUserType }}" />
+                                                                        <label for="account-username">Username</label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="account-username" name="username"
+                                                                            placeholder="Username" {{-- value="{{ $authenticated_user_data->daftar_login->username }}" /> --}}
+                                                                            value="{{ $authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->username : '' }}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="account-e-mail">E-mail</label>
+                                                                        <input type="email" class="form-control"
+                                                                            id="account-e-mail" name="email"
+                                                                            placeholder="Email" {{-- value="{{ $authenticated_user_data->daftar_login->email }}" /> --}}
+                                                                            value="{{ $authenticated_user_data->daftar_login_4get ? $authenticated_user_data->daftar_login_4get->email : '' }}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="account-retype-new-password"> New
+                                                                            Password</label>
+                                                                        <div
+                                                                            class="input-group form-password-toggle input-group-merge">
+                                                                            <input type="password" class="form-control"
+                                                                                id="account-retype-new-password"
+                                                                                name="new-password"
+                                                                                placeholder="New Password" />
+                                                                            <div class="input-group-append">
+                                                                                <div class="input-group-text cursor-pointer">
+                                                                                    <i data-feather="eye"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="col-12 col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="account-retype-new-password">Retype New
+                                                                            Password</label>
+                                                                        <div
+                                                                            class="input-group form-password-toggle input-group-merge">
+                                                                            <input type="password" class="form-control"
+                                                                                id="account-retype-new-password"
+                                                                                name="confirm-new-password"
+                                                                                placeholder="Retype Password" />
+                                                                            <div class="input-group-append">
+                                                                                <div class="input-group-text cursor-pointer">
+                                                                                    <i data-feather="eye"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary mr-1 mt-1">Save
+                                                                        changes</button>
+                                                                    <button type="reset"
+                                                                        class="btn btn-outline-secondary mt-1">Cancel</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <!--/ form -->
+                                                    </div>
+                                                    <!--/ change password -->
+                                                @endif
 
 
                                             </div>
@@ -544,7 +944,7 @@
 
                     </div>
                 @else
-                    HELLO CLIENT :)
+                    We're sorry, you're not have enought autorization to access this page :(
                 @endif
 
 
