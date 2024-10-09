@@ -28,10 +28,23 @@
             </li>
 
             {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor') --}}
-            <li class=" navigation-header"><span data-i18n="Data Employee">Data Employees</span><i
+            <li class=" navigation-header"><span data-i18n="Data Employee">Employees & Teams</span><i
                     data-feather="more-horizontal"></i>
             </li>
-            <li class=" nav-item">
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp') }}"><i
+                data-feather="users"></i><span class="menu-title text-truncate"
+                data-i18n="Employees">Employees List</span></a>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp.roles') }}"><i
+                data-feather="circle"></i><span class="menu-title text-truncate"
+                data-i18n="Role Manage">Role Manage</span></a>
+            </li>
+            <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp.roles') }}"><i
+                data-feather="users"></i><span class="menu-title text-truncate"
+                data-i18n="Team Manage">Team Manage</span></a>
+            </li>
+
+            {{-- <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span
                         class="menu-title text-truncate" data-i18n="Employees">Employees</span></a>
                 <ul class="menu-content">
@@ -44,7 +57,8 @@
                                 data-i18n="Role Manage">Role Manage</span></a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
+
 
             <li class=" navigation-header"><span data-i18n="Data Employee">Data Worksheets</span><i
                     data-feather="more-horizontal"></i>
