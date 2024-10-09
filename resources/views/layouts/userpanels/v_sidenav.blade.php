@@ -67,21 +67,28 @@
             </li> --}}
 
 
-            <li class=" navigation-header"><span data-i18n="Data Employee">Monitoring & Worksheets</span><i
+            <li class=" navigation-header"><span data-i18n="Data Employee">Projects & Worksheet</span><i
                     data-feather="more-horizontal"></i>
             </li>
+            @if (Route::has('m.project'))
+                <li class=" nav-item">
+                    <a class="d-flex align-items-center" href="{{ route('m.project') }}"><i
+                            data-feather="monitor"></i><span class="menu-title text-truncate"
+                            data-i18n="Projects">Projects</span></a>
+                </li>
+            @endif
             @if (Route::has('m.monitoring'))
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="{{ route('m.monitoring') }}"><i
                             data-feather="monitor"></i><span class="menu-title text-truncate"
-                            data-i18n="Project Monitoring">Project Monitoring</span></a>
+                            data-i18n="Monitoring">Monitoring</span></a>
                 </li>
             @endif
             @if (Route::has('m.wrksheet'))
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="{{ route('m.wrksheet') }}"><i
                             data-feather="book-open"></i><span class="menu-title text-truncate"
-                            data-i18n="Project Worksheets">Project Worksheets</span></a>
+                            data-i18n="Worksheets">Worksheets</span></a>
                 </li>
             @endif
 
