@@ -25,5 +25,10 @@ class Projects_Model extends Model
     {
         return $this->belongsTo(Team_Model::class, 'id_team');
     }
+
+    public function dailyws()
+    {
+        return $this->belongsTo(DaftarDWS_Model::class, 'id_project', 'id_project');
+    }
 }
 

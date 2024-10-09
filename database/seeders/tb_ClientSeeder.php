@@ -19,6 +19,12 @@ class tb_ClientSeeder extends Seeder
                 'notelp_client' => '+621111111',
                 'foto_client' => null
             ],
+            [
+                'na_client' => 'PT. ABC',
+                'alamat_client' => 'JL. Jend Supratman',
+                'notelp_client' => '+621111111',
+                'foto_client' => null
+            ],
         ]; // Example client values
 
         foreach ($clientList as $client) {

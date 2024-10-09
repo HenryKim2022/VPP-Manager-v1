@@ -31,6 +31,15 @@ class tb_KaryawanSeeder extends Seeder
                 'notelp_karyawan' => '987654321',
                 'foto_karyawan' => null
             ],
+            [
+                'na_karyawan' => 'Joe Summer',
+                'tlah_karyawan' => 'Town',
+                'tglah_karyawan' => '1992-05-10',
+                'agama_karyawan' => 'Kristen',
+                'alamat_karyawan' => '456 Elm St',
+                'notelp_karyawan' => '987654321',
+                'foto_karyawan' => null
+            ],
         ]; // Example karyawan values
 
         foreach ($karyawanList as $karyawan) {

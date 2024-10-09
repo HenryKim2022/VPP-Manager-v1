@@ -14,7 +14,7 @@ class tb_JabatanSeeder extends Seeder
     {
         $jabatanList = [
             ['CEO 1', 1],
-            ['CTO 1', 2],
+            ['Project Coordinator', 2],
             ['CFO 1', null],
             ['WP Pemasaran 1', null],
             ['CMO 1', null],
