@@ -22,27 +22,34 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('userPanels.dashboard') }}"><i
-                        data-feather="home"></i><span class="menu-title text-truncate"
-                        data-i18n="Dashboard">Dashboard</span></a>
-            </li>
-
+            @if (Route::has('userPanels.dashboard'))
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('userPanels.dashboard') }}"><i
+                            data-feather="home"></i><span class="menu-title text-truncate"
+                            data-i18n="Dashboard">Dashboard</span></a>
+                </li>
+            @endif
             {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor') --}}
             <li class=" navigation-header"><span data-i18n="Data Employee">Employees & Teams</span><i
                     data-feather="more-horizontal"></i>
             </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp') }}"><i
-                data-feather="users"></i><span class="menu-title text-truncate"
-                data-i18n="Employees">Employees List</span></a>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp.roles') }}"><i
-                data-feather="circle"></i><span class="menu-title text-truncate"
-                data-i18n="Role Manage">Role Manage</span></a>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp.roles') }}"><i
-                data-feather="users"></i><span class="menu-title text-truncate"
-                data-i18n="Team Manage">Team Manage</span></a>
-            </li>
+            @if (Route::has('m.emp'))
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp') }}"><i
+                    data-feather="users"></i><span class="menu-title text-truncate"
+                    data-i18n="Employees">Employees</span></a>
+                </li>
+            @endif
+            @if (Route::has('m.emp.roles'))
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp.roles') }}"><i
+                    data-feather="briefcase"></i><span class="menu-title text-truncate"
+                    data-i18n="Office Roles">Office Roles</span></a>
+                </li>
+            @endif
+            @if (Route::has('m.emp.teams'))
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('m.emp.teams') }}"><i
+                    data-feather="users"></i><span class="menu-title text-truncate"
+                    data-i18n="Teams">Teams</span></a>
+                </li>
+            @endif
 
             {{-- <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span
@@ -60,38 +67,53 @@
             </li> --}}
 
 
-            <li class=" navigation-header"><span data-i18n="Data Employee">Data Worksheets</span><i
+            <li class=" navigation-header"><span data-i18n="Data Employee">Monitoring & Worksheets</span><i
                     data-feather="more-horizontal"></i>
             </li>
-            <li class=" nav-item">
-                <a class="d-flex align-items-center" href="{{ route('m.wrksheet') }}"><i
-                        data-feather="book-open"></i><span class="menu-title text-truncate"
-                        data-i18n="Worksheets">Worksheets</span></a>
-            </li>
+            @if (Route::has('m.monitoring'))
+                <li class=" nav-item">
+                    <a class="d-flex align-items-center" href="{{ route('m.monitoring') }}"><i
+                            data-feather="monitor"></i><span class="menu-title text-truncate"
+                            data-i18n="Project Monitoring">Project Monitoring</span></a>
+                </li>
+            @endif
+            @if (Route::has('m.wrksheet'))
+                <li class=" nav-item">
+                    <a class="d-flex align-items-center" href="{{ route('m.wrksheet') }}"><i
+                            data-feather="book-open"></i><span class="menu-title text-truncate"
+                            data-i18n="Project Worksheets">Project Worksheets</span></a>
+                </li>
+            @endif
+
+
 
             <li class=" navigation-header"><span data-i18n="Data Accounts">Data Accounts</span><i
                     data-feather="more-horizontal"></i>
             </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span
-                        class="menu-title text-truncate" data-i18n="Employee Accounts">Employee Acc</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{ route('m.user.emp') }}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate"
-                                data-i18n="User List">User List</span></a>
-                    </li>
+            @if (Route::has('m.user.emp'))
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span
+                            class="menu-title text-truncate" data-i18n="Employee Accounts">Employees</span></a>
+                    <ul class="menu-content">
+                        <li><a class="d-flex align-items-center" href="{{ route('m.user.emp') }}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate"
+                                    data-i18n="User List">User List</span></a>
+                        </li>
 
-                </ul>
-            </li>
-            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span
-                        class="menu-title text-truncate" data-i18n="Client Accounts">Client Acc</span></a>
-                <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="{{ route('m.user.client') }}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate"
-                                data-i18n="User List">User List</span></a>
-                    </li>
+                    </ul>
+                </li>
+            @endif
+            @if (Route::has('m.user.client'))
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="users"></i><span
+                            class="menu-title text-truncate" data-i18n="Client Accounts">Clients</span></a>
+                    <ul class="menu-content">
+                        <li><a class="d-flex align-items-center" href="{{ route('m.user.client') }}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate"
+                                    data-i18n="User List">User List</span></a>
+                        </li>
 
-                </ul>
-            </li>
+                    </ul>
+                </li>
+            @endif
             {{-- @endif --}}
 
 
@@ -100,7 +122,19 @@
                 <span data-i18n="Help &amp; Supports">Help &amp; Supports</span>
                 <i data-feather="more-horizontal"></i>
             </li>
-            <li class="nav-item">
+            <li onclick="openModal('#contactUsModal')">
+                <a class="d-flex align-items-center" id="contactUsLink">
+                    <i data-feather="mail"></i>
+                    <span class="menu-item text-truncate" data-i18n="ContactUS">ContactUS</span>
+                </a>
+            </li>
+            <li onclick="openModal('#aboutUsModal')">
+                <a class="d-flex align-items-center" id="aboutUsLink">
+                    <i data-feather="help-circle"></i>
+                    <span class="menu-item text-truncate" data-i18n="AboutUs">AboutUs</span>
+                </a>
+            </li>
+            {{-- <li class="nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="package"></i>
                     <span class="menu-title text-truncate" data-i18n="Help">Help</span>
@@ -120,7 +154,7 @@
                     </li>
 
                 </ul>
-            </li>
+            </li> --}}
             {{-- @endif --}}
 
 

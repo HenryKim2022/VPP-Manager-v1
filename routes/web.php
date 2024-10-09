@@ -8,6 +8,7 @@ use App\Http\Controllers\UserPanels\Manage\ClientUserLoginController;
 use App\Http\Controllers\UserPanels\Manage\WorksheetController;
 use App\Http\Controllers\UserPanels\Manage\MyProfileController;
 use App\Http\Controllers\UserPanels\Manage\OfficeRoleController;
+use App\Http\Controllers\UserPanels\Manage\EngTeamController;
 /////////////////////////////////////////////////// <<<  END: USE CONTROLLER  >>> ///////////////////////////////////////////////
 
 
@@ -82,6 +83,17 @@ Route::middleware('auth')->group(function () {
     Route::post('/m-emp/roles/reset', [OfficeRoleController::class, 'reset_role'])->name('m.emp.roles.reset');
     Route::post('/m-emp/roles/role/load', [OfficeRoleController::class, 'get_role'])->name('m.emp.roles.getrole');
     Route::get('/m-emp/roles/role/load', [OfficeRoleController::class, 'get_role'])->name('m.emp.roles.getrole');
+});
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/m-emp/teams', [EngTeamController::class, 'index'])->name('m.emp.teams');
+    Route::post('/m-emp/teams/add', [EngTeamController::class, 'add_team'])->name('m.emp.teams.add');
+    Route::post('/m-emp/teams/edit', [EngTeamController::class, 'edit_team'])->name('m.emp.teams.edit');
+    Route::post('/m-emp/teams/delete', [EngTeamController::class, 'delete_team'])->name('m.emp.teams.del');
+    Route::post('/m-emp/teams/reset', [EngTeamController::class, 'reset_team'])->name('m.emp.teams.reset');
+    Route::post('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getrole');
+    Route::get('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getrole');
 });
 
 
