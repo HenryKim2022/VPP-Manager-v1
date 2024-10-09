@@ -13,7 +13,7 @@ class Monitoring_Model extends Model
 
     protected $table = 'tb_monitoring';
     protected $primaryKey = 'id_monitoring';
-    protected $fillable = ['task','start_date','end_date','achieve_date','qty','total_progress','update_progress','id_karyawan','id_project'];
+    protected $fillable = ['task','start_date','end_date','achieve_date','qty','id_karyawan','id_project'];
 
     public function karyawan()
     {

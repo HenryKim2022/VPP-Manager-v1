@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Monitoring_Model;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class tb_MONI extends Seeder
@@ -21,9 +20,9 @@ class tb_MONI extends Seeder
 
         //  'task',                                     'start_date', 'end_date',  'achieve_date',  'qty %',  'id_karyawan',  'id_project'
         $MonitoringList = [
-            ['Finishing pekerjaan pengelasan',          '2024-01-01', '2024-01-04', null,           50,       2,                1],
-            ['Menambahkan module PLC pd ruang server',  '2024-01-05', '2024-01-07', null,           30,       2,                1],
-            ['Memindahkan ruang dan waktu',             '2024-01-08', '2024-01-10', null,           20,       2,                1]
+            ['Finishing pekerjaan pengelasan',          '2024-01-01', '2024-01-04', null,           50,       2,                'PRJ-24-0001'],
+            ['Menambahkan module PLC pd ruang server',  '2024-01-05', '2024-01-07', null,           30,       2,                'PRJ-24-0001'],
+            ['Memindahkan ruang dan waktu',             '2024-01-08', '2024-01-10', null,           20,       2,                'PRJ-24-0001']
         ];
         foreach ($MonitoringList as $monitor) {
             $model = new Monitoring_Model();

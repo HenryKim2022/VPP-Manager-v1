@@ -15,7 +15,7 @@ class Projects_Model extends Model
     public $incrementing = false;   // Manually input id_project tr input field
 
     protected $fillable = [
-        'id_project', 'na_project' , 'progress_project', 'id_client', 'id_team'
+        'id_project', 'na_project' , 'id_client', 'id_team'
     ];
 
     protected $dates = ['deleted_at']; // Specify the column for soft deletes

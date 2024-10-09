@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tb_projects', function (Blueprint $table) {
             $table->string('id_project')->primary();
             $table->string('na_project');
-            $table->integer('progress_project')->nullable();
             $table->foreignId('id_client')->nullable()->constrained('tb_client', 'id_client');
             $table->foreignId('id_team')->nullable()->constrained('tb_eng_team', 'id_team');
             $table->timestamps();
