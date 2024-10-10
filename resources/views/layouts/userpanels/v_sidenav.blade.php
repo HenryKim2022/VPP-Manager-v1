@@ -29,7 +29,7 @@
                 </li>
             @endif
             {{-- @if (auth()->user()->type == 'Superuser' || auth()->user()->type == 'Supervisor') --}}
-            <li class=" navigation-header"><span data-i18n="Data Employee">Employees & Teams</span><i
+            <li class=" navigation-header"><span data-i18n="Data Employee">Employees R&T</span><i
                     data-feather="more-horizontal"></i>
             </li>
             @if (Route::has('m.emp'))
