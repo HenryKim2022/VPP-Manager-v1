@@ -21,6 +21,12 @@ class Projects_Model extends Model
     protected $dates = ['deleted_at']; // Specify the column for soft deletes
 
 
+
+
+    public function client()
+    {
+        return $this->belongsTo(Kustomer_Model::class, 'id_client');
+    }
     public function team()
     {
         return $this->belongsTo(Team_Model::class, 'id_team');

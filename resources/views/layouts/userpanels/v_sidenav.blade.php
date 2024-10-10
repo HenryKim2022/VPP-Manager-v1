@@ -70,9 +70,9 @@
             <li class=" navigation-header"><span data-i18n="Data Employee">Projects M&W</span><i
                     data-feather="more-horizontal"></i>
             </li>
-            @if (Route::has('m.project'))
+            @if (Route::has('m.projects'))
                 <li class=" nav-item">
-                    <a class="d-flex align-items-center" href="{{ route('m.project') }}"><i
+                    <a class="d-flex align-items-center" href="{{ route('m.projects') }}"><i
                             data-feather="monitor"></i><span class="menu-title text-truncate"
                             data-i18n="Projects">Projects</span></a>
                 </li>

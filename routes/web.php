@@ -9,6 +9,7 @@ use App\Http\Controllers\UserPanels\Manage\WorksheetController;
 use App\Http\Controllers\UserPanels\Manage\MyProfileController;
 use App\Http\Controllers\UserPanels\Manage\OfficeRoleController;
 use App\Http\Controllers\UserPanels\Manage\EngTeamController;
+use App\Http\Controllers\UserPanels\Manage\ProjectsController;
 /////////////////////////////////////////////////// <<<  END: USE CONTROLLER  >>> ///////////////////////////////////////////////
 
 
@@ -94,6 +95,17 @@ Route::middleware('auth')->group(function () {
     Route::post('/m-emp/teams/reset', [EngTeamController::class, 'reset_team'])->name('m.emp.teams.reset');
     Route::post('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getteam');
     Route::get('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getteam');
+});
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/m-prj/projects', [ProjectsController::class, 'index'])->name('m.projects');
+    Route::post('/m-prj/projects/add', [ProjectsController::class, 'add_project'])->name('m.projects.add');
+    Route::post('/m-prj/projects/edit', [ProjectsController::class, 'edit_project'])->name('m.projects.edit');
+    Route::post('/m-prj/projects/delete', [ProjectsController::class, 'delete_project'])->name('m.projects.del');
+    Route::post('/m-prj/projects/reset', [ProjectsController::class, 'reset_project'])->name('m.projects.reset');
+    Route::post('/m-prj/projects/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
+    Route::get('/m-prj/projects/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
 });
 
 
