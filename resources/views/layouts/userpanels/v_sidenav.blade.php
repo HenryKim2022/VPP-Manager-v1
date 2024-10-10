@@ -67,7 +67,7 @@
             </li> --}}
 
 
-            <li class=" navigation-header"><span data-i18n="Data Employee">Projects & Worksheet</span><i
+            <li class=" navigation-header"><span data-i18n="Data Employee">Projects M&W</span><i
                     data-feather="more-horizontal"></i>
             </li>
             @if (Route::has('m.project'))
