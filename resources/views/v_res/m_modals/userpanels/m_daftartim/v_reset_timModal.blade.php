@@ -1,4 +1,4 @@
- <div class="modal fade text-left modal-success" id="reset_roleModal" tabindex="-1" role="dialog"
+ <div class="modal fade text-left modal-success" id="reset_teamModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel113" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
          <div class="modal-content">
@@ -9,7 +9,7 @@
                  </button>
              </div>
              <div class="modal-body">
-                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.emp.roles.reset') }}" novalidate>
+                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.emp.teams.reset') }}" novalidate>
                      @csrf
                      <div class="container" style="text-align: justify;">
                          <h6 class="text-center">

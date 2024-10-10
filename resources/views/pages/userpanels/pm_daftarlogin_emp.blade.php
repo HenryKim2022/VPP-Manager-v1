@@ -1,6 +1,7 @@
 @php
     $page = Session::get('page');
     $page_title = $page['page_title'];
+    $cust_date_format = $page['custom_date_format'];
     // $authenticated_user_data = Session::get('authenticated_user_data');
 @endphp
 
@@ -114,14 +115,14 @@
                                             </td>
                                             <td>
                                                 @if ($userLogin->created_at)
-                                                    {{ \Carbon\Carbon::parse($userLogin->created_at)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($userLogin->created_at)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($userLogin->updated_at)
-                                                    {{ \Carbon\Carbon::parse($userLogin->updated_at)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($userLogin->updated_at)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif

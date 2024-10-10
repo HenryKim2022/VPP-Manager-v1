@@ -1,6 +1,7 @@
 @php
     $page = Session::get('page');
     $page_title = $page['page_title'];
+    $cust_date_format = $page['custom_date_format'];
     $authenticated_user_data = Session::get('authenticated_user_data');
     // dd($authenticated_user_data->toArray());
 

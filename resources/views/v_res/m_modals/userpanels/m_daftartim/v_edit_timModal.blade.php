@@ -3,13 +3,13 @@
      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
          <div class="modal-content">
              <div class="modal-header">
-                 <h5 class="modal-title" id="myModalLabel113">Edit Role Informations</h5>
+                 <h5 class="modal-title" id="myModalLabel113">Edit Team Informations</h5>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
              </div>
              <div class="modal-body">
-                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.emp.roles.edit') }}" id="edit_roleModalFORM"
+                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.emp.teams.edit') }}" id="edit_teamModalFORM"
                      novalidate>
                      @csrf
                      <input type="hidden" id="team_id" name="team_id" value="" />
@@ -30,9 +30,9 @@
 
                     <div class="col-xl-6 col-md-6 col-12">
                         <div class="form-group">
-                            <label class="form-label" for="role_name">RoleName</label>
-                            <input class="form-control form-control-merge" id="role_name" name="role_name"
-                                placeholder="e.g. Office Boy 1" aria-describedby="role_name" tabindex="4"></input>
+                            <label class="form-label" for="team_name">TeamName</label>
+                            <input class="form-control form-control-merge" id="team_name" name="team_name"
+                                placeholder="e.g. Office Boy 1" aria-describedby="team_name" tabindex="4"></input>
                         </div>
                     </div>
 

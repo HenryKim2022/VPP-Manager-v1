@@ -1,8 +1,8 @@
 @php
     $page = Session::get('page');
     $page_title = $page['page_title'];
+    $cust_date_format = $page['custom_date_format'];
     // $authenticated_user_data = Session::get('authenticated_user_data');
-
     // dd($authenticated_user_data);
 @endphp
 
@@ -98,14 +98,14 @@
                                             <td>{{ $team->karyawan !== null ? $team->karyawan->na_karyawan : '-' }}</td>
                                             <td>
                                                 @if ($team->created_at)
-                                                    {{ \Carbon\Carbon::parse($team->created_at)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($team->created_at)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($team->updated_at)
-                                                    {{ \Carbon\Carbon::parse($team->updated_at)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($team->updated_at)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif
@@ -173,34 +173,36 @@
     </script>
 
 
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modalId = 'edit_roleModal';
             const modalSelector = document.getElementById(modalId);
             const modalToShow = new bootstrap.Modal(modalSelector);
-            const targetedModalForm = document.querySelector('#' + modalId + ' #edit_roleModalFORM');
+            const targetedModalForm = document.querySelector('#' + modalId + ' #edit_teamModalFORM');
 
             $(document).on('click', '.edit-record', function(event) {
-                var jabID = $(this).attr('team_id_value');
+                var timID = $(this).attr('team_id_value');
                 var karyawanID = $(this).attr('karyawan_id_value');
-                console.log('Edit button clicked for team_id:', jabID);
+                console.log('Edit button clicked for team_id:', timID);
 
                 setTimeout(() => {
                     $.ajax({
-                        url: '{{ route('m.emp.roles.getrole') }}',
+                        url: '{{ route('m.emp.teams.getteam') }}',
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}' // Update the CSRF token here
                         },
                         data: {
-                            jabatanID: jabID,
+                            timID: timID,
                             karyawanID: karyawanID
                         },
                         success: function(response) {
                             console.log(response);
-                            $('#team_id').val(response.id_jabatan);
+                            $('#team_id').val(response.id_team);
                             $('#karyawan_id').val(response.id_karyawan);
-                            $('#role_name').val(response.na_jabatan);
+                            $('#team_name').val(response.na_team);
                             setEmpList(response);
 
                             console.log('SHOWING MODAL');
@@ -251,7 +253,7 @@
     </script>
 
 
-
+    {{--
     <script>
         $(document).ready(function() {
             $('.toggle-password').click(function() {
@@ -270,7 +272,7 @@
                 feather.replace(); // Refresh the Feather icons after changing the icon attribute
             });
         });
-    </script>
+    </script> --}}
 
 
 

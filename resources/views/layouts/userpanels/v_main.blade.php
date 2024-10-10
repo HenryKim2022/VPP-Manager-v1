@@ -1,6 +1,7 @@
 @php
     $page = Session::get('page');
     $page_title = $page['page_title'];
+    $cust_date_format = $page['custom_date_format'];
     $authenticated_user_data = Session::get('authenticated_user_data');
     // $avatar_src = $authenticated_user_data && $authenticated_user_data->foto_karyawan ? asset('public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : asset(env('APP_DEFAULT_AVATAR'));
     $avatar_src = $authenticated_user_data && $authenticated_user_data->foto_karyawan && file_exists(public_path('avatar/uploads/' . $authenticated_user_data->foto_karyawan)) ? asset('public/avatar/uploads/' . $authenticated_user_data->foto_karyawan) : asset(env('APP_DEFAULT_AVATAR'));

@@ -1,6 +1,7 @@
 @php
     $page = Session::get('page');
     $page_title = $page['page_title'];
+    $cust_date_format = $page['custom_date_format'];
     // $authenticated_user_data = Session::get('authenticated_user_data');
 @endphp
 
@@ -83,14 +84,14 @@
                                             </td>
                                             <td>
                                                 @if ($absen->checkin)
-                                                    {{ \Carbon\Carbon::parse($absen->checkin)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($absen->checkin)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($absen->checkout)
-                                                    {{ \Carbon\Carbon::parse($absen->checkout)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($absen->checkout)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif

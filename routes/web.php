@@ -92,8 +92,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/m-emp/teams/edit', [EngTeamController::class, 'edit_team'])->name('m.emp.teams.edit');
     Route::post('/m-emp/teams/delete', [EngTeamController::class, 'delete_team'])->name('m.emp.teams.del');
     Route::post('/m-emp/teams/reset', [EngTeamController::class, 'reset_team'])->name('m.emp.teams.reset');
-    Route::post('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getrole');
-    Route::get('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getrole');
+    Route::post('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getteam');
+    Route::get('/m-emp/teams/team/load', [EngTeamController::class, 'get_team'])->name('m.emp.teams.getteam');
 });
 
 

@@ -1,6 +1,7 @@
 @php
     $page = Session::get('page');
     $page_title = $page['page_title'];
+    $cust_date_format = $page['custom_date_format'];
     // $authenticated_user_data = Session::get('authenticated_user_data');
 
     // dd($authenticated_user_data);
@@ -98,14 +99,14 @@
                                             <td>{{ $jab->karyawan !== null ? $jab->karyawan->na_karyawan : '-' }}</td>
                                             <td>
                                                 @if ($jab->created_at)
-                                                    {{ \Carbon\Carbon::parse($jab->created_at)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($jab->created_at)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($jab->updated_at)
-                                                    {{ \Carbon\Carbon::parse($jab->updated_at)->isoFormat('dddd, DD MMMM YYYY, h:mm:ss A') }}
+                                                    {{ \Carbon\Carbon::parse($jab->updated_at)->isoFormat($cust_date_format) }}
                                                 @else
                                                     -
                                                 @endif

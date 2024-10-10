@@ -21,6 +21,8 @@ abstract class Controller
         $this->pageData = [
             'page_title' => 'What Public See',
             'page_url' => base_url('login-url'),
+            'custom_date_format' => "ddd, DD MMM YYYY, h:mm:ss A",
+
         ];
         Session::put('page', $this->pageData);
     }
