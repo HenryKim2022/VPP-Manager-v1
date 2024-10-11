@@ -1,4 +1,4 @@
- <div class="modal fade text-left modal-success" id="edit_roleModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
+ <div class="modal fade text-left modal-success" id="edit_projectModal" data-bs-backdrop="static" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel113" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable" role="document">
          <div class="modal-content">
@@ -9,32 +9,36 @@
                  </button>
              </div>
              <div class="modal-body">
-                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.emp.teams.edit') }}" id="edit_teamModalFORM"
+                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.projects.edit') }}" id="edit_projectModalFORM"
                      novalidate>
                      @csrf
-                     <input type="hidden" id="team_id" name="team_id" value="" />
+                     {{-- <input type="hidden" id="team_id" name="team_id" value="" /> --}}
                      <input type="hidden" id="karyawan_id" name="karyawan_id" value="" />
-                     <div class="col-xl-6 col-md-6 col-12 pr-sm-1 pr-md-1 pr-lg-0 pr-xl-0">
+                     <div class="col-xl-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label class="form-label" for="edit-project-id">Project-ID</label>
+                            <input class="form-control form-control-merge" id="edit-project-id" name="edit-project-id"
+                                placeholder="e.g. e.g. PRJ-24-00001" aria-describedby="edit-project-id" tabindex="4"></input>
+                        </div>
+                    </div>
+                     <div class="col-xl-6 col-md-6 col-12">
+                        <div class="form-group">
+                            <label class="form-label" for="edit-project-name">ProjectName</label>
+                            <input class="form-control form-control-merge" id="edit-project-name" name="edit-project-name"
+                                placeholder="e.g. CONTROL UNIT CU310 - 2DP TYPE 6SL3040..." aria-describedby="edit-project-name" tabindex="4"></input>
+                        </div>
+                    </div>
+                     <div class="col-xl-12 col-md-12 col-12">
                         <div class="form-group mb-0">
-                            <label>Employee</label>
-                            <select class="select2 form-control form-control-lg" name="edit-team-karyawan-id" id="edit-team-karyawan-id">
-                                <option value="">Select Employee</option>
-                                {{-- @foreach($employee_list as $employee)
-                                    <option value="{{ $employee->id_karyawan }}">
-                                        {{ $employee->na_karyawan }}
-                                    </option>
-                                @endforeach --}}
+                            <label>Customer</label>
+                            <select class="select2 form-control form-control-lg" name="edit-client-id" id="edit-client-id">
+                                <option value="">Select Customer</option>
+                                {{-- generated from js json --}}
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-xl-6 col-md-6 col-12">
-                        <div class="form-group">
-                            <label class="form-label" for="team_name">TeamName</label>
-                            <input class="form-control form-control-merge" id="team_name" name="team_name"
-                                placeholder="e.g. Office Boy 1" aria-describedby="team_name" tabindex="4"></input>
-                        </div>
-                    </div>
+
 
 
                      <div class="col-12 mb-3 mt-2">

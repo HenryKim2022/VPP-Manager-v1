@@ -53,19 +53,18 @@
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="card card-developer-meetup">
                         <div class="card-body p-1">
-                            <table id="daftarTeamTable" class="table table-striped">
+                            <table id="daftarProjectTable" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Act</th>
-                                        <th>Team Name</th>
-                                        <th>Assigned to </th>
-                                        <th>Created</th>
-                                        <th>Last-Update</th>
+                                        <th>Project-No</th>
+                                        <th>Project Name</th>
+                                        <th>Linked Customer Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- {{dd($loadDaftarTeamFromDB->toArray());}} --}}
-                                    @foreach ($loadDaftarTeamFromDB as $team)
+                                    {{-- {{dd($loadDaftarProjectsFromDB->toArray());}} --}}
+                                    @foreach ($loadDaftarProjectsFromDB as $project)
                                         <tr>
                                             <td>
                                                 <div class="dropdown d-lg-block d-sm-block d-md-block">
@@ -78,14 +77,14 @@
                                                     <div class="dropdown-menu dropdown-menu-end"
                                                         aria-labelledby="tableActionDropdown">
                                                         <a class="edit-record dropdown-item d-flex align-items-center"
-                                                            team_id_value = "{{ $team->id_team }}"
-                                                            karyawan_id_value = "{{ $team->karyawan !== null ? $team->karyawan->id_karyawan : 0 }}"
+                                                            project_id_value = "{{ $project->id_project }}"
+                                                            client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}"
                                                             onclick="openModal('{{ $modalData['modal_edit'] }}')">
                                                             <i data-feather="edit" class="mr-1" style="color: #28c76f;"></i>
                                                             Edit
                                                         </a>
                                                         <a class="delete-record dropdown-item d-flex align-items-center"
-                                                            team_id_value = "{{ $team->id_team }}"
+                                                            project_id_value = "{{ $project->id_project }}"
                                                             onclick="openModal('{{ $modalData['modal_delete'] }}')">
                                                             <i data-feather="trash" class="mr-1" style="color: #ea5455;"></i>
                                                             Delete
@@ -94,21 +93,12 @@
                                                     <!--/ dropdown menu -->
                                                 </div>
                                             </td>
-                                            <td>{{ $team->na_team ?: '-' }}</td>
-                                            <td>{{ $team->karyawan !== null ? $team->karyawan->na_karyawan : '-' }}</td>
+
+                                            <td>{{ $project->id_project ?: '-' }}</td>
+                                            <td>{{ $project->na_project ?: '-' }}</td>
+
                                             <td>
-                                                @if ($team->created_at)
-                                                    {{ \Carbon\Carbon::parse($team->created_at)->isoFormat($cust_date_format) }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if ($team->updated_at)
-                                                    {{ \Carbon\Carbon::parse($team->updated_at)->isoFormat($cust_date_format) }}
-                                                @else
-                                                    -
-                                                @endif
+                                                {{ $project->client !== null ? $project->client->na_client : '-' }}
                                             </td>
 
                                         </tr>
@@ -131,10 +121,10 @@
 
 
 
-        <!-- BEGIN: AddTimModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_add_timModal') <!-- END: AddTimModal-->
-        <!-- BEGIN: EditTimModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_edit_timModal') <!-- END: EditTimModal-->
-        <!-- BEGIN: DelTimModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_del_timModal') <!-- END: DelTimModal-->
-        <!-- BEGIN: ResetTimModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_reset_timModal') <!-- END: ResetTimModal-->
+        <!-- BEGIN: AddPrjModal--> @include('v_res.m_modals.userpanels.m_daftarproject.v_add_prjModal') <!-- END: AddPrjModal-->
+        <!-- BEGIN: EditPrjModal--> @include('v_res.m_modals.userpanels.m_daftarproject.v_edit_prjModal') <!-- END: EditPrjModal-->
+        {{-- <!-- BEGIN: DelPrjModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_del_timModal') <!-- END: DelPrjModal-->
+        <!-- BEGIN: ResetPrjModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_reset_timModal') <!-- END: ResetPrjModal--> --}}
 
 
 
@@ -148,7 +138,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#daftarTeamTable').DataTable({
+            $('#daftarProjectTable').DataTable({
                 lengthMenu: [5, 10, 15, 20, 25, 50, 100, 150, 200, 250],
                 pageLength: 10,
                 responsive: true,
@@ -177,33 +167,35 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const modalId = 'edit_roleModal';
+            const modalId = 'edit_projectModal';
             const modalSelector = document.getElementById(modalId);
             const modalToShow = new bootstrap.Modal(modalSelector);
-            const targetedModalForm = document.querySelector('#' + modalId + ' #edit_teamModalFORM');
+            const targetedModalForm = document.querySelector('#' + modalId + ' #edit_projectModalFORM');
 
             $(document).on('click', '.edit-record', function(event) {
-                var timID = $(this).attr('team_id_value');
-                var karyawanID = $(this).attr('karyawan_id_value');
-                console.log('Edit button clicked for team_id:', timID);
+                var prjID = $(this).attr('project_id_value');
+                var prjName = $(this).attr('project_id_value');
+                var clientID = $(this).attr('client_id_value');
+                console.log('Edit button clicked for project_id:', prjID);
 
                 setTimeout(() => {
                     $.ajax({
-                        url: '{{ route('m.emp.teams.getteam') }}',
+                        url: '{{ route('m.projects.getprj') }}',
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}' // Update the CSRF token here
                         },
                         data: {
-                            timID: timID,
-                            karyawanID: karyawanID
+                            prjID: prjID,
+                            prjName: prjName,
+                            clientID: clientID
                         },
                         success: function(response) {
                             console.log(response);
-                            $('#team_id').val(response.id_team);
-                            $('#karyawan_id').val(response.id_karyawan);
-                            $('#team_name').val(response.na_team);
-                            setEmpList(response);
+                            $('#edit-project-id').val(response.id_project);
+                            $('#edit-project-name').val(response.na_project);
+                            // $('#edit-client-id').val(response.id_client);
+                            setClientList(response);
 
                             console.log('SHOWING MODAL');
                             modalToShow.show();
@@ -219,25 +211,25 @@
 
 
 
-            function setEmpList(response) {
-                var empSelect = $('#' + modalId +
-                    ' #edit-team-karyawan-id');
-                empSelect.empty(); // Clear existing options
-                empSelect.append($('<option>', {
+            function setClientList(response) {
+                var clientSelect = $('#' + modalId +
+                    ' #edit-client-id');
+                clientSelect.empty(); // Clear existing options
+                clientSelect.append($('<option>', {
                     value: "",
-                    text: "Select Employee"
+                    text: "Select Customer"
                 }));
-                $.each(response.employeeList, function(index,
-                    empOption) {
+                $.each(response.clientList, function(index,
+                    clientOption) {
                     var option = $('<option>', {
-                        value: empOption.value,
-                        text: `[${empOption.value}] ${empOption.text}`
+                        value: clientOption.value,
+                        text: `[${clientOption.value}] ${clientOption.text}`
                     });
-                    if (empOption.selected) {
+                    if (clientOption.selected) {
                         option.attr('selected',
                             'selected'); // Select the option
                     }
-                    empSelect.append(option);
+                    clientSelect.append(option);
                 });
 
             }
@@ -285,7 +277,7 @@
 
             setTimeout(() => {
                 $('.delete-record').on('click', function() {
-                    var teamID = $(this).attr('team_id_value');
+                    var teamID = $(this).attr('project_id_value');
                     $('#' + whichModal + ' #team_id').val(teamID);
                     modalToShow.show();
                 });
