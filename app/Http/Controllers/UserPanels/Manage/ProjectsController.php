@@ -142,7 +142,7 @@ class ProjectsController extends Controller
             ]);
 
         } else {
-            // Handle the case when the Jabatan_Model with the given jabatanID is not found
+            // Handle the case when the Jabatan_Model with the given projectID is not found
             return response()->json(['error' => 'Project_Model not found'], 404);
         }
 
@@ -156,55 +156,43 @@ class ProjectsController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'username'  => [
+                'edit-project-id'  => [
                     'sometimes',
                     'required',
                     'string',
-                    Rule::unique('tb_daftar_login', 'username')->ignore($request->input('user_id'), 'user_id')
+                    Rule::unique('tb_projects', 'id_project')->ignore($request->input('edit-project-id'), 'id_project')
                 ],
-                'email'     => [
-                    'sometimes',
-                    'required',
-                    'email',
-                    Rule::unique('tb_daftar_login', 'email')->ignore($request->input('user_id'), 'user_id')
-                ],
-                // 'new-password'          => 'required|min:6',
-                // 'confirm-new-password'  => 'required|same:new-password',
+                'bsvalidationcheckbox1' => 'required',
+
             ],
             [
-                'username.required'  => 'The username field is required.',
-                'email.required' => 'The email field is required.',
-                // 'new-password.required' => 'The new-password field is required.',
-                // 'confirm-new-password.required' => 'The password-confirmation field is required.',
+                'edit-project-id.required'  => 'The project-id field is required.',
+                'bsvalidationcheckbox1.required' => 'The saving agreement field is required.',
+
             ]
         );
-
         if ($validator->fails()) {
             $toast_message = $validator->errors()->all();
             Session::flash('errors', $toast_message);
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $daftarLogin = DaftarLogin_Model::find($request->input('user_id'));
-        if ($daftarLogin) {
-            $daftarLogin->username = $request->input('username');
-            $daftarLogin->email = $request->input('email');
+        $prj = Projects_Model::find($request->input('e-project-id'));
+        if ($prj) {
+            $prj->id_project = $request->input('edit-project-id');
+            $prj->na_project = $request->input('edit-project-name');
+            $clientID = $request->input('edit-client-id');
+            $prj->id_client = $clientID;
+            $prj->save();
 
-            if ($request->input('new-password')){
-                $daftarLogin->password = bcrypt($request->input('new-password'));
-            }
-
-            $daftarLogin->type = $request->input('type');
-            $daftarLogin->save();
-
-            $authenticated_user_data = DaftarLogin_Model::find($daftarLogin->user_id);      // Re-auth after saving
             $user = auth()->user();
             $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
             Session::put('authenticated_user_data', $authenticated_user_data);
 
-            Session::flash('success', ['Your account data was updated!']);
+            Session::flash('success', ['Project updated successfully!']);
+            return Redirect::back();
         } else {
-            Session::flash('errors', ['Err[404]: Failed to update user account!']);
+            Session::flash('errors', ['Err[404]: Project update failed!']);
         }
 
         return redirect()->back();
@@ -212,6 +200,32 @@ class ProjectsController extends Controller
 
 
 
+    public function delete_project(Request $request)
+    {
+        $projectID = $request->input('project_id');
+        $project = Projects_Model::with('client', 'team')->where('id_project', $projectID)->first();
+        if ($project) {
+            $project->delete();
+            Session::flash('success', ['Project deletion successful!']);
+        } else {
+            Session::flash('errors', ['Err[404]: Project deletion failed!']);
+        }
+        return redirect()->back();
+    }
+
+
+    public function reset_project(Request $request)
+    {
+        Projects_Model::query()->delete();
+        DB::statement('ALTER TABLE tb_projects AUTO_INCREMENT = 1');
+
+        $user = auth()->user();
+        $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
+        Session::put('authenticated_user_data', $authenticated_user_data);
+
+        Session::flash('success', ['All project data reset successfully!']);
+        return redirect()->back();
+    }
 
 
 

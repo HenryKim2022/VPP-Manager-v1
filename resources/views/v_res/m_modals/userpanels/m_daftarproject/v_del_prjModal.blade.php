@@ -1,4 +1,4 @@
- <div class="modal fade text-left modal-success" id="delete_teamModal" tabindex="-1" role="dialog"
+ <div class="modal fade text-left modal-success" id="delete_projectModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel113" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
          <div class="modal-content">
@@ -9,18 +9,18 @@
                  </button>
              </div>
              <div class="modal-body">
-                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.emp.teams.del') }}" id="delete_teamModalFORM"
+                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.projects.del') }}" id="delete_projectModalFORM"
                      novalidate>
                      @csrf
                      <div class="container" style="text-align: justify;">
                          <h6 class="text-center">
-                             Are you sure want to <a class="text-warning">delete team records?</a> This action <a
+                             Are you sure want to <a class="text-warning">delete project records?</a> This action <a
                                  class="text-danger">cannot be undone</a>.
                              Please confirm by clicking "<a class="text-danger">DELETE</a>" below.
                          </h6>
                      </div>
 
-                     <input type="hidden" id="team_id" name="team_id" value="" />
+                     <input type="hidden" id="project_id" name="project_id" value="" />
                      <div class="modal-footer w-100 px-0 py-1">
                          <div class="col-12 text-center">
                              <div class="d-flex flex-col justify-content-end">

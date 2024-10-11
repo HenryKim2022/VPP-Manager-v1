@@ -1,15 +1,15 @@
- <div class="modal fade text-left modal-success" id="reset_teamModal" tabindex="-1" role="dialog"
+ <div class="modal fade text-left modal-success" id="reset_projectModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel113" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
          <div class="modal-content">
              <div class="modal-header">
-                 <h5 class="modal-title" id="myModalLabel113">Reset All Role Records?</h5>
+                 <h5 class="modal-title" id="myModalLabel113">Reset All Project Records?</h5>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
              </div>
              <div class="modal-body">
-                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.emp.teams.reset') }}" novalidate>
+                 <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.projects.reset') }}" novalidate>
                      @csrf
                      <div class="container" style="text-align: justify;">
                          <h6 class="text-center">

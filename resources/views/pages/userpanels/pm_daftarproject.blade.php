@@ -123,8 +123,8 @@
 
         <!-- BEGIN: AddPrjModal--> @include('v_res.m_modals.userpanels.m_daftarproject.v_add_prjModal') <!-- END: AddPrjModal-->
         <!-- BEGIN: EditPrjModal--> @include('v_res.m_modals.userpanels.m_daftarproject.v_edit_prjModal') <!-- END: EditPrjModal-->
-        {{-- <!-- BEGIN: DelPrjModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_del_timModal') <!-- END: DelPrjModal-->
-        <!-- BEGIN: ResetPrjModal--> @include('v_res.m_modals.userpanels.m_daftartim.v_reset_timModal') <!-- END: ResetPrjModal--> --}}
+        <!-- BEGIN: DelPrjModal--> @include('v_res.m_modals.userpanels.m_daftarproject.v_del_prjModal') <!-- END: DelPrjModal-->
+        <!-- BEGIN: ResetPrjModal--> @include('v_res.m_modals.userpanels.m_daftarproject.v_reset_prjModal') <!-- END: ResetPrjModal-->
 
 
 
@@ -192,9 +192,10 @@
                         },
                         success: function(response) {
                             console.log(response);
+                            $('#e-client-id').val(response.id_client);
+                            $('#e-project-id').val(response.id_project);
                             $('#edit-project-id').val(response.id_project);
                             $('#edit-project-name').val(response.na_project);
-                            // $('#edit-client-id').val(response.id_client);
                             setClientList(response);
 
                             console.log('SHOWING MODAL');
@@ -207,8 +208,6 @@
                     });
                 }); // <-- Closing parenthesis for setTimeout
             });
-
-
 
 
             function setClientList(response) {
@@ -271,14 +270,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            whichModal = "delete_teamModal";
+            whichModal = "delete_projectModal";
             const modalSelector = document.querySelector('#' + whichModal);
             const modalToShow = new bootstrap.Modal(modalSelector);
 
             setTimeout(() => {
                 $('.delete-record').on('click', function() {
-                    var teamID = $(this).attr('project_id_value');
-                    $('#' + whichModal + ' #team_id').val(teamID);
+                    var projectID = $(this).attr('project_id_value');
+                    $('#' + whichModal + ' #project_id').val(projectID);
                     modalToShow.show();
                 });
             }, 200);

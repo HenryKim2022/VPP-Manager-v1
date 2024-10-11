@@ -12,8 +12,8 @@
                  <form class="row g-2 needs-validation mt-1" method="POST" action="{{ route('m.projects.edit') }}" id="edit_projectModalFORM"
                      novalidate>
                      @csrf
-                     {{-- <input type="hidden" id="team_id" name="team_id" value="" /> --}}
-                     <input type="hidden" id="karyawan_id" name="karyawan_id" value="" />
+                     <input type="hidden" id="e-client-id" name="e-client-id" value="" />
+                     <input type="hidden" id="e-project-id" name="e-project-id" value="" />
                      <div class="col-xl-6 col-md-6 col-12">
                         <div class="form-group">
                             <label class="form-label" for="edit-project-id">Project-ID</label>
@@ -37,9 +37,6 @@
                             </select>
                         </div>
                     </div>
-
-
-
 
                      <div class="col-12 mb-3 mt-2">
                         <div class="form-check">
