@@ -99,24 +99,24 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/m-prj/projects', [ProjectsController::class, 'index'])->name('m.projects');
-    Route::post('/m-prj/projects/add', [ProjectsController::class, 'add_project'])->name('m.projects.add');
-    Route::post('/m-prj/projects/edit', [ProjectsController::class, 'edit_project'])->name('m.projects.edit');
-    Route::post('/m-prj/projects/delete', [ProjectsController::class, 'delete_project'])->name('m.projects.del');
-    Route::post('/m-prj/projects/reset', [ProjectsController::class, 'reset_project'])->name('m.projects.reset');
-    Route::post('/m-prj/projects/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
-    Route::get('/m-prj/projects/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
+    Route::get('/m-prj/projects-list', [ProjectsController::class, 'index'])->name('m.projects');
+    Route::post('/m-prj/projects-list/add', [ProjectsController::class, 'add_project'])->name('m.projects.add');
+    Route::post('/m-prj/projects-list/edit', [ProjectsController::class, 'edit_project'])->name('m.projects.edit');
+    Route::post('/m-prj/projects-list/delete', [ProjectsController::class, 'delete_project'])->name('m.projects.del');
+    Route::post('/m-prj/projects-list/reset', [ProjectsController::class, 'reset_project'])->name('m.projects.reset');
+    Route::post('/m-prj/projects-list/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
+    Route::get('/m-prj/projects-list/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
 });
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/m-worksheet', [WorksheetController::class, 'index'])->name('m.wrksheet');
-    Route::post('/m-worksheet/add', [WorksheetController::class, 'add_wrksheet'])->name('m.wrksheet.add');
-    Route::post('/m-worksheet/edit', [WorksheetController::class, 'edit_wrksheet'])->name('m.wrksheet.edit');
-    Route::post('/m-worksheet/delete', [WorksheetController::class, 'delete_wrksheet'])->name('m.wrksheet.del');
-    Route::post('/m-worksheet/reset', [WorksheetController::class, 'reset_wrksheet'])->name('m.wrksheet.reset');
-    Route::post('/m-worksheet/load', [WorksheetController::class, 'get_wrksheet'])->name('m.wrksheet.getwrksheet');
-    Route::get('/m-worksheet/load', [WorksheetController::class, 'get_wrksheet'])->name('m.wrksheet.getwrksheet');
+    Route::get('/m-prj/m-monitoring-worksheet/?', [WorksheetController::class, 'index'])->name('m.mon.dws');
+    Route::post('/m-prj/m-monitoring-worksheet/add', [WorksheetController::class, 'add_mondws'])->name('m.mon.dws.add');
+    Route::post('/m-prj/m-monitoring-worksheet/edit', [WorksheetController::class, 'edit_mondws'])->name('m.mon.dws.edit');
+    Route::post('/m-prj/m-monitoring-worksheet/delete', [WorksheetController::class, 'delete_mondws'])->name('m.mon.dws.del');
+    Route::post('/m-prj/m-monitoring-worksheet/reset', [WorksheetController::class, 'reset_mondws'])->name('m.mon.dws.reset');
+    Route::post('/m-prj/m-monitoring-worksheet/load', [WorksheetController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
+    Route::get('/m-prj/m-monitoring-worksheet/load', [WorksheetController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
 });
 
 

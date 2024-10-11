@@ -210,3 +210,17 @@
         });
     }
 </script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            $('.open-project-mw').on('click', function() {
+                var projectID = $(this).attr('project_id_value');
+                console.log(projectID);
+
+            });
+        }, 200);
+
+    });
+</script>

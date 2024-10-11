@@ -76,6 +76,12 @@
                                                     <!-- dropdown menu -->
                                                     <div class="dropdown-menu dropdown-menu-end"
                                                         aria-labelledby="tableActionDropdown">
+                                                        <a class="open-project-mw dropdown-item d-flex align-items-center"
+                                                            project_id_value = "{{ $project->id_project }}"
+                                                            client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}">
+                                                            <i data-feather="navigation" class="mr-1" style="color: #288cc7;"></i>
+                                                            Navigate
+                                                        </a>
                                                         <a class="edit-record dropdown-item d-flex align-items-center"
                                                             project_id_value = "{{ $project->id_project }}"
                                                             client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}"
@@ -94,9 +100,19 @@
                                                 </div>
                                             </td>
 
-                                            <td>{{ $project->id_project ?: '-' }}</td>
+                                            <td>
+                                                @if ($project->id_project)
+                                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
+                                                        data-original-title="Click to navigate!" class="pull-up">
+                                                        <a class="open-project-mw" project_id_value = "{{ $project->id_project }}">
+                                                            {{ $project->id_project ?: '-' }}
+                                                        </a>
+                                                    </div>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
                                             <td>{{ $project->na_project ?: '-' }}</td>
-
                                             <td>
                                                 {{ $project->client !== null ? $project->client->na_client : '-' }}
                                             </td>

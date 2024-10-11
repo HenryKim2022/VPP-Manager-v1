@@ -74,14 +74,14 @@
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="{{ route('m.projects') }}"><i
                             data-feather="monitor"></i><span class="menu-title text-truncate"
-                            data-i18n="Projects">Projects</span></a>
+                            data-i18n="Projects">Project List</span></a>
                 </li>
             @endif
-            @if (Route::has('m.monitoring'))
+            {{-- @if (Route::has('m.monitoring'))
                 <li class=" nav-item">
                     <a class="d-flex align-items-center" href="{{ route('m.monitoring') }}"><i
                             data-feather="monitor"></i><span class="menu-title text-truncate"
-                            data-i18n="Monitoring">Monitoring</span></a>
+                            data-i18n="Monitoring & Worksheets">Monitoring & Worksheets</span></a>
                 </li>
             @endif
             @if (Route::has('m.wrksheet'))
@@ -90,7 +90,7 @@
                             data-feather="book-open"></i><span class="menu-title text-truncate"
                             data-i18n="Worksheets">Worksheets</span></a>
                 </li>
-            @endif
+            @endif --}}
 
 
 
