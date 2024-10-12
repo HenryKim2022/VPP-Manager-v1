@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginPageController;
 use App\Http\Controllers\UserPanels\Manage\EmployeeController;
 use App\Http\Controllers\UserPanels\Manage\EmpUserLoginController;
 use App\Http\Controllers\UserPanels\Manage\ClientUserLoginController;
+use App\Http\Controllers\UserPanels\Manage\MonitoringController;
 use App\Http\Controllers\UserPanels\Manage\WorksheetController;
 use App\Http\Controllers\UserPanels\Manage\MyProfileController;
 use App\Http\Controllers\UserPanels\Manage\OfficeRoleController;
@@ -110,13 +111,20 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/m-prj/m-monitoring-worksheet/?', [WorksheetController::class, 'index'])->name('m.mon.dws');
-    Route::post('/m-prj/m-monitoring-worksheet/add', [WorksheetController::class, 'add_mondws'])->name('m.mon.dws.add');
-    Route::post('/m-prj/m-monitoring-worksheet/edit', [WorksheetController::class, 'edit_mondws'])->name('m.mon.dws.edit');
-    Route::post('/m-prj/m-monitoring-worksheet/delete', [WorksheetController::class, 'delete_mondws'])->name('m.mon.dws.del');
-    Route::post('/m-prj/m-monitoring-worksheet/reset', [WorksheetController::class, 'reset_mondws'])->name('m.mon.dws.reset');
-    Route::post('/m-prj/m-monitoring-worksheet/load', [WorksheetController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
-    Route::get('/m-prj/m-monitoring-worksheet/load', [WorksheetController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
+    Route::post('/m-prj/m-monitoring-worksheet/mondws', [MonitoringController::class, 'index'])->name('m.mon.dws');
+    Route::get('/m-prj/m-monitoring-worksheet/mondws', [MonitoringController::class, 'index'])->name('m.mon.dws');
+    Route::post('/m-prj/m-monitoring-worksheet/mondws/load', [MonitoringController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
+    Route::get('/m-prj/m-monitoring-worksheet/mondws/load', [MonitoringController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/m-prj/m-monitoring-worksheet/dws', [WorksheetController::class, 'index'])->name('m.dws');
+    Route::post('/m-prj/m-monitoring-worksheet/dws/add', [WorksheetController::class, 'add_mondws'])->name('m.dws.add');
+    Route::post('/m-prj/m-monitoring-worksheet/dws/edit', [WorksheetController::class, 'edit_mondws'])->name('m.dws.edit');
+    Route::post('/m-prj/m-monitoring-worksheet/dws/delete', [WorksheetController::class, 'delete_mondws'])->name('m.dws.del');
+    Route::post('/m-prj/m-monitoring-worksheet/dws/reset', [WorksheetController::class, 'reset_mondws'])->name('m.dws.reset');
+    Route::post('/m-prj/m-monitoring-worksheet/dws/load', [WorksheetController::class, 'get_mondws'])->name('m.dws.getdws');
+    Route::get('/m-prj/m-monitoring-worksheet/dws/load', [WorksheetController::class, 'get_mondws'])->name('m.dws.getdws');
 });
 
 

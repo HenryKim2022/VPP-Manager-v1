@@ -212,12 +212,39 @@
 </script>
 
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             $('.open-project-mw').on('click', function() {
                 var projectID = $(this).attr('project_id_value');
-                console.log(projectID);
+                console.log("Navigate to Project-ID: " + projectID);
+
+                $.ajax({
+                        url: '{{ route('m.mon.dws') }}',
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Update the CSRF token here
+                        },
+                        data: {
+                            projectID: projectID
+                        },
+                        success: function(response) {
+                            console.log('SHOWING DATA..');
+                            // console.log(response);
+                            // $('#jabatan_id').val(response.id_jabatan);
+                            // $('#karyawan_id').val(response.id_karyawan);
+                            // $('#role_name').val(response.na_jabatan);
+                            // // setEmpList(response);
+
+                            // console.log(response);
+                        },
+                        error: function(error) {
+                            console.log("Err [JS]:\n");
+                            console.log(error);
+                        }
+                    });
+
 
             });
         }, 200);
