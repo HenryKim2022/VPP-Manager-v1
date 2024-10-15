@@ -14,7 +14,8 @@
         rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/app-assets/vendors/css/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('public/theme/vuexy/app-assets/vendors/css/vendors.min.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('public/theme/vuexy/app-assets/vendors/css/charts/apexcharts.css') }}">
     <link rel="stylesheet" type="text/css"
@@ -42,10 +43,12 @@
 
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/app-assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/app-assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('public/theme/vuexy/app-assets/css/bootstrap-extended.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/app-assets/css/colors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/app-assets/css/components.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/app-assets/css/themes/dark-layout.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('public/theme/vuexy/app-assets/css/themes/dark-layout.css') }}">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('public/theme/vuexy/app-assets/css/themes/bordered-layout.css') }}">
     <link rel="stylesheet" type="text/css"
@@ -61,6 +64,10 @@
     <link rel="stylesheet" type="text/css"
         href="{{ asset('public/theme/vuexy/app-assets/css/plugins/extensions/ext-component-toastr.css') }}">
     <!-- END: Page CSS-->
+
+
+
+
 
     <!--------------------------------------------------------------BEGIN: Custom CSS---------------------------------------------------------------->
     <link rel="stylesheet" type="text/css" href="{{ asset('public/theme/vuexy/assets/css/style.css') }}">
@@ -186,14 +193,27 @@
     </style>
     <!-- END: IMAGE ENLARGE QRPOPUP -->
 
+    <!-- START: UNDERLINE -->
+    <style>
+        .underline-text {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- END: UNDERLINE -->
+
+
+
     <!-- BEGIN: ADD LACKS PY -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/dev.general.custom.css') }}?v={{ time() }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/css/dev.very.custom.css') }}?v={{ time() }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('public/assets/css/dev.general.custom.css') }}?v={{ time() }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('public/assets/css/dev.very.custom.css') }}?v={{ time() }}">
     <!-- END: ADD LACKS PY -->
 
     <!--------------------------------------------------------------END: Custom CSS---------------------------------------------------------------->
     <!-- BEGIN: Fontawesome v5.7.0 CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/fa.pro@5.7.0/css/all.css') }}?v={{ time() }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('public/assets/fa.pro@5.7.0/css/all.css') }}?v={{ time() }}">
     <!-- END: Fontawesome v5.7.0 CSS-->
 
     @yield('header_page_cssjs')

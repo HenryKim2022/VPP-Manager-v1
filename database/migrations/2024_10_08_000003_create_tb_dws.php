@@ -21,6 +21,8 @@ return new class extends Migration
             // $table->foreignId('id_project')->nullable()->constrained('tb_projects', 'id_project');
             $table->string('id_project')->nullable(); // Keep it as a string to match tb_projects
             $table->foreign('id_project')->references('id_project')->on('tb_projects')->onDelete('set null'); // Correct foreign key definition
+            $table->unsignedBigInteger('id_monitoring')->nullable(); // Add this line BEFORE the foreign key constraint
+            $table->foreign('id_monitoring')->references('id_monitoring')->on('tb_monitoring')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +35,8 @@ return new class extends Migration
     {
         Schema::table('tb_daily_ws', function (Blueprint $table) {
             $table->dropForeign(['id_project']);
+            $table->dropForeign(['id_monitoring']);
+
         });
         Schema::dropIfExists('tb_daily_ws');
     }

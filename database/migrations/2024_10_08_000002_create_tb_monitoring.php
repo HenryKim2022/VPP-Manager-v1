@@ -26,6 +26,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        // $table->foreign('id_monitoring_parent')->references('id_monitoring')->on('tb_monitoring')->onDelete('cascade');
     }
 
     /**
@@ -33,6 +34,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('tb_projects', function (Blueprint $table) {
+            $table->dropForeign(['id_karyawan']);
+            // $table->dropForeign(['id_monitoring_parent']);
+            // $table->dropColumn('id_monitoring_parent');
+        });
         Schema::dropIfExists('tb_monitoring');
     }
 };

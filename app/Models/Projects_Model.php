@@ -15,7 +15,7 @@ class Projects_Model extends Model
     public $incrementing = false;   // Manually input id_project tr input field
 
     protected $fillable = [
-        'id_project', 'na_project' , 'id_client', 'id_team'
+        'id_project', 'na_project' , 'id_client', 'id_karyawan', 'id_team'
     ];
 
     protected $dates = ['deleted_at']; // Specify the column for soft deletes
@@ -27,6 +27,10 @@ class Projects_Model extends Model
     {
         return $this->belongsTo(Kustomer_Model::class, 'id_client');
     }
+    public function pcoordinator()
+    {
+        return $this->belongsTo(Karyawan_Model::class, 'id_karyawan');
+    }
     public function team()
     {
         return $this->belongsTo(Team_Model::class, 'id_team');
@@ -34,12 +38,15 @@ class Projects_Model extends Model
 
     public function monitor()
     {
-        return $this->belongsTo(Monitoring_Model::class, 'id_project');
+        return $this->hasMany(Monitoring_Model::class, 'id_project');
     }
 
     public function dailyws()
     {
-        return $this->belongsTo(DaftarDWS_Model::class, 'id_project', 'id_project');
+        return $this->hasMany(DaftarDWS_Model::class, 'id_project');
     }
+
+
+
 }
 

@@ -24,6 +24,37 @@
             border: 1px solid rgba(20, 21, 33, 0.175);
         }
     </style>
+
+    <style>
+        /* Custom CSS for Engineer Text */
+        .engineer-text {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: inherit;
+            /* padding: 10px; */
+            border: none;
+            z-index: 9999;
+        }
+    </style>
+    <style>
+        /* Custom CSS for setting max-width on the image */
+        @media (max-width: 924) {
+            .max-width-lg {
+                max-width: 24%;
+            }
+        }
+        @media (max-width: 800px) {
+            .max-width-sm {
+                max-width: 12%;
+            }
+        }
+        @media (max-width: 768px) {
+            .max-width-md {
+                max-width: 12%;
+            }
+        }
+    </style>
 @endsection
 
 
@@ -64,10 +95,64 @@
                 </div>
                 <!--/ QRCodeCheck-out Card -->
 
+
+                <!--  Check $data as array -->
+                <div class="col-xl-12 col-md-12 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <pre style="color: white">{{ print_r($loadDataDailyWS->toArray(), true) }}</pre>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- TableAbsen Card -->
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="card card-developer-meetup">
                         <div class="card-body p-1">
+
+
+
+                            <div class="engineer-text">
+                                {{-- <a class="text-right"> --}}
+                                <h3 class="mt-2 mb-0 pr-xl-4 pr-md-3 pr-sm-1 pr-1 cursor-default text-end">ENGINEER</h3>
+                                {{-- </a> --}}
+                            </div>
+
+                            <div class="row match-height">
+                                <!-- Left Card -->
+                                <div class="col-xl-3 col-md-6 col-12 d-flex align-items-center">
+                                    <div class="card mb-0">
+                                        <div class="card-body">
+                                            <span class="brand-logo">
+                                                <img src="{{ asset('public/assets/logo/dws_header_vplogo.svg') }}"
+                                                    class="img-fluid max-width-sm max-width-md max-width-lg" alt="VPLogo">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--/ Left Card -->
+
+                                <!-- Right Card -->
+                                <div class="col-xl-8 col-md-6 col-12">
+                                    <div class="card">
+                                        <div
+                                            class="card-body pt-lg-0 pb-lg-0 pt-sm-0 pt-md-0 d-flex align-items-center justify-content-center">
+                                            <a class="text-center">
+                                                <strong>
+                                                    <h3 class="mt-0 mb-0 underline-text">PROJECT DAILY
+                                                        WORKSHEET<br>( LEMBAR KERJA HARIAN )</h3>
+                                                </strong>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ Right Card -->
+
+                            </div>
+
                             <table id="daftarLoginKaryawanTable" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -85,11 +170,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- {{dd($loadDaftarKaryawanFromDB->toArray());}} --}}
-                                    {{-- @foreach ($loadDaftarKaryawanFromDB as $karyawan)
+                                    @foreach ($loadDataDailyWS['dailyws'] as $mon)
                                         <tr>
-                                            <td>{{ $karyawan->id_karyawan ?: '-' }}</td>
                                             <td>
+                                                @if ($mon->id_dws)
+                                                    {{ $mon->id_dws ?? '-' }}
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </td>
+                                            {{-- <td>{{ $mon->dailyws()->id_dws ?: '-' }}</td> --}}
+                                            {{-- <td>
                                                 <div class="dropdown d-lg-block d-sm-block d-md-block">
                                                     <button class="btn btn-icon navbar-toggler pt-0" type="button"
                                                         id="tableActionDropdown" data-toggle="dropdown" aria-haspopup="true"
@@ -156,10 +247,10 @@
                                                 @else
                                                     -
                                                 @endif
-                                            </td>
+                                            </td> --}}
 
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

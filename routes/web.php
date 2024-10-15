@@ -107,12 +107,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/m-prj/projects-list/reset', [ProjectsController::class, 'reset_project'])->name('m.projects.reset');
     Route::post('/m-prj/projects-list/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
     Route::get('/m-prj/projects-list/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
+    // Route::post('/m-prj/projects-list/loadmondws', [ProjectsController::class, 'get_prjmondws'])->name('m.projects.getprjmondws');
+    Route::get('/m-prj/projects-list/loadmondws', [ProjectsController::class, 'get_prjmondws'])->name('m.projects.getprjmondws');
 });
 
 
 Route::middleware('auth')->group(function () {
     Route::post('/m-prj/m-monitoring-worksheet/mondws', [MonitoringController::class, 'index'])->name('m.mon.dws');
-    Route::get('/m-prj/m-monitoring-worksheet/mondws', [MonitoringController::class, 'index'])->name('m.mon.dws');
+    // Route::get('/m-prj/m-monitoring-worksheet/mondws', [MonitoringController::class, 'index'])->name('m.mon.dws');
     Route::post('/m-prj/m-monitoring-worksheet/mondws/load', [MonitoringController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
     Route::get('/m-prj/m-monitoring-worksheet/mondws/load', [MonitoringController::class, 'get_mondws'])->name('m.mon.dws.getmondws');
 });
@@ -125,7 +127,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/m-prj/m-monitoring-worksheet/dws/reset', [WorksheetController::class, 'reset_mondws'])->name('m.dws.reset');
     Route::post('/m-prj/m-monitoring-worksheet/dws/load', [WorksheetController::class, 'get_mondws'])->name('m.dws.getdws');
     Route::get('/m-prj/m-monitoring-worksheet/dws/load', [WorksheetController::class, 'get_mondws'])->name('m.dws.getdws');
+    Route::get('/dailyws/{dwsId}', [WorksheetController::class, 'index'])->name('dailyws.show');
 });
+
+
 
 
 Route::middleware('auth')->group(function () {

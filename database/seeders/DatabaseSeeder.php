@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(tb_EngTeam::class);
         $this->call(tb_ClientSeeder::class);
         $this->call(tb_Projects::class);
-        $this->call(tb_DailyWS::class);
         $this->call(tb_MONI::class);
+        $this->call(tb_DailyWS::class);
         $this->call(tb_JabatanSeeder::class);
         $this->call(tb_DaftarLoginSeeder::class);
     }

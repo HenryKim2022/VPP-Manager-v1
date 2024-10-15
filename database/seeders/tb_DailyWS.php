@@ -18,11 +18,11 @@ class tb_DailyWS extends Seeder
         //      'progress_current_dws %'    -> itu NEW progress_current_dws yg ada di input perhari
         //                                     -x Nama lain nya UPDATE PROGRESS tuk ditampilkan ke Monitoring
 
-	    // descb_dws,  arrival_time_dws,   finish_time_dws,    progress_actual_dws,    progress_current_dws,    id_project
+	    // descb_dws,  arrival_time_dws,   finish_time_dws,    progress_actual_dws,    progress_current_dws,    id_project,    id_monitoring
         $dwsList = [
-            ['-',      '08:00',            '17:00',            0,                      0,                       'PRJ-24-0003'],
-            ['-',      '08:00',            '17:00',            0,                      0,                       'PRJ-24-0002'],
-            ['-',      '08:00',            '17:00',            0,                      0,                       'PRJ-24-0001'],
+            ['-',      '08:00',            '17:00',            0,                      0,                       'PRJ-24-0001', 1],
+            ['-',      '08:00',            '17:00',            0,                      0,                       'PRJ-24-0001', 2],
+            ['-',      '08:00',            '17:00',            0,                      0,                       'PRJ-24-0001', 3],
         ];
         foreach ($dwsList as $dws) {
             $model = new DaftarDWS_Model();
@@ -32,6 +32,7 @@ class tb_DailyWS extends Seeder
             $model->progress_actual_dws = $dws[3];
             $model->progress_current_dws = $dws[4];
             $model->id_project = $dws[5];
+            $model->id_monitoring = $dws[6];
             $model->save();
         }
 

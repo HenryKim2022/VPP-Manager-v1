@@ -26,7 +26,18 @@ class MonitoringController extends Controller
         $process = $this->setPageSession("Manage Project Monitoring", "m-prj/m-monitoring-worksheet/mondws");
         if ($process) {
             $loadDaftarMonDWSFromDB = [];
-            $loadDaftarMonDWSFromDB = Projects_Model::with('client', 'team', 'monitor', 'dailyws')->find($request->input('projectID'));
+            $loadDaftarMonDWSFromDB = Projects_Model::with('client', 'team', 'dailyws')->find($request->input('projectID'));
+            // $loadDaftarMonDWSFromDB = Projects_Model::with('client', 'team', 'monitor', 'dailyws')->find($request->input('projectID'));
+
+
+
+            // // Fetch projects with their relationships and children
+            // $rootProjects = Monitoring_Model::with(['karyawan', 'project', 'dailyws', 'children'])
+            // ->whereNull('id_monitoring_parent') // Get only root projects
+            // ->withoutTrashed()
+            // ->get();
+
+
 
             $user = auth()->user();
             $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
@@ -46,6 +57,7 @@ class MonitoringController extends Controller
                 // 'dailyws_list' => DaftarDWS_Model::withoutTrashed()->get(),
 
                 'authenticated_user_data' => $authenticated_user_data,
+                // '$dwsRecords' => $$dwsRecords,
             ];
             return $this->setReturnView('pages/userpanels/pm_mondws', $data);
         }

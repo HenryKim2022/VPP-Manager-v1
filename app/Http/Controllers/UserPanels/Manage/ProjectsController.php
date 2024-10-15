@@ -5,6 +5,7 @@ namespace App\Http\Controllers\UserPanels\Manage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projects_Model;
+use App\Models\Monitoring_Model;
 use App\Models\DaftarDWS_Model;
 use App\Models\Kustomer_Model;
 use App\Models\Team_Model;
@@ -140,12 +141,10 @@ class ProjectsController extends Controller
                 'id_client' => $clientID,
                 'clientList' => $clientList,
             ]);
-
         } else {
             // Handle the case when the Jabatan_Model with the given projectID is not found
             return response()->json(['error' => 'Project_Model not found'], 404);
         }
-
     }
 
 
@@ -226,6 +225,91 @@ class ProjectsController extends Controller
         Session::flash('success', ['All project data reset successfully!']);
         return redirect()->back();
     }
+
+
+    // public function get_prjmondws(Request $request)
+    // {
+    //     if ($request->isMethod('post')) {
+    //     } elseif ($request->isMethod('get')) {
+    //         $loadDaftarMonDWSFromDB = Projects_Model::with('client', 'pcoordinator', 'team', 'monitor', 'dailyws')->find($request->input('projectID'));
+    //         // Handle GET request if needed
+    //         $user = auth()->user();
+    //         $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
+
+    //         $dwsRecords = $loadDaftarMonDWSFromDB;
+    //         dd($dwsRecords->toArray());
+
+
+
+    //         $data = [
+    //             'loadDaftarMonDWSFromDB' => $loadDaftarMonDWSFromDB,
+    //             'authenticated_user_data' => $authenticated_user_data,
+    //         ];
+    //         return $this->setReturnView('pages/userpanels/pm_mondws', $data);
+    //         // return response()->json(['message' => 'GET request received'], 200);
+
+    //     }
+    // }
+
+
+
+
+
+    public function get_prjmondws(Request $request)
+    {
+        $projectId = $request->input('projectID');
+
+        if (!$projectId) {
+            return back()->with('error', 'Project ID is required.');
+        }
+
+        try {
+            $project = Projects_Model::with(['client', 'pcoordinator', 'team', 'monitor', 'dailyws'])
+                ->findOrFail($projectId);
+
+            $tree = $this->buildMonitoringTree($project);
+
+            $user = auth()->user();
+            $authenticatedUser = Karyawan_Model::with(['daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan'])
+                ->findOrFail($user->id_karyawan);
+
+            $data = [
+                'loadDaftarMonDWSFromDB' => $project, // Use the Eloquent model directly
+                'project' => $project,
+                'authenticated_user_data' => $authenticatedUser,
+                'tree' => $tree, // Add the tree data to the $data array
+            ];
+
+            return view('pages.userpanels.pm_mondws', $data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return Session::flash('errors', ['Err[404]: Project not found!']);
+        }
+    }
+
+
+
+    // Helper function to build the monitoring tree
+    private function buildMonitoringTree(Projects_Model $project): array
+    {
+        $tree = [];
+        foreach ($project->monitor as $monitor) {
+            $node = [
+                'text' => $monitor->task,
+                'children' => [],
+            ];
+
+            foreach ($project->dailyws->where('id_monitoring', $monitor->id_monitoring) as $dws) {
+                $node['children'][] = [
+                    'text' => $dws->descb_dws, // Or any other relevant field
+                    'id' => $dws->id_dws,       // Add an ID for better jstree management
+                    'url' => route('dailyws.show', ['dwsId' => $dws->id_dws]),
+                ];
+            }
+            $tree[] = $node;
+        }
+        return $tree;
+    }
+    // 'url' => 'x',
 
 
 

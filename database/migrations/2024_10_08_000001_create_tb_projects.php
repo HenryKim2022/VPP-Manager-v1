@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('id_project')->primary();
             $table->string('na_project');
             $table->foreignId('id_client')->nullable()->constrained('tb_client', 'id_client');
+            $table->foreignId('id_karyawan')->nullable()->constrained('tb_karyawan', 'id_karyawan');
             $table->foreignId('id_team')->nullable()->constrained('tb_eng_team', 'id_team');
             $table->timestamps();
             $table->softDeletes();
@@ -28,6 +29,7 @@ return new class extends Migration
     {
         Schema::table('tb_projects', function (Blueprint $table) {
             $table->dropForeign(['id_client']);
+            $table->dropForeign(['id_karyawan']);
             $table->dropForeign(['id_team']);
         });
         Schema::dropIfExists('tb_projects');

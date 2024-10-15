@@ -6,12 +6,15 @@
 {{-- <script src="{{ asset('public/theme/vuexy/app-assets/vendors/js/charts/apexcharts.min.js') }}"></script> --}}
 <script src="{{ asset('public/theme/vuexy/app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
 <script src="{{ asset('public/theme/vuexy/app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+{{-- <script src="{{ asset('public/theme/vuexy/app-assets/vendors/js/extensions/jstree.min.js') }}"></script> --}}
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset('public/theme/vuexy/app-assets/js/core/app-menu.js') }}"></script>
 <script src="{{ asset('public/theme/vuexy/app-assets/js/core/app.js') }}"></script>
 {{-- <script src="{{ asset('public/theme/vuexy/app-assets/js/core/cs-search.js') }}"></script> --}}
+<script src="{{ asset('public/assets/js.tree@3.2.1/jstree.min.js') }}"></script>
+
 <!-- END: Theme JS-->
 
 <!-- BEGIN: CustomSearch JS-->
@@ -212,42 +215,3 @@
 </script>
 
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(() => {
-            $('.open-project-mw').on('click', function() {
-                var projectID = $(this).attr('project_id_value');
-                console.log("Navigate to Project-ID: " + projectID);
-
-                $.ajax({
-                        url: '{{ route('m.mon.dws') }}',
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // Update the CSRF token here
-                        },
-                        data: {
-                            projectID: projectID
-                        },
-                        success: function(response) {
-                            console.log('SHOWING DATA..');
-                            // console.log(response);
-                            // $('#jabatan_id').val(response.id_jabatan);
-                            // $('#karyawan_id').val(response.id_karyawan);
-                            // $('#role_name').val(response.na_jabatan);
-                            // // setEmpList(response);
-
-                            // console.log(response);
-                        },
-                        error: function(error) {
-                            console.log("Err [JS]:\n");
-                            console.log(error);
-                        }
-                    });
-
-
-            });
-        }, 200);
-
-    });
-</script>

@@ -78,8 +78,10 @@
                                                         aria-labelledby="tableActionDropdown">
                                                         <a class="open-project-mw dropdown-item d-flex align-items-center"
                                                             project_id_value = "{{ $project->id_project }}"
-                                                            client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}">
-                                                            <i data-feather="navigation" class="mr-1" style="color: #288cc7;"></i>
+                                                            client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}"
+                                                            href="{{ route('m.projects.getprjmondws') . "?projectID=" . $project->id_project }}">
+                                                            <i data-feather="navigation" class="mr-1"
+                                                                style="color: #288cc7;"></i>
                                                             Navigate
                                                         </a>
                                                         <a class="edit-record dropdown-item d-flex align-items-center"
@@ -102,9 +104,12 @@
 
                                             <td>
                                                 @if ($project->id_project)
-                                                    <div data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom"
-                                                        data-original-title="Click to navigate!" class="pull-up">
-                                                        <a class="open-project-mw" project_id_value = "{{ $project->id_project }}">
+                                                    <div data-toggle="tooltip" data-popup="tooltip-custom"
+                                                        data-placement="bottom" data-original-title="Click to navigate!"
+                                                        class="pull-up">
+                                                        <a class="open-project-mw"
+                                                            project_id_value = "{{ $project->id_project }}"
+                                                            href="{{ route('m.projects.getprjmondws') . "?projectID=" . $project->id_project }}">
                                                             {{ $project->id_project ?: '-' }}
                                                         </a>
                                                     </div>
@@ -112,6 +117,7 @@
                                                     -
                                                 @endif
                                             </td>
+
                                             <td>{{ $project->na_project ?: '-' }}</td>
                                             <td>
                                                 {{ $project->client !== null ? $project->client->na_client : '-' }}
@@ -180,6 +186,17 @@
 
 
 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                $('.open-project-mw').on('click', function() {
+                    var projectID = $(this).attr('project_id_value');
+                    console.log("Navigate to Project-ID: " + projectID);
+                });
+            }, 200);
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -258,31 +275,6 @@
             }
         });
     </script>
-
-
-    {{--
-    <script>
-        $(document).ready(function() {
-            $('.toggle-password').click(function() {
-                var passwordInput = $('#Password');
-                var passwordFieldType = passwordInput.attr('type');
-                var passwordIcon = $('.password-icon');
-
-                if (passwordFieldType === 'password') {
-                    passwordInput.attr('type', 'text');
-                    passwordIcon.attr('data-feather', 'eye-off');
-                } else {
-                    passwordInput.attr('type', 'password');
-                    passwordIcon.attr('data-feather', 'eye');
-                }
-
-                feather.replace(); // Refresh the Feather icons after changing the icon attribute
-            });
-        });
-    </script> --}}
-
-
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

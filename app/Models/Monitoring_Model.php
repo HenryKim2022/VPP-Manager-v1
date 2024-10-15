@@ -25,9 +25,14 @@ class Monitoring_Model extends Model
         return $this->belongsTo(Projects_Model::class, 'id_project', 'id_project');
     }
 
+    // public function dailyws()
+    // {
+    //     return $this->belongsTo(DaftarDWS_Model::class, 'id_project', 'id_project');
+    // }
+
     public function dailyws()
     {
-        return $this->belongsTo(DaftarDWS_Model::class, 'id_project', 'id_project');
+        return $this->hasMany(DaftarDWS_Model::class, 'id_monitoring');
     }
 
 }
