@@ -1,7 +1,8 @@
 @php
     $page = Session::get('page');
     $page_title = $page['page_title'];
-    $cust_date_format = $page['custom_date_format'];
+    $cust_date_format = 'ddd, DD MMM YYYY';
+    $cust_time_format = 'hh:mm:ss A';
     // $authenticated_user_data = Session::get('authenticated_user_data');
 @endphp
 
@@ -34,7 +35,7 @@
             background-color: inherit;
             /* padding: 10px; */
             border: none;
-            z-index: 9999;
+            z-index: 2;
         }
     </style>
     <style>
@@ -44,11 +45,13 @@
                 max-width: 24%;
             }
         }
+
         @media (max-width: 800px) {
             .max-width-sm {
                 max-width: 12%;
             }
         }
+
         @media (max-width: 768px) {
             .max-width-md {
                 max-width: 12%;
@@ -102,6 +105,9 @@
                         <div class="card-body">
                             <pre style="color: white">{{ print_r($loadDataDailyWS->toArray(), true) }}</pre>
                             <br>
+                            <pre style="color: white">{{ print_r($clientData->toArray(), true) }}</pre>
+                            <br>
+                            <pre style="color: white">{{ print_r($loadRelatedDailyWS->toArray(), true) }}</pre>
                         </div>
                     </div>
                 </div>
@@ -112,8 +118,6 @@
                     <div class="card card-developer-meetup">
                         <div class="card-body p-1">
 
-
-
                             <div class="engineer-text">
                                 {{-- <a class="text-right"> --}}
                                 <h3 class="mt-2 mb-0 pr-xl-4 pr-md-3 pr-sm-1 pr-1 cursor-default text-end">ENGINEER</h3>
@@ -121,7 +125,7 @@
                             </div>
 
                             <div class="row match-height">
-                                <!-- Left Card -->
+                                <!-- Left Card 1st -->
                                 <div class="col-xl-3 col-md-6 col-12 d-flex align-items-center">
                                     <div class="card mb-0">
                                         <div class="card-body">
@@ -133,13 +137,13 @@
                                     </div>
                                 </div>
 
-                                <!--/ Left Card -->
+                                <!--/ Left Card 1st -->
 
-                                <!-- Right Card -->
-                                <div class="col-xl-8 col-md-6 col-12">
-                                    <div class="card">
+                                <!-- Right Card 1st -->
+                                <div class="col-xl-6 col-md-6 col-12">
+                                    <div class="card mb-0">
                                         <div
-                                            class="card-body pt-lg-0 pb-lg-0 pt-sm-0 pt-md-0 d-flex align-items-center justify-content-center">
+                                            class="card-body pt-lg-0 pb-lg-0 pt-sm-0 pt-md-0 pb-sm-0 pb-md-0 d-flex align-items-center justify-content-center">
                                             <a class="text-center">
                                                 <strong>
                                                     <h3 class="mt-0 mb-0 underline-text">PROJECT DAILY
@@ -149,38 +153,128 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--/ Right Card -->
+                                <!--/ Right Card 1st -->
 
+                                <!-- Left Card 2nd -->
+                                <div class="col-xl-8 col-md-8 col-12">
+                                    <div class="card mb-0">
+                                        <div class="card-body pt-0">
+                                            <table class="bordered-layout border-accent-1">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>DESCRIPTION</strong></td>
+                                                        <td class="pl-2">: </td>
+                                                        <td>
+                                                            {{ $loadDataDailyWS->id_project }}
+                                                            {{-- <form class="row g-2 needs-validation mt-1" method="POST"
+                                                                action="{{ route('m.emp.edit') }}" id="edit_projectID_dwsFORM"
+                                                                enctype="multipart/form-data" novalidate>
+                                                                @csrf
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <select class="select2 form-control form-control-lg"
+                                                                            edit_dws_id={{ $loadDataDailyWS->id_project }}
+                                                                            name="edit-mondws-prjID" id="edit-mondws-prjID">
+                                                                            <option value="">PRJ-24-000000</option>
+                                                                            <option value="">PRJ-24-000001</option>
+                                                                            <option value="">PRJ-24-000002</option>
+                                                                            <option value="">PRJ-24-000003</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </form> --}}
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>CLIENT'S NAME</strong></td>
+                                                        <td class="pl-2">: </td>
+                                                        <td>
+                                                            {{ $clientData->na_client }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>DATE</strong></td>
+                                                        <td class="pl-2">: </td>
+                                                        <td>
+                                                            {{ \Carbon\Carbon::parse($loadDataDailyWS->created_at)->isoFormat($cust_date_format) }}
+                                                            {{-- <form class="row g-2 needs-validation mt-1" method="POST"
+                                                                action="{{ route('m.emp.edit') }}" id="edit_workDate_dwsFORM"
+                                                                enctype="multipart/form-data" novalidate>
+                                                                @csrf
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <input type="date" class="form-control"
+                                                                            id="edit-mondws-WorkDate"
+                                                                            name="edit-mondws-WorkDate"
+                                                                            placeholder="Working Date" value="1999-01-01" />
+                                                                    </div>
+                                                                </div>
+
+                                                            </form> --}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ Left Card 2nd -->
+                                <!-- Right Card 2nd -->
+                                <div class="col-xl-4 col-md-4 col-12">
+                                    <div class="card mb-0">
+                                        <div class="card-body pt-0">
+                                            <table class="bordered-layout border-accent-1">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="3"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>ARRIVAL TIME</strong></td>
+                                                        <td class="pl-2">: </td>
+                                                        <td>{{ \Carbon\Carbon::parse($loadDataDailyWS->arrival_time_dws)->isoFormat($cust_time_format) }}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>FINISH TIME</strong></td>
+                                                        <td class="pl-2">: </td>
+                                                        <td>{{ \Carbon\Carbon::parse($loadDataDailyWS->finish_time_dws)->isoFormat($cust_time_format) }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/ Right Card 2nd -->
                             </div>
-
+                            <div>
+                                <div class="divider">
+                                    <div class="divider-text">
+                                        <div class="divider-icon">
+                                            <i class="fas fa-wifi-1"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <table id="daftarLoginKaryawanTable" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Act</th>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>No. Telp</th>
-                                        <th>Photo</th>
-                                        <th>Birth-Place</th>
-                                        <th>DOB</th>
-                                        <th>Religion</th>
-                                        <th>Created</th>
-                                        <th>Last-Update</th>
+                                        <th rowspan="2" class="cell-fit text-center">Act</th>
+                                        <th rowspan="2" class="text-center">Time</th>
+                                        <th rowspan="2" class="text-center">Task</th>
+                                        <th rowspan="2" class="text-center">Description</th>
+                                        <th colspan="2" class="text-center">Progress</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Actual</th>
+                                        <th class="text-center">Current</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($loadDataDailyWS['dailyws'] as $mon)
+                                    @foreach ($loadRelatedDailyWS['dailyws'] as $relDWS)
                                         <tr>
                                             <td>
-                                                @if ($mon->id_dws)
-                                                    {{ $mon->id_dws ?? '-' }}
-                                                @else
-                                                    N/A
-                                                @endif
-                                            </td>
-                                            {{-- <td>{{ $mon->dailyws()->id_dws ?: '-' }}</td> --}}
-                                            {{-- <td>
                                                 <div class="dropdown d-lg-block d-sm-block d-md-block">
                                                     <button class="btn btn-icon navbar-toggler pt-0" type="button"
                                                         id="tableActionDropdown" data-toggle="dropdown" aria-haspopup="true"
@@ -191,64 +285,55 @@
                                                     <div class="dropdown-menu dropdown-menu-end"
                                                         aria-labelledby="tableActionDropdown">
                                                         <a class="edit-record dropdown-item d-flex align-items-center"
-                                                            edit_karyawan_id_value = "{{ $karyawan->id_karyawan ?: 0 }}"
-                                                            onclick="openModal('{{ $modalData['modal_edit'] }}')">
-                                                            <i data-feather="edit" class="mr-1" style="color: #28c76f;"></i>
+                                                            edit_dws_id_value = "{{ $relDWS->id_dws ?: 0 }}"
+                                                            {{-- onclick="openModal('{{ $modalData['modal_edit'] }}')" --}}>
+                                                            <i data-feather="edit" class="mr-1"
+                                                                style="color: #28c76f;"></i>
                                                             Edit
                                                         </a>
                                                         <a class="delete-record dropdown-item d-flex align-items-center"
-                                                            del_karyawan_id_value = "{{ $karyawan->id_karyawan ?: 0 }}"
-                                                            onclick="openModal('{{ $modalData['modal_delete'] }}')">
-                                                            <i data-feather="trash" class="mr-1" style="color: #ea5455;"></i>
+                                                            del_dws_id_value = "{{ $relDWS->id_dws ?: 0 }}"
+                                                            {{-- onclick="openModal('{{ $modalData['modal_delete'] }}')" --}}>
+                                                            <i data-feather="trash" class="mr-1"
+                                                                style="color: #ea5455;"></i>
                                                             Delete
                                                         </a>
                                                     </div>
                                                     <!--/ dropdown menu -->
                                                 </div>
                                             </td>
-                                            <td>{{ $karyawan->na_karyawan ?: '-' }}</td>
-
-                                            <td>{{ $karyawan->alamat_karyawan ?: '-' }}</td>
-                                            <td>{{ $karyawan->notelp_karyawan ?: '-' }}</td>
                                             <td>
-                                                @if ($karyawan->foto_karyawan !== null)
-                                                    <div class="d-flex align-items-center justify-content-around">
-                                                        <img src="{{ 'public/avatar/uploads/' . $karyawan->foto_karyawan }}"
-                                                            alt="Proof 0" style="height: 24px; width: 24px;"
-                                                            class="hover-qr-image">
+                                                {{ $relDWS->working_time_dws }}
+                                            </td>
+                                            <td>
+                                                {{ $loadRelatedDailyWS->task }}
+                                                {{-- <form class="row g-2 needs-validation mt-1" method="POST"
+                                                    action="{{ route('m.emp.edit') }}" id="edit_task_dwsFORM"
+                                                    enctype="multipart/form-data" novalidate>
+                                                    @csrf
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <select class="select2 form-control form-control-lg"
+                                                                edit_dws_id={{ $loadDataDailyWS->id_project }}
+                                                                name="edit-mondws-prjID" id="edit-mondws-prjID">
+                                                                <option value="">Meng-aaa</option>
+                                                                <option value="">Meng-bbbbbbbb</option>
+                                                                <option value="">Meng-cccccc</option>
+                                                                <option value="">Meng-ddddddddddd</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                @else
-                                                    <div class="d-flex align-items-center justify-content-around">
-                                                        -
-                                                    </div>
-                                                @endif
-                                            </td>
-                                            <td>{{ $karyawan->tlah_karyawan ?: '-' }}</td>
-                                            <td>
-                                                @if ($karyawan->tglah_karyawan)
-                                                    {{ \Carbon\Carbon::parse($karyawan->tglah_karyawan)->isoFormat('DD MMMM YYYY') }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-
-                                            <td>{{ $karyawan->agama_karyawan ?: '-' }}</td>
-
-                                            <td>
-                                                @if ($karyawan->created_at)
-                                                    {{ \Carbon\Carbon::parse($karyawan->created_at)->isoFormat($cust_date_format) }}
-                                                @else
-                                                    -
-                                                @endif
+                                                </form> --}}
                                             </td>
                                             <td>
-                                                @if ($karyawan->updated_at)
-                                                    {{ \Carbon\Carbon::parse($karyawan->updated_at)->isoFormat($cust_date_format) }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </td> --}}
-
+                                                {{ $relDWS->descb_dws }}
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                {{ $relDWS->progress_actual_dws }}%
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                {{ $relDWS->progress_current_dws }}%
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -289,7 +374,7 @@
             $('#daftarLoginKaryawanTable').DataTable({
                 lengthMenu: [5, 10, 15, 20, 25, 50, 100, 150, 200, 250],
                 pageLength: 10,
-                responsive: true,
+                responsive: false,
                 ordering: true,
                 searching: true,
                 language: {

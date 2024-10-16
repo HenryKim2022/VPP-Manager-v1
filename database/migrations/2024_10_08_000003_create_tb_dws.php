@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('tb_daily_ws', function (Blueprint $table) {
             $table->id('id_dws')->primary();
+            $table->time('working_time_dws')->nullable();
             $table->string('descb_dws')->nullable();
             $table->time('arrival_time_dws')->nullable();
             $table->time('finish_time_dws')->nullable();
             $table->integer('progress_actual_dws')->nullable();
             $table->integer('progress_current_dws')->nullable();
+            $table->foreignId('id_karyawan')->nullable()->constrained('tb_karyawan', 'id_karyawan');
             // $table->foreignId('id_project')->nullable()->constrained('tb_projects', 'id_project');
             $table->string('id_project')->nullable(); // Keep it as a string to match tb_projects
             $table->foreign('id_project')->references('id_project')->on('tb_projects')->onDelete('set null'); // Correct foreign key definition
@@ -34,6 +36,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tb_daily_ws', function (Blueprint $table) {
+            $table->dropForeign(['id_karyawan']);
             $table->dropForeign(['id_project']);
             $table->dropForeign(['id_monitoring']);
 

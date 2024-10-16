@@ -25,13 +25,12 @@ class WorksheetController extends Controller
     {
         $process = $this->setPageSession("Manage Daily Worksheet", "m-worksheet");
         if ($process) {
-            // $loadDaftarWorksheetFromDB = [];
-            // $loadDaftarWorksheetFromDB = DaftarLogin_Model::with(['karyawan'])->withoutTrashed()->get();
-            // $loadDataDailyWS = Monitoring_Model::with(['karyawan', 'project', 'dailyws'])
-            // ->findOrFail($monitoringId);
+            // $loadDataDailyWS = Monitoring_Model::with('karyawan', 'project', 'dailyws')->where('id_monitoring', $monitoringId)->first();
+            $loadDataDailyWS = DaftarDWS_Model::with('project', 'monitoring')->where('id_monitoring', $monitoringId)->first();
+            // dd($loadDataDailyWS->toarray());
 
-
-            $loadDataDailyWS = Monitoring_Model::with('karyawan', 'project', 'dailyws')->where('id_monitoring', $monitoringId)->first();
+            $clientData = $loadDataDailyWS->getClientData();
+            $loadRelatedDailyWS = Monitoring_Model::with('karyawan', 'project', 'dailyws')->where('id_monitoring', $monitoringId)->first();
 
 
             $user = auth()->user();
@@ -48,6 +47,8 @@ class WorksheetController extends Controller
                 // 'loadDaftarWorksheetFromDB' => $loadDaftarWorksheetFromDB,
                 // 'modalData' => $modalData,
                 'loadDataDailyWS' => $loadDataDailyWS,
+                'clientData' => $clientData,
+                'loadRelatedDailyWS' => $loadRelatedDailyWS,
                 'employee_list' => Karyawan_Model::withoutTrashed()->get(),
                 'authenticated_user_data' => $authenticated_user_data,
             ];

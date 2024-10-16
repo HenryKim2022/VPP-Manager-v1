@@ -269,17 +269,7 @@ class ProjectsController extends Controller
                 $project = Projects_Model::with(['client', 'pcoordinator', 'team', 'monitor', 'dailyws'])
                     ->findOrFail($projectId);
 
-                // // $tree = $this->buildMonitoringTree($project);
-                // $loadDataDailyWS = DaftarDWS_Model::with('project', 'monitoring')->where('id_monitoring', $monitoringId)->first();
-                // $clientData = $loadDataDailyWS->getClientData();
-                // $loadRelatedDailyWS = Monitoring_Model::with('karyawan', 'project', 'dailyws')->where('id_monitoring', $monitoringId)->first();
-
-                // dd($project->toarray());
-                // $loadDataDailyWS = $project->dailyws->where('id_monitoring', $project->monitor->id_monitoring);
-                    // Retrieve all daily work statuses with the matching id_monitoring
-                $loadDataDailyWS = DaftarDWS_Model::where('id_monitoring', $project->monitor[0]['id_monitoring'])->get();
-                // dd($loadDataDailyWS);
-                $clientData = DaftarDWS_Model::with('project', 'monitoring')->where('id_monitoring', $project->monitor[0]['id_monitoring'])->first()->getClientData();
+                $tree = $this->buildMonitoringTree($project);
 
                 $user = auth()->user();
                 $authenticatedUser = Karyawan_Model::with(['daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan'])
@@ -289,8 +279,7 @@ class ProjectsController extends Controller
                     'loadDaftarMonDWSFromDB' => $project, // Use the Eloquent model directly
                     'project' => $project,
                     'authenticated_user_data' => $authenticatedUser,
-                    'loadDataDailyWS' => $loadDataDailyWS,
-                    'clientData' => $clientData,
+                    'tree' => $tree, // Add the tree data to the $data array
                 ];
 
                 return view('pages.userpanels.pm_mondws', $data);

@@ -27,40 +27,10 @@
         }
     </style>
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/assets/js.tree@3.2.1/style.min.css') }}">
     <style>
-        /* Custom CSS for Engineer Text */
-        .engineer-text {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background-color: inherit;
-            /* padding: 10px; */
-            border: none;
-            z-index: 2;
-        }
-
-        .engineer-text:hover {
-            color: var(--primary) !important;
-        }
-    </style>
-    <style>
-        /* Custom CSS for setting max-width on the image */
-        @media (max-width: 924) {
-            .max-width-lg {
-                max-width: 24%;
-            }
-        }
-
-        @media (max-width: 800px) {
-            .max-width-sm {
-                max-width: 12%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .max-width-md {
-                max-width: 12%;
-            }
+        .jstree-anchor{
+            padding-right: 1.5rem;
         }
     </style>
 @endsection
@@ -114,14 +84,14 @@
                                 <div class="row match-height">
 
                                     <!--  Check $data as array -->
-                                    {{-- <div class="col-xl-12 col-md-12 col-12">
+                                    <div class="col-xl-12 col-md-12 col-12">
                                         <div class="card">
                                             <div class="card-body">
                                                 <pre style="color: white">{{ print_r($prjmondws->toArray(), true) }}</pre>
                                                 <br>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <!-- Left Card -->
                                     <div class="col-xl-6 col-md-6 col-12">
@@ -209,22 +179,17 @@
                                 </div>
                             </div>
 
-                            <table id="daftarMonitoringTable" class="table table-striped">
+                            <table id="daftarLoginKaryawanTable" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th rowspan="2" class="text-center">No</th>
-                                        <th rowspan="2" class="text-center">Act</th>
-                                        <th rowspan="2" class="text-center">Category</th>
-                                        <th colspan="3" class="text-center">Date</th>
-                                        <th rowspan="2" class="text-center">Qty<br>(100%)</th>
-                                        <th colspan="2" class="text-center">Progress%</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Start</th>
-                                        <th class="text-center">End</th>
-                                        <th class="text-center">Achieve</th>
-                                        <th class="text-center">Update</th>
-                                        <th class="text-center">Total</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Act</th>
+                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Start Date</th>
+                                        <th class="text-center">End Date</th>
+                                        <th class="text-center">Qty (100%)</th>
+                                        <th class="text-center">Update Progress (0-100%)</th>
+                                        <th class="text-center">Total Progress</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -278,7 +243,6 @@
                                                         -
                                                     @endif
                                                 </td>
-                                                <td></td>
                                                 <td class="text-center align-middle">{{ $mon->qty . '%' ?: '-' }}</td>
                                                 <td></td>
                                                 <td></td>
@@ -302,8 +266,7 @@
             <style>
                 .overflow-x-scroll {
                     overflow-x: auto;
-                    white-space: nowrap;
-                    /* Prevent wrapping of content */
+                    white-space: nowrap; /* Prevent wrapping of content */
                 }
 
                 .overflow-y-scroll {
@@ -311,211 +274,29 @@
                 }
 
                 .card-developer-meetup {
-                    overflow: hidden;
-                    /* Prevent card content from overflowing */
+                    overflow: hidden; /* Prevent card content from overflowing */
                 }
             </style>
 
-
-
-            <!-- ############################################################################################################################ -->
-            <!-- ############################################################################################################################ -->
-            <!-- ############################################################################################################################ -->
-            <!-- ############################################################################################################################ -->
-
-
             <div class="row match-height">
-                {{-- <div class="col-xl-12 col-md-12 col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <pre style="color: white">{{ print_r($prjmondws->dailyws->toArray(), true) }}</pre>
-                            <br>
-                        </div>
-                    </div>
-                </div> --}}
+                <div class="col-lg-4 col-md-6 col-12"></div>
                 <!-- TableAbsen Card -->
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="card card-developer-meetup">
                         <div class="card-body p-1">
                             <div class="overflow-x-scroll overflow-y-scroll">
-                                <button class="btn btn-primary engineer-text">
-                                    {{-- <a class="text-right"> --}}
-                                    <a class="mt-0 mb-0 pr-xl-0 pr-md-0 pr-sm-0 pr-0 cursor-default text-end"></i>ENGINEER <i
-                                            class="far fa-solid fa-arrow-right"></i></a>
-                                    {{-- </a> --}}
-                                </button>
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" id="jstree-search-input" placeholder="Search...">
+                                </div>
+                                <div id="jstree_demo" class="jstree"></div>
+
                             </div>
-
-                            <div class="row match-height">
-                                <!-- Left Card 1st -->
-                                <div class="col-xl-3 col-md-6 col-12 d-flex align-items-center d-none">
-                                    <div class="card mb-0">
-                                        <div class="card-body">
-                                            <span class="brand-logo">
-                                                <img src="{{ asset('public/assets/logo/dws_header_vplogo.svg') }}"
-                                                    class="img-fluid max-width-sm max-width-md max-width-lg" alt="VPLogo">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--/ Left Card 1st -->
-
-                                <!-- Right Card 1st -->
-                                <div class="col-xl-6 col-md-6 col-12">
-                                    <div class="card mb-0">
-                                        <div
-                                            class="card-body pt-lg-0 pb-lg-0 pt-sm-0 pt-md-0 pb-sm-0 pb-md-0 d-flex align-items-center justify-content-center">
-                                            <a class="text-center">
-                                                <strong>
-                                                    <h3 class="mt-0 mb-0 underline-text">LOG: PROJECT DAILY
-                                                        WORKSHEET<br>( LEMBAR KERJA HARIAN )</h3>
-                                                </strong>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ Right Card 1st -->
-
-                                <!-- Left Card 2nd -->
-                                <div class="col-xl-8 col-md-8 col-12 d-none">
-                                    <div class="card mb-0">
-                                        <div class="card-body pt-0">
-                                            <table class="bordered-layout border-accent-1">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><strong>DESCRIPTION</strong></td>
-                                                        <td class="pl-2">: </td>
-                                                        <td>{{ $prjmondws->id_project }}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>CLIENT'S NAME</strong></td>
-                                                        <td class="pl-2">: </td>
-                                                        <td>
-                                                            {{ $clientData->na_client }}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>DATE</strong></td>
-                                                        <td class="pl-2">: </td>
-                                                        <td>{{ \Carbon\Carbon::parse($prjmondws->created_at)->isoFormat($cust_date_format) }}
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ Left Card 2nd -->
-                                <!-- Right Card 2nd -->
-                                <div class="col-xl-4 col-md-4 col-12 d-none">
-                                    <div class="card mb-0">
-                                        <div class="card-body pt-0">
-                                            <table class="bordered-layout border-accent-1">
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="3"></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>ARRIVAL TIME</strong></td>
-                                                        <td class="pl-2">: </td>
-                                                        {{-- <td>{{ \Carbon\Carbon::parse($loadDataDailyWS->arrival_time_dws)->isoFormat($cust_time_format) }}
-                                                        </td> --}}
-                                                    </tr>
-                                                    <tr>
-                                                        <td><strong>FINISH TIME</strong></td>
-                                                        <td class="pl-2">: </td>
-                                                        {{-- <td>{{ \Carbon\Carbon::parse($loadDataDailyWS->finish_time_dws)->isoFormat($cust_time_format) }}
-                                                        </td> --}}
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/ Right Card 2nd -->
-                            </div>
-                            <div>
-                                <div class="divider">
-                                    <div class="divider-text">
-                                        <div class="divider-icon">
-                                            <i class="fas fa-wifi-1"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <table id="daftarDWSTable" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="cell-fit text-center">Act</th>
-                                        <th class="cell-fit text-center">Date</th>
-                                        <th class="cell-fit text-center">Arrival</th>
-                                        <th class="cell-fit text-center">Start</th>
-                                        <th class="cell-fit text-center">Finish</th>
-                                        <th class="text-center">Task</th>
-                                        <th lass="text-center">Description</th>
-                                        <th class="text-center">Actual Progress</th>
-                                        <th class="text-center">Current Progress</th>
-                                        <th class="text-center">Executed by</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($prjmondws->dailyws)
-                                        @foreach ($prjmondws->dailyws as $dws)
-                                            <tr>
-                                                <td>
-                                                    <div class="dropdown d-lg-block d-sm-block d-md-block">
-                                                        <button class="btn btn-icon navbar-toggler pt-0" type="button"
-                                                            id="tableActionDropdown" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                            <i data-feather="align-justify" class="font-medium-5"></i>
-                                                        </button>
-                                                        <!-- dropdown menu -->
-                                                        <div class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="tableActionDropdown">
-                                                            <a class="edit-record dropdown-item d-flex align-items-center"
-                                                                edit_dws_id_value = "{{ $dws->id_dws ?: 0 }}"
-                                                                {{-- onclick="openModal('{{ $modalData['modal_edit'] }}')" --}}>
-                                                                <i data-feather="edit" class="mr-1"
-                                                                    style="color: #28c76f;"></i>
-                                                                Edit
-                                                            </a>
-                                                            <a class="delete-record dropdown-item d-flex align-items-center"
-                                                                del_dws_id_value = "{{ $dws->id_dws ?: 0 }}"
-                                                                {{-- onclick="openModal('{{ $modalData['modal_delete'] }}')" --}}>
-                                                                <i data-feather="trash" class="mr-1"
-                                                                    style="color: #ea5455;"></i>
-                                                                Delete
-                                                            </a>
-                                                        </div>
-                                                        <!--/ dropdown menu -->
-                                                    </div>
-                                                </td>
-                                                <td class="text-center align-middle">
-                                                    {{ \Carbon\Carbon::parse($dws->monitoring->start_date)->isoFormat($cust_date_format) }}
-                                                </td>
-                                                <td class="text-center align-middle">{{ $dws->arrival_time_dws }}</td>
-                                                <td class="text-center align-middle">{{ $dws->working_time_dws }}</td>
-                                                <td class="text-center align-middle">{{ $dws->finish_time_dws }}</td>
-                                                <td>{{ $dws->monitoring->task }}</td>
-                                                <td>{{ $dws->descb_dws }}</td>
-                                                <td class="text-center align-middle">{{ $dws->progress_actual_dws }}%</td>
-                                                <td class="text-center align-middle">{{ $dws->progress_current_dws }}%</td>
-                                                <td class="text-center align-middle">{{ $dws->executedby->na_karyawan }}</td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
-
-                                </tbody>
-                            </table>
 
                         </div>
 
+
                     </div>
-
-
                 </div>
-            </div>
             </div>
             <!--/ TableAbsen Card -->
 
@@ -544,35 +325,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#daftarMonitoringTable').DataTable({
-                lengthMenu: [5, 10, 15, 20, 25, 50, 100, 150, 200, 250],
-                pageLength: 10,
-                responsive: false,
-                ordering: true,
-                searching: true,
-                language: {
-                    lengthMenu: 'Display _MENU_ records per page',
-                    info: 'Showing page _PAGE_ of _PAGES_',
-                    search: 'Search',
-                    paginate: {
-                        first: 'First',
-                        last: 'Last',
-                        next: '&rarr;',
-                        previous: '&larr;'
-                    }
-                },
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
-        });
-    </script>
-
-
-
-    <script>
-        $(document).ready(function() {
-            $('#daftarDWSTable').DataTable({
+            $('#daftarLoginKaryawanTable').DataTable({
                 lengthMenu: [5, 10, 15, 20, 25, 50, 100, 150, 200, 250],
                 pageLength: 10,
                 responsive: true,
@@ -595,7 +348,6 @@
             });
         });
     </script>
-
 
 
     {{-- <script>
@@ -773,6 +525,270 @@
                     });
                 }, 800);
             }
+        });
+    </script>
+
+
+
+
+    {{--
+    <script>
+        $(function() {
+            $('#jstree_demo').jstree({
+                'core': {
+                    // 'data': [{
+                    //         'text': 'Root node 1',
+                    //         'children': [{
+                    //                 'text': 'Child node 1'
+                    //             },
+                    //             {
+                    //                 'text': 'Child node 2'
+                    //             }
+                    //         ]
+                    //     },
+                    //     {
+                    //         'text': 'Root node 2',
+                    //         'children': [{
+                    //                 'text': 'Child node 3'
+                    //             },
+                    //             {
+                    //                 'text': 'Child node 4'
+                    //             }
+                    //         ]
+                    //     }
+                    // ]
+                },
+                "plugins": ["contextmenu", "search"], // Add the search plugin
+                "contextmenu": {
+                    "items": function(node) {
+                        let items = {
+                            "create": {
+                                "label": "Create",
+                                "action": function(obj) {
+                                    this.create_node(obj.reference, {
+                                        "text": "New node"
+                                    }, "last", function(new_node) {
+                                        setTimeout(function() {
+                                            $('#jstree_demo').jstree(
+                                                "select_node", new_node);
+                                        }, 0);
+                                    });
+                                }
+                            },
+                            "rename": {
+                                "label": "Rename",
+                                "action": function(obj) {
+                                    this.rename(obj.reference);
+                                }
+                            },
+                            "remove": {
+                                "label": "Delete",
+                                "action": function(obj) {
+                                    this.delete_node(obj.reference);
+                                }
+                            },
+                            "sep1": "---------",
+                            "ccp": {
+                                "label": "Copy/Paste",
+                                "action": false,
+                                "submenu": {
+                                    "cut": {
+                                        "label": "Cut",
+                                        "action": function(obj) {
+                                            this.cut(obj.reference);
+                                        }
+                                    },
+                                    "copy": {
+                                        "label": "Copy",
+                                        "action": function(obj) {
+                                            this.copy(obj.reference);
+                                        }
+                                    },
+                                    "paste": {
+                                        "label": "Paste",
+                                        "action": function(obj) {
+                                            this.paste(obj.reference);
+                                        }
+                                    }
+                                }
+                            }
+                        };
+
+                        if (node.id === '#') {
+                            delete items.remove;
+                        }
+                        return items;
+                    }
+                }
+            });
+
+            var to = false;
+            $('#jstree-search-input').keyup(function() {
+                if (to) {
+                    clearTimeout(to);
+                }
+                to = setTimeout(function() {
+                    var v = $('#jstree-search-input').val();
+                    $('#jstree_demo').jstree(true).search(v);
+                }, 250);
+            });
+        });
+    </script> --}}
+
+
+
+    <script>
+        $(function() {
+            const treeData = @json($tree);
+
+            // Note:
+            // treeData hold these value:
+            // 0: {
+            //     text: 'Finishing pekerjaan pengelasan',
+            //     children: {
+            //         0 : {text: '- A', id: 1, url: 'http://100.100.100.58/dailyws/1'}
+            //         1 : {text: '- B', id: 2, url: 'http://100.100.100.58/dailyws/2'}
+            //     }
+            // },
+
+            // how to apply the url into the related childern ?? ?
+
+
+            console.log(treeData);
+            // if (!treeData || treeData.length === 0) {
+            //     console.error("Error: Tree data is empty or invalid.");
+            //     $('#jstree_demo').html('<p>Error loading tree data.</p>');
+            //     return;
+            // }
+
+
+            // Restructure the treeData to be an array of objects
+            const restructuredData = treeData.map(item => {
+                return {
+                    text: item.text,
+                    children: Object.values(item.children ||
+                        {}) // Handle cases where children might be missing
+                };
+            });
+
+
+            console.log("Restructured Data:", restructuredData); // Check the new structure
+
+            if (!restructuredData || restructuredData.length === 0) {
+                console.error("Error: Tree data is empty or invalid.");
+                $('#jstree_demo').html('<p>Error loading tree data.</p>');
+                return;
+            }
+
+
+            $('#jstree_demo').jstree({
+                'core': {
+                    // 'data': treeData,
+                    'data': restructuredData,
+                    'themes': {
+                        'name': 'default',
+                        'responsive': true // Add responsive theme
+                    }
+                },
+                "plugins": ["contextmenu", "search", "types"], // Added types plugin
+                "types": {
+                    "#": {
+                        "icon": "fas fa-folder" // Icon for root nodes
+                    },
+                    "default": {
+                        "icon": "fas fa-file" // Icon for default nodes
+                    }
+
+                },
+                "contextmenu": {
+                    "items": function(node) {
+                        let items = {
+                            "create": {
+                                "label": "Create",
+                                "action": function(obj) {
+                                    let newNodeText = prompt("Enter new node name:",
+                                        "New Node");
+                                    if (newNodeText) {
+                                        this.create_node(obj.reference, {
+                                            "text": newNodeText
+                                        }, "last", function(new_node) {
+                                            setTimeout(function() {
+                                                $('#jstree_demo').jstree(
+                                                    "select_node", new_node);
+                                            }, 0);
+                                        });
+                                    }
+                                }
+                            },
+                            "rename": {
+                                "label": "Rename",
+                                "action": function(obj) {
+                                    this.rename(obj.reference);
+                                }
+                            },
+                            "remove": {
+                                "label": "Delete",
+                                "action": function(obj) {
+                                    this.delete_node(obj.reference);
+                                }
+                            },
+                            "sep1": "---------",
+                            "ccp": {
+                                "label": "Copy/Paste",
+                                "action": false,
+                                "submenu": {
+                                    "cut": {
+                                        "label": "Cut",
+                                        "action": function(obj) {
+                                            this.cut(obj.reference);
+                                        }
+                                    },
+                                    "copy": {
+                                        "label": "Copy",
+                                        "action": function(obj) {
+                                            this.copy(obj.reference);
+                                        }
+                                    },
+                                    "paste": {
+                                        "label": "Paste",
+                                        "action": function(obj) {
+                                            this.paste(obj.reference);
+                                        }
+                                    }
+                                }
+                            }
+                        };
+
+                        if (node.id === '#') {
+                            delete items.remove;
+                        }
+                        return items;
+                    }
+                }
+            }).on('ready.jstree', function() {
+                console.log("jstree ready");
+            }).on('error.jstree', function(e, data) {
+                console.error("jstree error:", data);
+            });
+
+
+            var to = false;
+            $('#jstree-search-input').keyup(function() {
+                if (to) {
+                    clearTimeout(to);
+                }
+                to = setTimeout(function() {
+                    var v = $('#jstree-search-input').val();
+                    $('#jstree_demo').jstree(true).search(v);
+                }, 250);
+            });
+
+            $('#jstree_demo').on('select_node.jstree', function(e, data) {
+                var node = data.node;
+                if (node.original.url) {
+                    window.location.href = node.original.url;
+                }
+            });
         });
     </script>
 @endsection
