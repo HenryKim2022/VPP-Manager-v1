@@ -27,13 +27,11 @@ class ProjectsController extends Controller
         $process = $this->setPageSession("Manage Projects", "m-projects");
         if ($process) {
             $loadDaftarProjectsFromDB = [];
-            $loadDaftarProjectsFromDB = Projects_Model::with(['karyawan', 'client', 'team', 'worksheet'])->withoutTrashed()->get();
+            $loadDaftarProjectsFromDB = Projects_Model::with(['karyawan', 'client', 'team', 'worksheet', 'monitor'])->withoutTrashed()->get();
+
 
             $user = auth()->user();
             $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
-
-            // $user = auth()->user();
-            // $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
 
             $modalData = [
                 'modal_add' => '#add_projectModal',
@@ -47,8 +45,8 @@ class ProjectsController extends Controller
                 'modalData' => $modalData,
                 'client_list' => Kustomer_Model::withoutTrashed()->get(),
                 'team_list' => Team_Model::withoutTrashed()->get(),
+                'co_auth' =>  [$authenticated_user_data->id_karyawan, $authenticated_user_data->na_karyawan],
                 'worksheet_list' => DaftarWS_Model::withoutTrashed()->get(),
-
                 'authenticated_user_data' => $authenticated_user_data,
             ];
             return $this->setReturnView('pages/userpanels/pm_daftarproject', $data);
@@ -90,10 +88,15 @@ class ProjectsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // dd($request->input('co-id'));
+
         $inst = new Projects_Model();
         $inst->id_project = $request->input('project-id');
         $inst->na_project = $request->input('project-name');
         $inst->id_client = $request->input('client-id');
+        $inst->id_karyawan = $request->input('co-id');
+        $inst->id_team = $request->input('team-id');
+
 
         Session::flash('success', ['Project added successfully!']);
         $inst->save();
@@ -276,15 +279,15 @@ class ProjectsController extends Controller
 
                 // dd($project->toarray());
                 // $loadDataDailyWS = $project->worksheet->where('id_monitoring', $project->monitor->id_monitoring);
-                    // Retrieve all daily work statuses with the matching id_monitoring
+                // Retrieve all daily work statuses with the matching id_monitoring
 
                 // $loadDataDailyWS = DaftarWS_Model::where('id_monitoring', $project->monitor[0]['id_monitoring'])->get();
                 $user = auth()->user();
                 $authenticatedUser = Karyawan_Model::with(['daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan'])
-                ->findOrFail($user->id_karyawan);
+                    ->findOrFail($user->id_karyawan);
 
                 $loadDataDailyWS = [];
-                if ($loadDataDailyWS){
+                if ($loadDataDailyWS) {
                     $loadDataDailyWS = DaftarWS_Model::where('id_project', $project->monitor[0]['id_project'])->get();
                 }
                 // dd($loadDataDailyWS);

@@ -49,6 +49,16 @@ class Projects_Model extends Model
     }
 
 
+    public function prjstatus()
+    {
+        $totalQty = 0;
+        foreach ($this->monitor as $monitor) {
+            $totalQty += $monitor['qty'];
+        }
+
+        return $totalQty >= 100 ? 'FINISH' : 'ONGOING';
+    }
+
 
     public function task()
     {

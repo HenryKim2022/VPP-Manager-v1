@@ -46,6 +46,27 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-xl-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <input type="hidden" id="co-id" name="co-id" value="{{ $co_auth[0] }}"></input>
+                                <label class="form-label" for="na-co">Project Co</label>
+                                <input class="form-control form-control-merge" id="na-co" name="na-co" value="{{ $co_auth[1] }}"
+                                    placeholder="e.g. John Doe" aria-describedby="na-co" tabindex="4" disabled readonly></input>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-12">
+                            <div class="form-group mb-0">
+                                <label>Team</label>
+                                <select class="select2 form-control form-control-lg" name="team-id" id="team-id">
+                                    <option value="">Select Team</option>
+                                    @foreach($team_list as $team)
+                                        <option value="{{ $team->id_team }}">
+                                            {{ $team->na_team }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
 
 
