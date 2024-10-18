@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
 
-	    // id_monitoring (PK), task, start_date, end_date, achieve_date, qty, id_karyawan (FK), id_project (FK)
+	    // id_monitoring (PK),  achieve_date,   qty,    id_ws (PK),  id_task (PK),    id_karyawan (PK),    id_project (PK)
         Schema::create('tb_monitoring', function (Blueprint $table) {
             $table->id('id_monitoring')->primary();
-            $table->string('task')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->string('category')->nullable(); // Keep it as a string to match tb_projects
             $table->date('achieve_date')->nullable();
             $table->integer('qty')->nullable();
+            // $table->foreignId('id_ws')->nullable()->constrained('tb_worksheet', 'id_ws');
+            // // $table->foreignId('id_task')->nullable()->constrained('tb_task', 'id_task');
             $table->foreignId('id_karyawan')->nullable()->constrained('tb_karyawan', 'id_karyawan');
             $table->string('id_project')->nullable(); // Keep it as a string to match tb_projects
             $table->foreign('id_project')->references('id_project')->on('tb_projects')->onDelete('set null'); // Correct foreign key definition
@@ -34,10 +34,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tb_projects', function (Blueprint $table) {
+        Schema::table('tb_monitoring', function (Blueprint $table) {
+            $table->dropForeign(['id_ws']);
+            // $table->dropForeign(['id_task']);
             $table->dropForeign(['id_karyawan']);
-            // $table->dropForeign(['id_monitoring_parent']);
-            // $table->dropColumn('id_monitoring_parent');
+            $table->dropForeign(['id_project']);
         });
         Schema::dropIfExists('tb_monitoring');
     }

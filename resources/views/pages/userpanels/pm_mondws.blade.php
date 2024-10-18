@@ -2,6 +2,7 @@
     $page = Session::get('page');
     $page_title = $page['page_title'];
     $cust_date_format = 'ddd, DD MMM YYYY';
+    $cust_time_format = 'hh:mm:ss A';
 
     $prjmondws = $loadDaftarMonDWSFromDB;
     // $authenticated_user_data = Session::get('authenticated_user_data');
@@ -114,14 +115,14 @@
                                 <div class="row match-height">
 
                                     <!--  Check $data as array -->
-                                    {{-- <div class="col-xl-12 col-md-12 col-12">
+                                    <div class="col-xl-12 col-md-12 col-12">
                                         <div class="card">
                                             <div class="card-body">
                                                 <pre style="color: white">{{ print_r($prjmondws->toArray(), true) }}</pre>
                                                 <br>
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <!-- Left Card -->
                                     <div class="col-xl-6 col-md-6 col-12">
@@ -215,14 +216,13 @@
                                         <th rowspan="2" class="text-center">No</th>
                                         <th rowspan="2" class="text-center">Act</th>
                                         <th rowspan="2" class="text-center">Category</th>
-                                        <th colspan="3" class="text-center">Date</th>
+                                        <th colspan="2" class="text-center">Date</th>
                                         <th rowspan="2" class="text-center">Qty<br>(100%)</th>
                                         <th colspan="2" class="text-center">Progress%</th>
                                     </tr>
                                     <tr>
                                         <th class="text-center">Start</th>
                                         <th class="text-center">End</th>
-                                        <th class="text-center">Achieve</th>
                                         <th class="text-center">Update</th>
                                         <th class="text-center">Total</th>
                                     </tr>
@@ -263,7 +263,7 @@
                                                         <!--/ dropdown menu -->
                                                     </div>
                                                 </td>
-                                                <td>{{ $mon->task ?: '-' }}</td>
+                                                <td>{{ $mon->category ?: '-' }}</td>
                                                 <td class="text-center align-middle">
                                                     @if ($mon->start_date)
                                                         {{ \Carbon\Carbon::parse($mon->start_date)->isoFormat($cust_date_format) }}
@@ -280,7 +280,6 @@
                                                 </td>
                                                 <td></td>
                                                 <td class="text-center align-middle">{{ $mon->qty . '%' ?: '-' }}</td>
-                                                <td></td>
                                                 <td></td>
                                             </tr>
                                         @endforeach
@@ -325,24 +324,21 @@
 
 
             <div class="row match-height">
-                {{-- <div class="col-xl-12 col-md-12 col-12">
+                <div class="col-xl-12 col-md-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <pre style="color: white">{{ print_r($prjmondws->dailyws->toArray(), true) }}</pre>
+                            <pre style="color: white">{{ print_r($prjmondws->worksheet->toArray(), true) }}</pre>
                             <br>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <!-- TableAbsen Card -->
                 <div class="col-lg-12 col-md-12 col-12">
                     <div class="card card-developer-meetup">
                         <div class="card-body p-1">
                             <div class="overflow-x-scroll overflow-y-scroll">
                                 <button class="btn btn-primary engineer-text">
-                                    {{-- <a class="text-right"> --}}
-                                    <a class="mt-0 mb-0 pr-xl-0 pr-md-0 pr-sm-0 pr-0 cursor-default text-end"></i>ENGINEER <i
-                                            class="far fa-solid fa-arrow-right"></i></a>
-                                    {{-- </a> --}}
+                                    <a class="mt-0 mb-0 pr-xl-0 pr-md-0 pr-sm-0 pr-0 cursor-default text-end"></i>ENGINEER</a>
                                 </button>
                             </div>
 
@@ -368,8 +364,7 @@
                                             class="card-body pt-lg-0 pb-lg-0 pt-sm-0 pt-md-0 pb-sm-0 pb-md-0 d-flex align-items-center justify-content-center">
                                             <a class="text-center">
                                                 <strong>
-                                                    <h3 class="mt-0 mb-0 underline-text">LOG: PROJECT DAILY
-                                                        WORKSHEET<br>( LEMBAR KERJA HARIAN )</h3>
+                                                    <h3 class="mt-0 mb-0 underline-text">WORKSHEET LIST<br>( DAFTAR LEMBAR KERJA )</h3>
                                                 </strong>
                                             </a>
                                         </div>
@@ -392,7 +387,8 @@
                                                         <td><strong>CLIENT'S NAME</strong></td>
                                                         <td class="pl-2">: </td>
                                                         <td>
-                                                            {{ $clientData->na_client }}
+                                                            {{-- {{ $clientData->na_client }} --}}
+                                                            {{ $prjmondws->na_client }}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -448,20 +444,16 @@
                                 <thead>
                                     <tr>
                                         <th class="cell-fit text-center">Act</th>
-                                        <th class="cell-fit text-center">Date</th>
-                                        <th class="cell-fit text-center">Arrival</th>
-                                        <th class="cell-fit text-center">Start</th>
-                                        <th class="cell-fit text-center">Finish</th>
-                                        <th class="text-center">Task</th>
-                                        <th lass="text-center">Description</th>
-                                        <th class="text-center">Actual Progress</th>
-                                        <th class="text-center">Current Progress</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Arrival</th>
+                                        <th class="text-center">Finish</th>
                                         <th class="text-center">Executed by</th>
+                                        <th class="cell-fit text-center">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if ($prjmondws->dailyws)
-                                        @foreach ($prjmondws->dailyws as $dws)
+                                    @if ($prjmondws->worksheet)
+                                        @foreach ($prjmondws->worksheet as $ws)
                                             <tr>
                                                 <td>
                                                     <div class="dropdown d-lg-block d-sm-block d-md-block">
@@ -473,15 +465,23 @@
                                                         <!-- dropdown menu -->
                                                         <div class="dropdown-menu dropdown-menu-end"
                                                             aria-labelledby="tableActionDropdown">
+                                                            <a class="open-project-ws dropdown-item d-flex align-items-center"
+                                                            projectws_id_value = "{{ $project->id_project }}"
+                                                            client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}"
+                                                            href="{{ route('m.projects.getprjmondws') . "?projectID=" . $project->id_project }}">
+                                                            <i data-feather="navigation" class="mr-1"
+                                                                style="color: #288cc7;"></i>
+                                                            Navigate
+                                                        </a>
                                                             <a class="edit-record dropdown-item d-flex align-items-center"
-                                                                edit_dws_id_value = "{{ $dws->id_dws ?: 0 }}"
+                                                                edit_ws_id_value = "{{ $ws->id_ws ?: 0 }}"
                                                                 {{-- onclick="openModal('{{ $modalData['modal_edit'] }}')" --}}>
                                                                 <i data-feather="edit" class="mr-1"
                                                                     style="color: #28c76f;"></i>
                                                                 Edit
                                                             </a>
                                                             <a class="delete-record dropdown-item d-flex align-items-center"
-                                                                del_dws_id_value = "{{ $dws->id_dws ?: 0 }}"
+                                                                del_ws_id_value = "{{ $ws->id_ws ?: 0 }}"
                                                                 {{-- onclick="openModal('{{ $modalData['modal_delete'] }}')" --}}>
                                                                 <i data-feather="trash" class="mr-1"
                                                                     style="color: #ea5455;"></i>
@@ -492,16 +492,31 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                    {{ \Carbon\Carbon::parse($dws->monitoring->start_date)->isoFormat($cust_date_format) }}
+                                                    <div data-toggle="tooltip" data-popup="tooltip-custom"
+                                                    data-placement="bottom" data-original-title="Click to navigate!"
+                                                    class="pull-up">
+                                                    <a class="open-project-ws"
+                                                    projectws_id_value = "{{ $ws->id_ws }}"
+                                                    href="{{ route('m.ws') . "?projectID=" . $ws->id_project . "&wsID=" . $ws->id_ws . "&wsDate=" . $ws->working_date_ws }}">
+                                                            {{ \Carbon\Carbon::parse($ws->working_date_ws)->isoFormat($cust_date_format) }}
+                                                        </a>
+                                                    </div>
                                                 </td>
-                                                <td class="text-center align-middle">{{ $dws->arrival_time_dws }}</td>
-                                                <td class="text-center align-middle">{{ $dws->working_time_dws }}</td>
-                                                <td class="text-center align-middle">{{ $dws->finish_time_dws }}</td>
-                                                <td>{{ $dws->monitoring->task }}</td>
-                                                <td>{{ $dws->descb_dws }}</td>
-                                                <td class="text-center align-middle">{{ $dws->progress_actual_dws }}%</td>
-                                                <td class="text-center align-middle">{{ $dws->progress_current_dws }}%</td>
-                                                <td class="text-center align-middle">{{ $dws->executedby->na_karyawan }}</td>
+                                                <td class="text-center align-middle">{{ \Carbon\Carbon::parse($ws->arrival_time_ws)->isoFormat($cust_time_format) }}</td>
+                                                <td class="text-center align-middle">{{ \Carbon\Carbon::parse($ws->finish_time_ws)->isoFormat($cust_time_format) }}</td>
+                                                <td class="text-center align-middle">{{ $ws->executedby->na_karyawan }}</td>
+                                                <td class="text-center align-middle">
+                                                    @if ($ws->status_ws == "OPEN")
+                                                        <span class="bg-success text-white rounded small" style="padding: 0.4rem"><i class="fas fa-lock-open me-1 fa-sm"></i></span>
+                                                    @else
+                                                        <span class="bg-danger text-white rounded small" style="padding: 0.4rem"><i class="fas fa-lock me-1 fa-sm"></i></span>
+
+                                                    @endif
+                                                </td>
+                                                {{-- <td>{{ $ws->monitoring->task }}</td>
+                                                <td>{{ $ws->descb_dws }}</td>
+                                                <td class="text-center align-middle">{{ $ws->progress_actual_dws }}%</td>
+                                                <td class="text-center align-middle">{{ $ws->progress_current_dws }}%</td> --}}
                                             </tr>
                                         @endforeach
                                     @endif
@@ -595,6 +610,19 @@
             });
         });
     </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                $('.open-project-ws').on('click', function() {
+                    var wsID = $(this).attr('projectws_id_value');
+                    console.log("Navigate to ProjectWS-ID: " + wsID);
+                });
+            }, 200);
+        });
+    </script>
+
 
 
 

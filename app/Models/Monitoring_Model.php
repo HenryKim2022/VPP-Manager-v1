@@ -13,7 +13,15 @@ class Monitoring_Model extends Model
 
     protected $table = 'tb_monitoring';
     protected $primaryKey = 'id_monitoring';
-    protected $fillable = ['task','start_date','end_date','achieve_date','qty','id_karyawan','id_project'];
+    // protected $fillable = ['category', 'achieve_date','qty','id_ws','id_karyawan','id_project'];
+    protected $fillable = ['category', 'achieve_date','qty', 'id_karyawan','id_project'];
+
+
+
+    // public function worksheet()
+    // {
+    //     return $this->hasMany(DaftarWS_Model::class, 'id_ws');
+    // }
 
     public function karyawan()
     {
@@ -25,14 +33,5 @@ class Monitoring_Model extends Model
         return $this->belongsTo(Projects_Model::class, 'id_project', 'id_project');
     }
 
-    // public function dailyws()
-    // {
-    //     return $this->belongsTo(DaftarDWS_Model::class, 'id_project', 'id_project');
-    // }
-
-    public function dailyws()
-    {
-        return $this->hasMany(DaftarDWS_Model::class, 'id_monitoring');
-    }
 
 }

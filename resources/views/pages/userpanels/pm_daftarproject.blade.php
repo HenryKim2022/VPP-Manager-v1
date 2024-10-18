@@ -60,6 +60,8 @@
                                         <th>Project-No</th>
                                         <th>Project Name</th>
                                         <th>Linked Customer Name</th>
+                                        <th>Project Co</th>
+                                        <th>Team</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -76,14 +78,16 @@
                                                     <!-- dropdown menu -->
                                                     <div class="dropdown-menu dropdown-menu-end"
                                                         aria-labelledby="tableActionDropdown">
-                                                        <a class="open-project-mw dropdown-item d-flex align-items-center"
-                                                            project_id_value = "{{ $project->id_project }}"
-                                                            client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}"
-                                                            href="{{ route('m.projects.getprjmondws') . "?projectID=" . $project->id_project }}">
-                                                            <i data-feather="navigation" class="mr-1"
-                                                                style="color: #288cc7;"></i>
-                                                            Navigate
-                                                        </a>
+                                                        @if ($project->karyawan != null || $project->team != null)
+                                                            <a class="open-project-mw dropdown-item d-flex align-items-center"
+                                                                project_id_value = "{{ $project->id_project }}"
+                                                                client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}"
+                                                                href="{{ route('m.projects.getprjmondws') . '?projectID=' . $project->id_project }}">
+                                                                <i data-feather="navigation" class="mr-1"
+                                                                    style="color: #288cc7;"></i>
+                                                                Navigate
+                                                            </a>
+                                                        @endif
                                                         <a class="edit-record dropdown-item d-flex align-items-center"
                                                             project_id_value = "{{ $project->id_project }}"
                                                             client_id_value = "{{ $project->client !== null ? $project->client->id_client : 0 }}"
@@ -103,25 +107,40 @@
                                             </td>
 
                                             <td>
-                                                @if ($project->id_project)
-                                                    <div data-toggle="tooltip" data-popup="tooltip-custom"
-                                                        data-placement="bottom" data-original-title="Click to navigate!"
-                                                        class="pull-up">
-                                                        <a class="open-project-mw"
-                                                            project_id_value = "{{ $project->id_project }}"
-                                                            href="{{ route('m.projects.getprjmondws') . "?projectID=" . $project->id_project }}">
-                                                            {{ $project->id_project ?: '-' }}
-                                                        </a>
-                                                    </div>
+                                                @if ($project->karyawan != null || $project->team != null)
+                                                    @if ($project->id_project)
+                                                        <div data-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-placement="bottom" data-original-title="Click to navigate!"
+                                                            class="pull-up">
+                                                            <a class="open-project-mw"
+                                                                project_id_value = "{{ $project->id_project }}"
+                                                                href="{{ route('m.projects.getprjmondws') . '?projectID=' . $project->id_project }}">
+                                                                {{ $project->id_project ?: '-' }}
+                                                            </a>
+                                                        </div>
+                                                    @else
+                                                        -
+                                                    @endif
                                                 @else
-                                                    -
+                                                    @if ($project->id_project)
+                                                        <div data-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-placement="bottom"
+                                                            data-original-title="Fill Project Co & Team!" class="pull-up">
+                                                            <a class="open-project-mw"
+                                                                project_id_value = "{{ $project->id_project }}">
+                                                                {{ $project->id_project ?: '-' }}
+                                                            </a>
+                                                        </div>
+                                                    @else
+                                                        -
+                                                    @endif
                                                 @endif
-                                            </td>
 
-                                            <td>{{ $project->na_project ?: '-' }}</td>
-                                            <td>
-                                                {{ $project->client !== null ? $project->client->na_client : '-' }}
                                             </td>
+                                            <td>{{ $project->na_project ?: '-' }}</td>
+                                            <td>{{ $project->client !== null ? $project->client->na_client : '-' }}</td>
+                                            <td>{{ $project->karyawan !== null ? $project->karyawan->na_karyawan : '-' }}</td>
+                                            <td>{{ $project->team !== null ? $project->team->na_team : '-' }}</td>
 
                                         </tr>
                                     @endforeach

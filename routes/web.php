@@ -107,7 +107,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/m-prj/projects-list/reset', [ProjectsController::class, 'reset_project'])->name('m.projects.reset');
     Route::post('/m-prj/projects-list/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
     Route::get('/m-prj/projects-list/load', [ProjectsController::class, 'get_project'])->name('m.projects.getprj');
-    // Route::post('/m-prj/projects-list/loadmondws', [ProjectsController::class, 'get_prjmondws'])->name('m.projects.getprjmondws');
+    // Route::post('/m-prj/projects-list/loadmondws', [ProjectsController::class, 'get_prjmondws'])->name('m.projects.navigate');
     Route::get('/m-prj/projects-list/loadmondws', [ProjectsController::class, 'get_prjmondws'])->name('m.projects.getprjmondws');
 });
 
@@ -120,14 +120,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/m-prj/m-monitoring-worksheet/dws', [WorksheetController::class, 'index'])->name('m.dws');
-    Route::post('/m-prj/m-monitoring-worksheet/dws/add', [WorksheetController::class, 'add_mondws'])->name('m.dws.add');
-    Route::post('/m-prj/m-monitoring-worksheet/dws/edit', [WorksheetController::class, 'edit_mondws'])->name('m.dws.edit');
-    Route::post('/m-prj/m-monitoring-worksheet/dws/delete', [WorksheetController::class, 'delete_mondws'])->name('m.dws.del');
-    Route::post('/m-prj/m-monitoring-worksheet/dws/reset', [WorksheetController::class, 'reset_mondws'])->name('m.dws.reset');
-    Route::post('/m-prj/m-monitoring-worksheet/dws/load', [WorksheetController::class, 'get_mondws'])->name('m.dws.getdws');
-    Route::get('/m-prj/m-monitoring-worksheet/dws/load', [WorksheetController::class, 'get_mondws'])->name('m.dws.getdws');
-    Route::get('/dailyws/{dwsId}', [WorksheetController::class, 'index'])->name('dailyws.show');
+    Route::get('/m-prj/projects-list/navigate', [WorksheetController::class, 'index'])->name('m.ws');
+    // Route::get('/dailyws/{dwsId}', [WorksheetController::class, 'index'])->name('dailyws.show');
 });
 
 

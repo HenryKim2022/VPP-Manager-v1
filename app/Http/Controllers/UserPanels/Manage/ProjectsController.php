@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projects_Model;
 use App\Models\Monitoring_Model;
-use App\Models\DaftarDWS_Model;
+use App\Models\DaftarWS_Model;
 use App\Models\Kustomer_Model;
 use App\Models\Team_Model;
 use App\Models\Karyawan_Model;
@@ -27,7 +27,7 @@ class ProjectsController extends Controller
         $process = $this->setPageSession("Manage Projects", "m-projects");
         if ($process) {
             $loadDaftarProjectsFromDB = [];
-            $loadDaftarProjectsFromDB = Projects_Model::with(['client', 'team', 'dailyws'])->withoutTrashed()->get();
+            $loadDaftarProjectsFromDB = Projects_Model::with(['karyawan', 'client', 'team', 'worksheet'])->withoutTrashed()->get();
 
             $user = auth()->user();
             $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
@@ -47,7 +47,7 @@ class ProjectsController extends Controller
                 'modalData' => $modalData,
                 'client_list' => Kustomer_Model::withoutTrashed()->get(),
                 'team_list' => Team_Model::withoutTrashed()->get(),
-                'dailyws_list' => DaftarDWS_Model::withoutTrashed()->get(),
+                'worksheet_list' => DaftarWS_Model::withoutTrashed()->get(),
 
                 'authenticated_user_data' => $authenticated_user_data,
             ];
@@ -231,7 +231,7 @@ class ProjectsController extends Controller
     // {
     //     if ($request->isMethod('post')) {
     //     } elseif ($request->isMethod('get')) {
-    //         $loadDaftarMonDWSFromDB = Projects_Model::with('client', 'pcoordinator', 'team', 'monitor', 'dailyws')->find($request->input('projectID'));
+    //         $loadDaftarMonDWSFromDB = Projects_Model::with('client', 'pcoordinator', 'team', 'monitor', 'worksheet')->find($request->input('projectID'));
     //         // Handle GET request if needed
     //         $user = auth()->user();
     //         $authenticated_user_data = Karyawan_Model::with('daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan')->find($user->id_karyawan);
@@ -266,31 +266,35 @@ class ProjectsController extends Controller
             }
 
             try {
-                $project = Projects_Model::with(['client', 'pcoordinator', 'team', 'monitor', 'dailyws'])
+                $project = Projects_Model::with(['client', 'pcoordinator', 'team', 'monitor', 'task', 'worksheet'])
                     ->findOrFail($projectId);
 
                 // // $tree = $this->buildMonitoringTree($project);
-                // $loadDataDailyWS = DaftarDWS_Model::with('project', 'monitoring')->where('id_monitoring', $monitoringId)->first();
+                // $loadDataDailyWS = DaftarWS_Model::with('project', 'monitoring')->where('id_monitoring', $monitoringId)->first();
                 // $clientData = $loadDataDailyWS->getClientData();
-                // $loadRelatedDailyWS = Monitoring_Model::with('karyawan', 'project', 'dailyws')->where('id_monitoring', $monitoringId)->first();
+                // $loadRelatedDailyWS = Monitoring_Model::with('karyawan', 'project', 'worksheet')->where('id_monitoring', $monitoringId)->first();
 
                 // dd($project->toarray());
-                // $loadDataDailyWS = $project->dailyws->where('id_monitoring', $project->monitor->id_monitoring);
+                // $loadDataDailyWS = $project->worksheet->where('id_monitoring', $project->monitor->id_monitoring);
                     // Retrieve all daily work statuses with the matching id_monitoring
-                $loadDataDailyWS = DaftarDWS_Model::where('id_monitoring', $project->monitor[0]['id_monitoring'])->get();
-                // dd($loadDataDailyWS);
-                $clientData = DaftarDWS_Model::with('project', 'monitoring')->where('id_monitoring', $project->monitor[0]['id_monitoring'])->first()->getClientData();
 
+                // $loadDataDailyWS = DaftarWS_Model::where('id_monitoring', $project->monitor[0]['id_monitoring'])->get();
                 $user = auth()->user();
                 $authenticatedUser = Karyawan_Model::with(['daftar_login.karyawan', 'daftar_login_4get.karyawan', 'jabatan.karyawan'])
-                    ->findOrFail($user->id_karyawan);
+                ->findOrFail($user->id_karyawan);
 
+                $loadDataDailyWS = [];
+                if ($loadDataDailyWS){
+                    $loadDataDailyWS = DaftarWS_Model::where('id_project', $project->monitor[0]['id_project'])->get();
+                }
+                // dd($loadDataDailyWS);
+                // $clientData = DaftarWS_Model::with('project', 'monitoring')->where('id_project', $project->monitor[0]['id_project'])->first()->getClientData();
                 $data = [
                     'loadDaftarMonDWSFromDB' => $project, // Use the Eloquent model directly
                     'project' => $project,
                     'authenticated_user_data' => $authenticatedUser,
                     'loadDataDailyWS' => $loadDataDailyWS,
-                    'clientData' => $clientData,
+                    // 'clientData' => $clientData,
                 ];
 
                 return view('pages.userpanels.pm_mondws', $data);
@@ -302,28 +306,28 @@ class ProjectsController extends Controller
 
 
 
-    // Helper function to build the monitoring tree
-    private function buildMonitoringTree(Projects_Model $project): array
-    {
-        $tree = [];
-        foreach ($project->monitor as $monitor) {
-            $node = [
-                'text' => $monitor->task,
-                'children' => [],
-            ];
+    // // Helper function to build the monitoring tree
+    // private function buildMonitoringTree(Projects_Model $project): array
+    // {
+    //     $tree = [];
+    //     foreach ($project->monitor as $monitor) {
+    //         $node = [
+    //             'text' => $monitor->task,
+    //             'children' => [],
+    //         ];
 
-            foreach ($project->dailyws->where('id_monitoring', $monitor->id_monitoring) as $dws) {
-                $node['children'][] = [
-                    'text' => $dws->descb_dws, // Or any other relevant field
-                    'id' => $dws->id_dws,       // Add an ID for better jstree management
-                    'url' => route('dailyws.show', ['dwsId' => $dws->id_dws]),
-                ];
-            }
-            $tree[] = $node;
-        }
-        return $tree;
-    }
-    // 'url' => 'x',
+    //         foreach ($project->worksheet->where('id_monitoring', $monitor->id_monitoring) as $ws) {
+    //             $node['children'][] = [
+    //                 'text' => $ws->descb_dws, // Or any other relevant field
+    //                 'id' => $ws->id_dws,       // Add an ID for better jstree management
+    //                 'url' => route('worksheet.show', ['dwsId' => $dws->id_ws]),
+    //             ];
+    //         }
+    //         $tree[] = $node;
+    //     }
+    //     return $tree;
+    // }
+    // // 'url' => 'x',
 
 
 

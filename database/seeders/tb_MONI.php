@@ -18,21 +18,22 @@ class tb_MONI extends Seeder
         //      'id_karyawan'        -> sbg PK/ SPV
 
 
-        //  'task',                                     'start_date', 'end_date',  'achieve_date',  'qty %',  'id_karyawan',  'id_project'
+        // category, achieve_date,   qty,    id_ws,  id_task,    id_karyawan,    id_project
+        // category, achieve_date,   qty,    id_task,    id_karyawan,    id_project
         $MonitoringList = [
-            ['Finishing pekerjaan pengelasan',          '2024-01-01', '2024-01-04', null,           50,       2,                'PRJ-24-0001'],
-            ['Menambahkan module PLC pd ruang server',  '2024-01-05', '2024-01-07', null,           30,       2,                'PRJ-24-0001'],
-            ['Memindahkan ruang dan waktu',             '2024-01-08', '2024-01-10', null,           20,       2,                'PRJ-24-0001']
+            ['Category A',null, 50, 1,'PRJ-24-0001'],
+            ['Category B',null, 30, 1,'PRJ-24-0001'],
+            ['Category C',null, 20, 1,'PRJ-24-0001']
         ];
         foreach ($MonitoringList as $monitor) {
             $model = new Monitoring_Model();
-            $model->task = $monitor[0];
-            $model->start_date = $monitor[1];
-            $model->end_date = $monitor[2];
-            $model->achieve_date = $monitor[3];
-            $model->qty = $monitor[4];
-            $model->id_karyawan = $monitor[5];
-            $model->id_project = $monitor[6];
+            $model->category = $monitor[0];
+            $model->achieve_date = $monitor[1];
+            $model->qty = $monitor[2];
+            // $model->id_ws = $monitor[3];
+            // $model->id_task = $monitor[4];
+            $model->id_karyawan = $monitor[3];
+            $model->id_project = $monitor[4];
             $model->save();
         }
 
